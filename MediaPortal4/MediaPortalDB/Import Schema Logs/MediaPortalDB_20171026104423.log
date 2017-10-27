@@ -1,0 +1,85 @@
+2017-10-26 13:44:23	This log contains information about the import schema operation into project 'MediaPortalDB' on computer '510_1703_VS' by user '1'.
+2017-10-26 13:44:23	Import of database schema has started.
+2017-10-26 13:44:27	Gathering database credentials
+2017-10-26 13:44:27	Gathering database options
+2017-10-26 13:44:27	Gathering users
+2017-10-26 13:44:27	Gathering roles
+2017-10-26 13:44:27	Gathering application roles
+2017-10-26 13:44:27	Gathering role memberships
+2017-10-26 13:44:27	Gathering filegroups
+2017-10-26 13:44:27	Gathering files
+2017-10-26 13:44:27	Gathering full-text catalogs
+2017-10-26 13:44:27	Gathering assemblies
+2017-10-26 13:44:27	Gathering certificates
+2017-10-26 13:44:27	Gathering asymmetric keys
+2017-10-26 13:44:27	Gathering symmetric keys
+2017-10-26 13:44:27	Gathering encrypted symmetric keys
+2017-10-26 13:44:27	Gathering database encryption keys
+2017-10-26 13:44:27	Gathering schemas
+2017-10-26 13:44:27	Gathering XML schema collections
+2017-10-26 13:44:27	Gathering user-defined data types
+2017-10-26 13:44:27	Gathering user-defined types
+2017-10-26 13:44:27	Gathering table types
+2017-10-26 13:44:27	Gathering unique keys for table types
+2017-10-26 13:44:27	Gathering primary keys for table types
+2017-10-26 13:44:27	Gathering indexes for table types
+2017-10-26 13:44:27	Gathering check constraints for table types
+2017-10-26 13:44:27	Gathering default constraints for table types
+2017-10-26 13:44:27	Gathering partition functions
+2017-10-26 13:44:27	Gathering partition schemes
+2017-10-26 13:44:27	Gathering functions
+2017-10-26 13:44:27	Gathering encrypted functions
+2017-10-26 13:44:27	Gathering aggregates
+2017-10-26 13:44:27	Gathering procedures
+2017-10-26 13:44:27	Gathering encrypted procedures
+2017-10-26 13:44:27	Gathering tables
+2017-10-26 13:44:27	Gathering primary keys
+2017-10-26 13:44:27	Gathering unique constraints
+2017-10-26 13:44:27	Gathering foreign keys
+2017-10-26 13:44:27	Gathering default constraints
+2017-10-26 13:44:27	Gathering check constraints
+2017-10-26 13:44:27	Gathering views
+2017-10-26 13:44:27	Gathering encrypted views
+2017-10-26 13:44:27	Gathering indexes
+2017-10-26 13:44:27	Gathering statistics
+2017-10-26 13:44:27	Gathering full-text index stoplists
+2017-10-26 13:44:27	Gathering search property lists
+2017-10-26 13:44:27	Gathering search properties
+2017-10-26 13:44:27	Gathering full-text indexes
+2017-10-26 13:44:27	Gathering column store indexes
+2017-10-26 13:44:27	Gathering spatial indexes
+2017-10-26 13:44:27	Gathering XML indexes
+2017-10-26 13:44:27	Gathering Selective XML indexes
+2017-10-26 13:44:27	Gathering encrypted triggers
+2017-10-26 13:44:27	Gathering triggers
+2017-10-26 13:44:27	Gathering encrypted and clr ddl triggers
+2017-10-26 13:44:28	Gathering ddl triggers
+2017-10-26 13:44:28	Gathering synonyms
+2017-10-26 13:44:28	Gathering defaults
+2017-10-26 13:44:28	Gathering data constraint uddt bindings
+2017-10-26 13:44:28	Gathering rules
+2017-10-26 13:44:28	Gathering data constraint uddt bindings
+2017-10-26 13:44:28	Gathering message types
+2017-10-26 13:44:28	Gathering queues
+2017-10-26 13:44:28	Gathering contracts
+2017-10-26 13:44:28	Gathering services
+2017-10-26 13:44:28	Gathering routes
+2017-10-26 13:44:28	Gathering event notifications
+2017-10-26 13:44:28	Gathering remote service bindings
+2017-10-26 13:44:28	Gathering broker priorities
+2017-10-26 13:44:28	Gathering database audit specifications
+2017-10-26 13:44:28	Gathering signatures
+2017-10-26 13:44:28	Gathering data compression options
+2017-10-26 13:44:28	Gathering sequence types
+2017-10-26 13:44:28	Gathering security policies
+2017-10-26 13:44:28	Gather column encryption keys
+2017-10-26 13:44:28	Gathering column master keys
+2017-10-26 13:44:28	Gathering external data sources
+2017-10-26 13:44:28	Gathering external file formats
+2017-10-26 13:44:28	Gathering external tables
+2017-10-26 13:44:28	Gathering extended properties
+2017-10-26 13:44:28	Scanning project for duplicate elements
+2017-10-26 13:44:28	Finished duplicate element processing
+2017-10-26 13:44:28	Finished importing database.
+2017-10-26 13:44:28	A summary of the import was saved to the following location: C:\Users\1\Desktop\intership\ПРОЕКТ\ПРОЕКТ\MediaPortal\MediaPortalDB\Import Schema Logs\MediaPortalDB_20171026104423.log
+2017-10-26 13:44:28	Click Finish to continue...

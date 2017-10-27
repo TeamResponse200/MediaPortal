@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "LogoLayout";
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="background-color:#E4E4E4;">
+    <header style="background-color: #FFFFFF;">
+        <div id="topContainer" class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="custom-search">
+                        <button><i></i></button>
+                        <input type="text" placeholder="Поиск файлов">
+                        <div class="dropdown" style="display: inline-block;">↓</div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-1 text-center" id="logo">
+                    logo
+                </div>
+                <div id="loginSectionBlock">
+                    @Html.Partial("_LoginPartial")
+                </div>
+                    
+            </div>
+        </div>
+        <hr>
+        <div id="secondContainer" class="container">
+            <div class="row">
+                <div id="UserRouteFolder" class="col-md-6 ">Мои файлы</div>
+                <div class="col-md-6 ">
+                    <div id="ViewOption" class="col-md-5 ">Настройки доступа</div>
+                    <div id="ViewOption" class="col-md-4 ">По дате создания ↓</div>
+                    <div id="ViewOption" class="col-md-3 ">
+                        <div class="btn btn-info" style="display: inline-block">1</div>
+                        <div class="btn btn-info">2</div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <hr id="shadowHr">
+    </header>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
