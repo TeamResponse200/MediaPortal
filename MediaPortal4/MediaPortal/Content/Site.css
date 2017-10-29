@@ -22,6 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+#GlobalBackground {
+    background-color:#E4E4E4;
+}
+#HomeHeader {
+    background-color: #FFFFFF;
+}
+
 #logo {
     font-size: 34px;
     font-weight: bold;
@@ -37,8 +44,11 @@ textarea {
 #topContainer #loginSectionBlock {
     padding-top: 10px;
 }
-#custom-search {
+#topContainer #custom-search {
     padding-top: 10px;
+}
+#topContainer #dropdown {
+    display: inline-block;
 }
 
 #UserRouteFolder {
@@ -73,4 +83,10 @@ hr {
     border: 0;
     height: 0; /* Firefox... */
     box-shadow: 0 0 20px 1px rgba(0, 0,0,0.5);
+}
+
+#userImage {
+    height: 35px;
+    width: 35px;
+    margin-top: 5px;
 }
