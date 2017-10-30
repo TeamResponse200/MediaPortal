@@ -13,9 +13,9 @@ namespace MediaPortal.Data.Repositories
     {
         private readonly MediaPortalDbContext _mediaPortalDbContext;
 
-        public SharedAccessRepository(MediaPortalDbContext connectionString)
+        public SharedAccessRepository(string connectionString)
         {
-            _mediaPortalDbContext = connectionString;
+            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
         }
 
         public SharedAccess Get(int id)

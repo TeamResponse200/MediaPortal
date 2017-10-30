@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MediaPortal.BL;
 using MediaPortal.BL.Interface;
+using Serilog;
 
 namespace MediaPortal.Controllers
 {
@@ -35,12 +36,6 @@ namespace MediaPortal.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    _fileSystemService.Dispose();
-        //    base.Dispose(disposing);
-        //}
+        }        
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(MediaPortal.Startup))]

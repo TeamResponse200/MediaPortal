@@ -44,9 +44,10 @@ namespace MediaPortal.App_Start
         private static IKernel CreateKernel()
         {
             // устанавливаем строку подключения
-            var modules = new INinjectModule[] { new ServiceModule("DefaultConnection") };
-            var kernel = new StandardKernel(modules);
+            //var modules = new INinjectModule[] { new ServiceModule("DefaultConnection") };
+            //var kernel = new StandardKernel(modules);
 
+            var kernel = new StandardKernel();
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -69,8 +70,9 @@ namespace MediaPortal.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            System.Web.Mvc.DependencyResolver.SetResolver(new MediaPortal.Util.NinjectDependencyResolver(kernel));
+            //System.Web.Mvc.DependencyResolver.SetResolver(new MediaPortal.Util.NinjectDependencyResolver(kernel));
             
+            kernel.Bind<IFileSystemService>().To<FileSystemService>();
         }
     }
 }

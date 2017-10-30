@@ -13,9 +13,9 @@ namespace MediaPortal.Data.Repositories
     {
         private readonly MediaPortalDbContext _mediaPortalDbContext;
 
-        public FileSystemRepository(MediaPortalDbContext connectionString)
+        public FileSystemRepository(string connectionString)
         {
-            _mediaPortalDbContext = connectionString;                        
+            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
         }
 
         public FileSystem Get(int id)

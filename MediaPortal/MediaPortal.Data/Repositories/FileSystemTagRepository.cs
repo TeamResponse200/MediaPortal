@@ -13,9 +13,9 @@ namespace MediaPortal.Data.Repositories
     {
         private readonly MediaPortalDbContext _mediaPortalDbContext;
 
-        public FileSystemTagRepository(MediaPortalDbContext connectionString)
+        public FileSystemTagRepository(string connectionString)
         {
-            _mediaPortalDbContext = connectionString;
+            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
         }
 
         public FileSystemTag Get(int id)

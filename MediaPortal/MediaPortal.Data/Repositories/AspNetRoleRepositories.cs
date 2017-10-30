@@ -13,9 +13,9 @@ namespace MediaPortal.Data.Repositories
     {
         private readonly MediaPortalDbContext _mediaPortalDbContext;
 
-        public AspNetRoleRepositories(MediaPortalDbContext connectionString)
+        public AspNetRoleRepositories(string connectionString)
         {
-            _mediaPortalDbContext = connectionString;
+            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
 
         }
 

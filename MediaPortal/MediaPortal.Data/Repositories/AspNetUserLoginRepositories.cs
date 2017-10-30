@@ -13,9 +13,9 @@ namespace MediaPortal.Data.Repositories
     {
         private readonly MediaPortalDbContext _mediaPortalDbContext;
 
-        public AspNetUserLoginRepositories(MediaPortalDbContext connectionString)
+        public AspNetUserLoginRepositories(string connectionString)
         {
-            _mediaPortalDbContext = connectionString;
+            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
         }
 
         public AspNetUserLogin Get(int id)
