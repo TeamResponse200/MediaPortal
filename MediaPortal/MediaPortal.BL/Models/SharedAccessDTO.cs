@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace MediaPortal.BL.Models
 {
-    class SharedAccessDTO
+    public class SharedAccessDTO
     {
         public int Id { get; set; }
         
         public string UserId { get; set; }
         
+        public string FileSystemId { get; set; }
+        
         public string Link { get; set; }
 
-        public DateTime ExpirationDate { get; set; }
-
-        public int FileSystemId { get; set; }
+        public DateTime ExpirationDate { get; set; }        
     }
 }

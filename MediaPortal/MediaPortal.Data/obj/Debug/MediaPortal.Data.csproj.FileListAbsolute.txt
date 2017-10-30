@@ -22,3 +22,14 @@ C:\Users\1\Desktop\MediaService\MediaPortal2\MediaPortal.Data\obj\Debug\MediaPor
 C:\Users\1\Desktop\MediaService\MediaPortal2\MediaPortal.Data\obj\Debug\MediaPortal.Data.csproj.CoreCompileInputs.cache
 C:\Users\1\Desktop\MediaService\MediaPortal2\MediaPortal.Data\obj\Debug\MediaPortal.Data.dll
 C:\Users\1\Desktop\MediaService\MediaPortal2\MediaPortal.Data\obj\Debug\MediaPortal.Data.pdb
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\MediaPortal.Data.dll.config
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\MediaPortal.Data.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\MediaPortal.Data.pdb
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\EntityFramework.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\EntityFramework.SqlServer.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\EntityFramework.xml
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\EntityFramework.SqlServer.xml
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.csprojResolveAssemblyReference.cache
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.csproj.CoreCompileInputs.cache
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.pdb

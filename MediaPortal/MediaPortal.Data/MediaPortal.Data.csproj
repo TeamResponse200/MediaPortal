@@ -55,20 +55,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\IFileSystemRepository.cs" />
-    <Compile Include="Interface\IFileTagRepository.cs" />
-    <Compile Include="Interface\ISharedAccessRepository.cs" />
-    <Compile Include="Interface\ITagRepository.cs" />
-    <Compile Include="Repositories\FileSyatemRepository.cs" />
+    <Compile Include="EntitiesModel\AspNetRole.cs" />
+    <Compile Include="EntitiesModel\AspNetUser.cs" />
+    <Compile Include="EntitiesModel\AspNetUserClaim.cs" />
+    <Compile Include="EntitiesModel\AspNetUserLogin.cs" />
     <Compile Include="EntitiesModel\FileSystem.cs" />
-    <Compile Include="EntitiesModel\FileTag.cs" />
+    <Compile Include="EntitiesModel\FileSystemTag.cs" />
+    <Compile Include="Interface\IRepository.cs" />
     <Compile Include="DataAccess\MediaPortalDbContext.cs" />
+    <Compile Include="Interface\IUnitOfWork.cs" />
+    <Compile Include="Repositories\AspNetRoleRepositories.cs" />
+    <Compile Include="Repositories\AspNetUserRepositories.cs" />
+    <Compile Include="Repositories\AspNetUserLoginRepositories.cs" />
+    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\FileSystemRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EntitiesModel\SharedAccess.cs" />
-    <Compile Include="EntitiesModel\Tag.cs" />
-    <Compile Include="Repositories\FileTagRepository.cs" />
+    <Compile Include="Repositories\FileSystemTagRepository.cs" />
     <Compile Include="Repositories\SharedAccessRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
+    <Compile Include="EntitiesModel\SharedAccess.cs" />
+    <Compile Include="EntitiesModel\Tag.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

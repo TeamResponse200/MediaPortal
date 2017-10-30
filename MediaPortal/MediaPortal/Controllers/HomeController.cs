@@ -12,10 +12,10 @@ namespace MediaPortal.Controllers
     {
         private IFileSystemService _fileSystemService;
 
-        //public HomeController(IFileSystemService fileSystemService)
-        //{
-        //    _fileSystemService = fileSystemService;
-        //}
+        public HomeController(IFileSystemService fileSystemService)
+        {
+            _fileSystemService = fileSystemService;
+        }
 
         [Authorize]
         public ActionResult Index()
@@ -36,5 +36,11 @@ namespace MediaPortal.Controllers
 
             return View();
         }
+
+        //protected override void Dispose(bool disposing)
+        //{
+        //    _fileSystemService.Dispose();
+        //    base.Dispose(disposing);
+        //}
     }
 }

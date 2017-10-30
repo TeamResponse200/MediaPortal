@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MediaPortal.BL.Models
 {
-    class FileSystemDTO
+    public class FileSystemDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         
         public string UserId { get; set; }
-
-        public int? ParentId { get; set; }
+        
+        public string ParentId { get; set; }
         
         public string Name { get; set; }
 

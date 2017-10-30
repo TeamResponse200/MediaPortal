@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediaPortal.BL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace MediaPortal.BL.Interface
 {
     public interface IFileSystemService
     {
-        void DoSth();
+        void GetFileSystemByName(FileSystemDTO fileSystemDTO);
     }
 }

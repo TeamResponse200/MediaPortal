@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MediaPortal.BL.Models
 {
-    class TagDTO
+    public class TagDTO
     {
         public int Id { get; set; }
         
