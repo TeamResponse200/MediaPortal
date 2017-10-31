@@ -1162,3 +1162,9 @@ D:\SoftThemeProject\Portal\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPo
 D:\SoftThemeProject\Portal\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.csproj.CoreCompileInputs.cache
 D:\SoftThemeProject\Portal\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.dll
 D:\SoftThemeProject\Portal\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.pdb
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal\bin\Microsoft.ApplicationInsights.TraceListener.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal\bin\System.Diagnostics.DiagnosticSource.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal\bin\Microsoft.ApplicationInsights.TraceListener.xml
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal\bin\System.Diagnostics.DiagnosticSource.xml
