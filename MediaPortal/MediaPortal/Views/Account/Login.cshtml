@@ -11,13 +11,13 @@
             {
         @Html.AntiForgeryToken()
 
-        <div class="col-md-8 col-md-offset-2" style="padding-top: 50px; font-size: 22px; font-weight: bold">Войдите в аккаунт</div>
+        <div class="col-md-8 col-md-offset-2" id="signinInvitation">Войдите в аккаунт</div>
         <div class="col-md-10 col-md-offset-1">
-            <div class="col-md-8 col-md-offset-2" style="padding-bottom: 40px;">или @Html.ActionLink("Создайте аккаунт", "Register", "Account", null, null)</div>
+            <div class="col-md-8 col-md-offset-2" id="registerLinkIndentation">или @Html.ActionLink("Создайте аккаунт", "Register", "Account", null, null)</div>
 
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-1">
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Имя пользователя" })
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Email" })
                     @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -33,15 +33,20 @@
                     <input type="submit" value="Войти" class="btn btn-primary" style="width:215px;" />
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-1 col-md-10">
-                    <input type="submit" value="Регистрация через Facebook" class="btn text-center" style="width:215px; border:1px solid gray" />
-                </div>
-            </div>
         </div>
-
     }
     <section />
+    @{
+        using (Html.BeginForm("ExternalLogin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                    <button type="submit" class="col-md-offset-1 col-md-10 btn btn-default" id="Facebook" style="width:215px; margin-left:70px; border:1px solid gray" name="provider" value="Facebook" title="Log in using your Facebook account">Facebook </button>
+                </p>
+            </div>
+        }
+    }
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

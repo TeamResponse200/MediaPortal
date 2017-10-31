@@ -22,9 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
 #GlobalBackground {
-    background-color:#E4E4E4;
+    background-color: #E4E4E4;
 }
+
 #HomeHeader {
     background-color: #FFFFFF;
 }
@@ -33,6 +35,15 @@ textarea {
     font-size: 34px;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+#greetings {
+    font-size: 24px;
+}
+
+#authorizationBlock {
+    height: 450px;
+    background-color: white
 }
 
 #topContainer #logo {
@@ -44,9 +55,11 @@ textarea {
 #topContainer #loginSectionBlock {
     padding-top: 10px;
 }
+
 #topContainer #custom-search {
     padding-top: 10px;
 }
+
 #topContainer #dropdown {
     display: inline-block;
 }
@@ -55,6 +68,7 @@ textarea {
     font-weight: bold;
     font-size: 16px;
 }
+
 hr {
     margin-top: 5px;
     border: 0;
@@ -68,17 +82,20 @@ hr {
     height: 30px;
 }
 
-#secondContainer .btn {
-    margin-right: 10px;
-    padding-top: 0px;
-}
-#secondContainer #ViewOption {
-    border-right: 1px solid gray;
-}
-#secondContainer #ViewOption .btn,.btn-info {
-    height: 20px;
-    background-color: #cccccc;
-}
+    #secondContainer .btn {
+        margin-right: 10px;
+        padding-top: 0px;
+    }
+
+    #secondContainer #ViewOption {
+        border-right: 1px solid gray;
+    }
+
+        #secondContainer #ViewOption .btn, .btn-info {
+            height: 20px;
+            background-color: #cccccc;
+        }
+
 #shadowHr {
     border: 0;
     height: 0; /* Firefox... */
@@ -89,4 +106,16 @@ hr {
     height: 35px;
     width: 35px;
     margin-top: 5px;
+}
+
+
+/*Login-Register view*/
+#signinInvitation {
+    padding-top: 50px;
+    font-size: 22px;
+    font-weight: bold
+}
+
+#registerLinkIndentation {
+    padding-bottom: 40px;
 }

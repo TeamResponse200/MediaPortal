@@ -54,9 +54,9 @@ namespace MediaPortal
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "184694922081524",
+               appSecret: "559cd70545ae32cd756c32e3eeae233d");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
