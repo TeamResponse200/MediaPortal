@@ -12,44 +12,106 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body id="GlobalBackground">
-    <header id="HomeHeader">
-        <div id="topContainer" class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div id="custom-search">
-                        <button><i></i></button>
-                        <input type="text" placeholder="Поиск файлов">
-                        <div id="dropdown" >↓</div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-md-offset-1 text-center" id="logo">
-                    logo
-                </div>
-                <div id="loginSectionBlock">
-                    @Html.Partial("_LoginPartial")
-                </div>
-                    
-            </div>
-        </div>
-        <hr>
-        <div id="secondContainer" class="container">
-            <div class="row">
-                <div id="UserRouteFolder" class="col-md-6 ">Мои файлы</div>
-                <div class="col-md-6 ">
-                    <div id="ViewOption" class="col-md-5 ">Настройки доступа</div>
-                    <div id="ViewOption" class="col-md-4 ">По дате создания ↓</div>
-                    <div id="ViewOption" class="col-md-3 ">
-                        <div class="btn btn-info">1</div>
-                        <div class="btn btn-info">2</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr id="shadowHr">
-    </header>
-    @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    
+<div class="firstHeaderBlock">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group input-group-sm" id="customSearch">
+                    <span class="input-group-addon" id="sizing-addon"><span id="IconSearch"></span></span>
+                    <input type="text" class="form-control" placeholder="Поиск файлов" aria-describedby="sizing-addon" id="customSearchTextBox">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span id="iconSearchFilter"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" id="searchDropDown">
+                            <button class="btn dropdown-item textUsual dropDownButton">Поиск по файлам</button>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <button class="btn dropdown-item textUsual dropDownButton">Поиск по тегам</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-offset-1" id="defaultLogo">logo</div>
+            <div class="col-md-5">@Html.Partial("_LoginPartial")</div>
+        </div>
+    </div>
+</div>
+<div class="secondHeaderBlock">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" id="userRoutes">Мои файлы</div>
+            <div class="col-md-6">
+                <div class="btn col-md-4 textUsual" id="userSettings">Настройки доступа</div>
+                <div class="col-md-4" id="userSettings">
+                    <button type="button" id="mainDropDownButton" class="btn dropdown-toggle textUsual" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        По дате создания <span id="iconSortFilter"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="btn dropdown-item textUsual dropDownButton" >По дате создания</button>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <button class="btn dropdown-item textUsual dropDownButton" >По дате добавления</button>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <button class="btn dropdown-item textUsual dropDownButton" >По размеру</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn buttonList"></div>
+                    <div class="btn buttonTile"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<header id="HomeHeader">
+    <div id="topContainer" class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="custom-search">
+                    <button><i></i></button>
+                    <input type="text" placeholder="Поиск файлов">
+                    <div id="dropdown">↓</div>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-offset-1 text-center" id="logo">
+                logo
+            </div>
+            <div id="loginSectionBlock">
+                @Html.Partial("_LoginPartial")
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div id="secondContainer" class="container">
+        <div class="row">
+            <div id="UserRouteFolder" class="col-md-6 ">Мои файлы</div>
+            <div class="col-md-6 ">
+                <div id="ViewOption" class="col-md-5 ">Настройки доступа</div>
+                <div id="ViewOption" class="col-md-4 ">По дате создания ↓</div>
+                <div id="ViewOption" class="col-md-3 ">
+                    <div class="btn btn-info">1</div>
+                    <div class="btn btn-info">2</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr id="shadowHr">
+</header>*@
+    
+@RenderBody()
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript">
+        $("#mainDropDownButton").click(function () {
+            $(this).toggleClass("active");
+        });
+    </script>
+
 </body>
 </html>

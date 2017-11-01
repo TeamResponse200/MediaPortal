@@ -1,121 +1,250 @@
 ﻿body {
-    /*padding-top: 50px;*/
-    /*padding-bottom: 0px;*/
+    background-color: #e8e9ec;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
-}
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
-#GlobalBackground {
-    background-color: #E4E4E4;
-}
-
-#HomeHeader {
-    background-color: #FFFFFF;
-}
-
-#logo {
-    font-size: 34px;
-    font-weight: bold;
+.logo {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 50px;
+    font-family: "Raleway";
+    font-weight: 800;
+    color: rgb(29, 27, 67);
     text-transform: uppercase;
+    line-height: 1;
+    text-align: center;
 }
 
-#greetings {
-    font-size: 24px;
-}
-
-#authorizationBlock {
-    height: 450px;
-    background-color: white
-}
-
-#topContainer #logo {
-    padding-top: 10px;
-    height: 30px;
-}
-
-
-#topContainer #loginSectionBlock {
-    padding-top: 10px;
-}
-
-#topContainer #custom-search {
-    padding-top: 10px;
-}
-
-#topContainer #dropdown {
-    display: inline-block;
-}
-
-#UserRouteFolder {
+.greetings {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 25px;
+    font-family: "Raleway";
+    font-weight: 600;
+    color: rgb(153, 153, 153);
     font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+
+#backgroundForm {
+    background-color: white;
+    position: absolute;
+    width: 360px;
+    height: 450px;
+    margin-left: 500px;
+    box-shadow: 0 4px 2px -2px gray;
+}
+#loginForm {
+    background-color: white;
+    box-shadow: 0 4px 2px -2px gray;
+    /*height: 600px;*/
+}
+
+.registerText {
+    padding-top: 60px;
+    margin-bottom: 10px;
+    font-size: 28px;
+    font-family: "Raleway";
+    font-weight: 800;
+    color: rgb(97, 97, 97);
+    line-height: 1.286;
+    text-align: center;
+}
+
+.loginLink a {
+    text-decoration: none;
+    color: #8480da;
+    font-size: 18px;
+    text-align: center;
+}
+
+.loginLink {
+    margin-bottom: 50px;
+}
+
+#registerInput {
+    border-width: 2px;
+    border-color: rgb(153, 153, 153);
+    border-style: solid;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*margin-left: 50px;*/
+    height: 40px;
+    /*  width: 356px;
+  height: 56px;*/
+}
+
+#registerButton {
     font-size: 16px;
+    font-family: "Raleway";
+    color: #fefefe;
+    background-color: #4640c8;
+    font-weight: 600;
+    margin-top: 30px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    /*margin-left: 18px;
+    margin-top: 15px;*/
+    /*width: 260px;*/
 }
 
-hr {
-    margin-top: 5px;
-    border: 0;
-    height: 1px;
-    background: #333;
-    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+#facebookRegisterButton {
+    font-size: 16px;
+    font-family: "Raleway";
+    font-weight: 600;
+    color: rgb(97, 97, 97);
+    border-width: 1px;
+    border-color: rgb(97, 97, 97);
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 70px;
+    padding-top: 12px;
+    padding-bottom: 10px;
+    /*margin-left: 50px;*/
+    /*width: 280px;*/
 }
 
-#secondContainer {
-    margin-top: 0px;
+#facebookRegisterButton #IconFB {
+    content: url(/Content/icons/facebook.svg);
+    height: 16px;
+    width: 16px;
+    margin-right: 10px;
+}
+
+/* Main layout */
+
+.firstHeaderBlock {
+    background-color: #ffffff;
+    /* box-shadow: 0 4px 2px -2px gray; */
+    margin-bottom: 2px;
+    padding-top: 10px;
+    /*padding-bottom: 10px;*/
+}
+#customSearch {
+    margin-top:10px;
+}
+
+#IconSearch {
+    content: url(/Content/icons/search.svg);
+    height: 16px;
+    width: 16px;
+    margin-right: 10px;
+}
+
+#iconSearchFilter {
+    content: url(/Content/icons/next.svg);
+    height: 16px;
+    width: 16px;
+    margin-right: 10px;
+
+    -webkit-transform: rotate(90deg); /* Chrome y Safari */
+    -moz-transform: rotate(90deg); /* Firefox */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+    -o-transform: rotate(90deg); /* Opera */
+}
+
+#searchDropDown {
+    left: -5px;
+    margin: -15px 0 0;
+}
+
+#iconSortFilter {
+    content: url(/Content/icons/next.svg);
+    height: 10px;
+    width: 10px;
+    margin-left: 10px;
+    -webkit-transform: rotate(90deg); /* Chrome y Safari */
+    -moz-transform: rotate(90deg); /* Firefox */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+    -o-transform: rotate(90deg); /* Opera */
+}
+
+#mainDropDownButton {
+    background-color: rgb(255,255,255);
+}
+#mainDropDownButton:hover {
+    background-color: lightgray;
+}
+button.dropDownButton {
+    background-color: rgb(255,255,255);
+}
+
+.active {
+    background-color:black;
+}
+
+.btn.buttonList {
+    background: url(/Content/icons/list.svg) no-repeat;
     height: 30px;
+    width: 30px;
+    margin-left:10px;
+    margin-right:10px;
+}
+.btn.buttonTile {
+    background: url(/Content/icons/tile.svg) no-repeat;
+    height: 30px;
+    width: 30px;
 }
 
-    #secondContainer .btn {
-        margin-right: 10px;
-        padding-top: 0px;
-    }
-
-    #secondContainer #ViewOption {
-        border-right: 1px solid gray;
-    }
-
-        #secondContainer #ViewOption .btn, .btn-info {
-            height: 20px;
-            background-color: #cccccc;
-        }
-
-#shadowHr {
-    border: 0;
-    height: 0; /* Firefox... */
-    box-shadow: 0 0 20px 1px rgba(0, 0,0,0.5);
+.textUsual {
+    font-family: "Raleway";
+    font-weight: 400;
+    color: rgb(153, 153, 153);
+    text-align: center;
 }
 
+#defaultLogo {
+    font-size: 40px;
+    font-family: "Raleway";
+    font-weight: 800;
+    color: rgb(29, 27, 67);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.secondHeaderBlock {
+    background-color: #ffffff;
+    box-shadow: 0 4px 2px -2px gray;
+    margin-top: 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 60px;
+}
+
+#userRoutes {
+    font-family: "Raleway";
+    font-weight: 800;
+    font-size:20px;
+}
+
+#userSettings {
+    border-right: 1px solid #e8e9ec;
+}
+
+#uploadButton {
+    font-size: 14px;
+    font-family: "Raleway";
+    color: rgb(255, 255, 255);
+    background-color: #514bc8;
+    margin-top: 25px;
+}
+
+#folderCreateButton {
+    font-size: 14px;
+    font-family: "Raleway";
+    color: black;
+    border-width: 2px;
+    border-color: #514bc8;
+    border-style: solid;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+/* User partial */
 #userImage {
-    height: 35px;
-    width: 35px;
-    margin-top: 5px;
-}
-
-
-/*Login-Register view*/
-#signinInvitation {
-    padding-top: 50px;
-    font-size: 22px;
-    font-weight: bold
-}
-
-#registerLinkIndentation {
-    padding-bottom: 40px;
+    content: url(/Content/icons/userImage.png);
+    height: 45px;
+    width: 45px;
 }
