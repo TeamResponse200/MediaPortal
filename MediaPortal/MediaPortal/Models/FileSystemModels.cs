@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MediaPortal.Models
 {
-    public class FileSystemModel
+    public class FileSystemModels
     {
         public string Id { get; set; }
 

@@ -11,21 +11,43 @@ namespace MediaPortal.Data.Repositories
 {
     public class FileSystemRepository : IRepository<FileSystem>
     {
-        private readonly MediaPortalDbContext _mediaPortalDbContext;
+        private string _connectionString;
 
         public FileSystemRepository(string connectionString)
         {
-            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
+            _connectionString = connectionString;
         }
 
-        public FileSystem Get(int id)
+        public FileSystem Get(string userId)
         {
-            return _mediaPortalDbContext.FileSystems.Find(id);
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.FileSystems.Find(userId);
+            }
         }
 
         public IEnumerable<FileSystem> GetAll()
         {
-            return _mediaPortalDbContext.FileSystems;
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.FileSystems;
+            }
+        }
+
+        public IEnumerable<FileSystem> GetAll(string userId)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.FileSystems.Where(x => x.UserId == userId);
+            }
+        }
+
+        public IEnumerable<FileSystem> GetAll(string userId, string parentId)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId);
+            }
         }
     }
 }

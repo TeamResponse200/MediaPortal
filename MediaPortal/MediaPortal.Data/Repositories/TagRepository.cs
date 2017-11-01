@@ -11,21 +11,37 @@ namespace MediaPortal.Data.Repositories
 {
     public class TagRepository: IRepository<Tag>
     {
-        private readonly MediaPortalDbContext _mediaPortalDbContext;
+        private string _connectionString;
 
         public TagRepository(string connectionString)
         {
-            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
+            _connectionString = connectionString;
         }
 
-        public Tag Get(int id)
+        public Tag Get(string userId)
         {
-            return _mediaPortalDbContext.Tags.Find(id);
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.Tags.Find(userId);
+            }
         }
 
         public IEnumerable<Tag> GetAll()
         {
-            return _mediaPortalDbContext.Tags;
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.Tags;
+            }
+        }
+
+        public IEnumerable<Tag> GetAll(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Tag> GetAll(string userId, string fileSystemParentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

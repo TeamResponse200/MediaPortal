@@ -11,21 +11,37 @@ namespace MediaPortal.Data.Repositories
 {
     public class AspNetUserRepositories: IRepository<AspNetUser>
     {
-        private readonly MediaPortalDbContext _mediaPortalDbContext;
+        private string _connectionString;
 
         public AspNetUserRepositories(string connectionString)
         {
-            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
+            _connectionString = connectionString;
         }
 
-        public AspNetUser Get(int id)
+        public AspNetUser Get(string userId)
         {
-            return _mediaPortalDbContext.AspNetUsers.Find(id);
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.AspNetUsers.Find(userId);
+            }
         }
 
         public IEnumerable<AspNetUser> GetAll()
         {
-            return _mediaPortalDbContext.AspNetUsers;
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.AspNetUsers;
+            }
+        }
+
+        public IEnumerable<AspNetUser> GetAll(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<AspNetUser> GetAll(string userId, string fileSystemParentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

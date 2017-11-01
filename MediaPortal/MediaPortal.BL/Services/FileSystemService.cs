@@ -10,23 +10,35 @@ using System.Threading.Tasks;
 using MediaPortal.BL.Interface;
 using MediaPortal.BL.Models;
 using MediaPortal.Data.EntitiesModel;
+using AutoMapper;
 
 namespace MediaPortal.BL.Services
 {  
     public class FileSystemService : IFileSystemService
     {
         private readonly IRepository<FileSystem> _fileSyatemRepository;
-        
-        public FileSystemService()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-            _fileSyatemRepository = new FileSystemRepository(connectionString);
+        public FileSystemService(IRepository<FileSystem> fileSyatemRepository)
+        {
+            _fileSyatemRepository = fileSyatemRepository;
         }
 
-        public void GetFileSystemByName(FileSystemDTO fileSystemDTO)
+        public IEnumerable<FileSystemDTO> GetAllUserFileSystem(string userId)
         {
-            //do......
-        }        
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
+
+            var fileSystems = _fileSyatemRepository.GetAll();
+
+            return Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystems);
+        }
+
+        public IEnumerable<FileSystemDTO> GetUserFileSystem(string userId, string fileSystemParentId)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
+
+            var fileSystem = _fileSyatemRepository.GetAll(userId, fileSystemParentId);
+
+            return Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystem);
+        }
     }
 }

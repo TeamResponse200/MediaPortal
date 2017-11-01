@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using MediaPortal.BL;
 using MediaPortal.BL.Interface;
 using Serilog;
+using MediaPortal.BL.Models;
+using AutoMapper;
+using MediaPortal.Models;
 
 namespace MediaPortal.Controllers
 {
@@ -23,6 +26,7 @@ namespace MediaPortal.Controllers
         {
             return View();
         }
+
         [Authorize]
         public ActionResult About()
         {
@@ -36,6 +40,21 @@ namespace MediaPortal.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }        
+        }
+
+        [Authorize]
+        public ActionResult File()
+        {
+            string userId = "";
+            string parentId = "";
+
+            IEnumerable<FileSystemDTO> fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, parentId);
+
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
+
+            var files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
+
+            return View();
+        }
     }
 }

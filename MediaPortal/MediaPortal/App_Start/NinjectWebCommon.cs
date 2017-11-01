@@ -2,12 +2,16 @@
 using MediaPortal.BL.Infrastructure;
 using MediaPortal.BL.Interface;
 using MediaPortal.BL.Services;
+using MediaPortal.Data.EntitiesModel;
+using MediaPortal.Data.Interface;
+using MediaPortal.Data.Repositories;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
 using System;
+using System.Configuration;
 using System.Web;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MediaPortal.App_Start.NinjectWebCommon), "Start")]
@@ -71,8 +75,12 @@ namespace MediaPortal.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             //System.Web.Mvc.DependencyResolver.SetResolver(new MediaPortal.Util.NinjectDependencyResolver(kernel));
-            
+
+            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
             kernel.Bind<IFileSystemService>().To<FileSystemService>();
+            kernel.Bind<IRepository<FileSystem>>().To<FileSystemRepository>()
+                .WithConstructorArgument("connectionString", connectionString);
         }
     }
 }

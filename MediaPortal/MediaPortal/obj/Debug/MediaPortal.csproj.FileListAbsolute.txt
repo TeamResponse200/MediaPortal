@@ -1367,3 +1367,5 @@ D:\SoftThemeProject\MediaPortal7\MediaPortal\MediaPortal\MediaPortal\obj\Debug\M
 D:\SoftThemeProject\MediaPortal7\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.csproj.CoreCompileInputs.cache
 D:\SoftThemeProject\MediaPortal7\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.dll
 D:\SoftThemeProject\MediaPortal7\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.pdb
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal\bin\AutoMapper.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal\bin\AutoMapper.xml

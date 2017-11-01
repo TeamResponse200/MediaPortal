@@ -11,21 +11,37 @@ namespace MediaPortal.Data.Repositories
 {
     public class SharedAccessRepository : IRepository<SharedAccess>
     {
-        private readonly MediaPortalDbContext _mediaPortalDbContext;
+        private string _connectionString;
 
         public SharedAccessRepository(string connectionString)
         {
-            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
+            _connectionString = connectionString;
         }
 
-        public SharedAccess Get(int id)
+        public SharedAccess Get(string userId)
         {
-            return _mediaPortalDbContext.SharedAccesses.Find(id);
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.SharedAccesses.Find(userId);
+            }
         }
 
         public IEnumerable<SharedAccess> GetAll()
         {
-            return _mediaPortalDbContext.SharedAccesses;
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.SharedAccesses;
+            }
+        }
+
+        public IEnumerable<SharedAccess> GetAll(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SharedAccess> GetAll(string userId, string fileSystemParentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

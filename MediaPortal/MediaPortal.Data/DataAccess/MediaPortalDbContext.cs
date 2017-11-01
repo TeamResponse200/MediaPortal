@@ -20,6 +20,7 @@ namespace MediaPortal.Data.DataAccess
         public virtual DbSet<FileSystem> FileSystems { get; set; }
         public virtual DbSet<SharedAccess> SharedAccesses { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<FileSystemTag> FileSystemTags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

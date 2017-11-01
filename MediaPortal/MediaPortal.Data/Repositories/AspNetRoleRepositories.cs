@@ -11,22 +11,37 @@ namespace MediaPortal.Data.Repositories
 {
     public class AspNetRoleRepositories : IRepository<AspNetRole>
     {
-        private readonly MediaPortalDbContext _mediaPortalDbContext;
+        private string _connectionString;
 
         public AspNetRoleRepositories(string connectionString)
         {
-            _mediaPortalDbContext = new MediaPortalDbContext(connectionString);
-
+            _connectionString = connectionString;
         }
 
-        public AspNetRole Get(int id)
+        public AspNetRole Get(string userId)
         {
-            return _mediaPortalDbContext.AspNetRoles.Find(id);
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.AspNetRoles.Find(userId);
+            }
         }
 
         public IEnumerable<AspNetRole> GetAll()
         {
-            return _mediaPortalDbContext.AspNetRoles;
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.AspNetRoles;
+            }
+        }
+
+        public IEnumerable<AspNetRole> GetAll(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<AspNetRole> GetAll(string userId, string fileSystemParentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

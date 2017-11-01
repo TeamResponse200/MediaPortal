@@ -49,6 +49,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -267,7 +270,7 @@
     </Compile>
     <Compile Include="Helpers\IdentityExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\FileSystemModel.cs" />
+    <Compile Include="Models\FileSystemModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -356,6 +359,10 @@
     <ProjectReference Include="..\MediaPortal.BL\MediaPortal.BL.csproj">
       <Project>{1216d3ee-b7b0-46c0-bc12-59deffed1d59}</Project>
       <Name>MediaPortal.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaPortal.Data\MediaPortal.Data.csproj">
+      <Project>{36EA4A26-531F-47AF-B4C5-4454EA58AD48}</Project>
+      <Name>MediaPortal.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
