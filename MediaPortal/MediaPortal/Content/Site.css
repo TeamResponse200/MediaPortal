@@ -34,6 +34,7 @@
     margin-left: 500px;
     box-shadow: 0 4px 2px -2px gray;
 }
+
 #loginForm {
     background-color: white;
     box-shadow: 0 4px 2px -2px gray;
@@ -100,19 +101,19 @@
     background-color: #ffffff;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 70px;
+    margin-bottom: 20px;
     padding-top: 12px;
     padding-bottom: 10px;
     /*margin-left: 50px;*/
     /*width: 280px;*/
 }
 
-#facebookRegisterButton #IconFB {
-    content: url(/Content/icons/facebook.svg);
-    height: 16px;
-    width: 16px;
-    margin-right: 10px;
-}
+    #facebookRegisterButton #IconFB {
+        content: url(/Content/icons/facebook.svg);
+        height: 16px;
+        width: 16px;
+        margin-right: 10px;
+    }
 
 /* Main layout */
 
@@ -123,8 +124,9 @@
     padding-top: 10px;
     /*padding-bottom: 10px;*/
 }
+
 #customSearch {
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 #IconSearch {
@@ -139,7 +141,6 @@
     height: 16px;
     width: 16px;
     margin-right: 10px;
-
     -webkit-transform: rotate(90deg); /* Chrome y Safari */
     -moz-transform: rotate(90deg); /* Firefox */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
@@ -165,29 +166,40 @@
 #mainDropDownButton {
     background-color: rgb(255,255,255);
 }
-#mainDropDownButton:hover {
-    background-color: lightgray;
-}
+
+    #mainDropDownButton:hover {
+        background-color: lightgray;
+    }
+
 button.dropDownButton {
     background-color: rgb(255,255,255);
 }
 
 .active {
-    background-color:black;
+    background-color: black;
 }
 
 .btn.buttonList {
     background: url(/Content/icons/list.svg) no-repeat;
     height: 30px;
     width: 30px;
-    margin-left:10px;
-    margin-right:10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
+
+    .btn.buttonList:hover {
+        background-color: lightgray;
+    }
+
 .btn.buttonTile {
     background: url(/Content/icons/tile.svg) no-repeat;
     height: 30px;
     width: 30px;
 }
+
+    .btn.buttonTile:hover {
+        background-color: lightgray;
+    }
 
 .textUsual {
     font-family: "Raleway";
@@ -217,7 +229,7 @@ button.dropDownButton {
 #userRoutes {
     font-family: "Raleway";
     font-weight: 800;
-    font-size:20px;
+    font-size: 20px;
 }
 
 #userSettings {

@@ -330,6 +330,7 @@ namespace MediaPortal.Controllers
                 return RedirectToAction("Login");
             }
 
+
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
@@ -369,7 +370,8 @@ namespace MediaPortal.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.Email };
+                var fullName = info.ExternalIdentity.Name;
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = fullName };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using MediaPortal.Models;
+using Microsoft.Owin.Security.Facebook;
 
 namespace MediaPortal
 {
@@ -57,6 +58,15 @@ namespace MediaPortal
             app.UseFacebookAuthentication(
                appId: "184694922081524",
                appSecret: "559cd70545ae32cd756c32e3eeae233d");
+
+            //var options = new FacebookAuthenticationOptions()
+            //{
+            //    AppId = "184694922081524",
+            //    AppSecret = "184694922081524",
+            //};
+            //options.Scope.Add("email");
+            //options.Fields.Add("email");
+            //app.UseFacebookAuthentication(options);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
