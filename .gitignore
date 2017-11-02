@@ -76,3 +76,10 @@ _[Ss]cripts
 *.jfm
 *.dbmdl
 *.ide
+/MediaPortal/.vs/MediaPortal/v15/*.suo
+/MediaPortal/.vs/MediaPortal/v15/sqlite3/*.ide
+/MediaPortal/.vs/config/*.config
+/MediaPortal/MediaPortal.BL/obj/Debug/*.cache
+/MediaPortal/MediaPortal.Data/obj/Debug/*.cache
+/MediaPortal/MediaPortal/obj/Debug/*.cache
+/MediaPortal/MediaPortalDB/*.dbmdl
