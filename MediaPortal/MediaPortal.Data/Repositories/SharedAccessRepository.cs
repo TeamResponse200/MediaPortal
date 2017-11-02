@@ -26,20 +26,20 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public IEnumerable<SharedAccess> GetAll()
+        public List<SharedAccess> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.SharedAccesses;
+                return dbContext.SharedAccesses.ToList();
             }
         }
 
-        public IEnumerable<SharedAccess> GetAll(string userId)
+        public List<SharedAccess> GetAll(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<SharedAccess> GetAll(string userId, string fileSystemParentId)
+        public List<SharedAccess> GetAll(string userId, int? fileSystemParentId)
         {
             throw new NotImplementedException();
         }

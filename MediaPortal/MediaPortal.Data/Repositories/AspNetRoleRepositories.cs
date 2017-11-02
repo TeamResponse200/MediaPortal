@@ -26,20 +26,20 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public IEnumerable<AspNetRole> GetAll()
+        public List<AspNetRole> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.AspNetRoles;
+                return dbContext.AspNetRoles.ToList();
             }
         }
 
-        public IEnumerable<AspNetRole> GetAll(string userId)
+        public List<AspNetRole> GetAll(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<AspNetRole> GetAll(string userId, string fileSystemParentId)
+        public List<AspNetRole> GetAll(string userId, int? fileSystemParentId)
         {
             throw new NotImplementedException();
         }

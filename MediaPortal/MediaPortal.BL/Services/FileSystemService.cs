@@ -13,7 +13,7 @@ using MediaPortal.Data.EntitiesModel;
 using AutoMapper;
 
 namespace MediaPortal.BL.Services
-{  
+{
     public class FileSystemService : IFileSystemService
     {
         private readonly IRepository<FileSystem> _fileSyatemRepository;
@@ -23,22 +23,22 @@ namespace MediaPortal.BL.Services
             _fileSyatemRepository = fileSyatemRepository;
         }
 
-        public IEnumerable<FileSystemDTO> GetAllUserFileSystem(string userId)
+        public List<FileSystemDTO> GetAllUserFileSystem(string userId)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
 
             var fileSystems = _fileSyatemRepository.GetAll();
 
-            return Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystems);
+            return Mapper.Map<List<FileSystem>, List<FileSystemDTO>>(fileSystems);
         }
 
-        public IEnumerable<FileSystemDTO> GetUserFileSystem(string userId, string fileSystemParentId)
+        public List<FileSystemDTO> GetUserFileSystem(string userId, int? fileSystemParentId = null)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
 
             var fileSystem = _fileSyatemRepository.GetAll(userId, fileSystemParentId);
 
-            return Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystem);
+            return Mapper.Map<List<FileSystem>, List<FileSystemDTO>>(fileSystem);
         }
     }
 }

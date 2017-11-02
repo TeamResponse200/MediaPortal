@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MediaPortal.Data.Repositories
 {
-    public class AspNetUserRepositories: IRepository<AspNetUser>
+    public class AspNetUserRepositories : IRepository<AspNetUser>
     {
         private string _connectionString;
 
@@ -26,20 +26,20 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public IEnumerable<AspNetUser> GetAll()
+        public List<AspNetUser> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.AspNetUsers;
+                return dbContext.AspNetUsers.ToList();
             }
         }
 
-        public IEnumerable<AspNetUser> GetAll(string userId)
+        public List<AspNetUser> GetAll(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<AspNetUser> GetAll(string userId, string fileSystemParentId)
+        public List<AspNetUser> GetAll(string userId, int? fileSystemParentId)
         {
             throw new NotImplementedException();
         }

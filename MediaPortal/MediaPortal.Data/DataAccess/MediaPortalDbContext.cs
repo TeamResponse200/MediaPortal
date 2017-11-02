@@ -20,7 +20,7 @@ namespace MediaPortal.Data.DataAccess
         public virtual DbSet<FileSystem> FileSystems { get; set; }
         public virtual DbSet<SharedAccess> SharedAccesses { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
-        public virtual DbSet<FileSystemTag> FileSystemTags { get; set; }
+        //public virtual DbSet<FileSystemTag> FileSystemTags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -42,6 +42,11 @@ namespace MediaPortal.Data.DataAccess
             modelBuilder.Entity<AspNetUser>()
                 .HasMany(e => e.FileSystems)
                 .WithRequired(e => e.AspNetUser)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<AspNetUser>()
+                .HasMany(e => e.SharedAccesses)
+                .WithOptional(e => e.AspNetUser)
                 .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<FileSystem>()

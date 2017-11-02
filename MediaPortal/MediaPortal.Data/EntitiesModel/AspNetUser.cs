@@ -14,6 +14,7 @@ namespace MediaPortal.Data.EntitiesModel
             AspNetUserClaims = new HashSet<AspNetUserClaim>();
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
             FileSystems = new HashSet<FileSystem>();
+            SharedAccesses = new HashSet<SharedAccess>();
             AspNetRoles = new HashSet<AspNetRole>();
         }
 
@@ -56,6 +57,9 @@ namespace MediaPortal.Data.EntitiesModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileSystem> FileSystems { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SharedAccess> SharedAccesses { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }

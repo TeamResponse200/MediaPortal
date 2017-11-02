@@ -17,14 +17,13 @@ namespace MediaPortal.Data.EntitiesModel
             Tags = new HashSet<Tag>();
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(128)]
         public string UserId { get; set; }
 
-        [StringLength(128)]
-        public string ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         [Required]
         [StringLength(256)]

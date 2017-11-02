@@ -43,16 +43,15 @@ namespace MediaPortal.Controllers
         }
 
         [Authorize]
-        public ActionResult File()
+        public ActionResult GetUserFile(string userId)
         {
-            string userId = "";
-            string parentId = "";
+            userId = "e389e0d8-cbc4-4c66-8b29-60371862cdc0";            
 
-            IEnumerable<FileSystemDTO> fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, parentId);
+            List<FileSystemDTO> fileSystemDtos = _fileSystemService.GetUserFileSystem(userId);
 
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
 
-            var files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
+            var files = Mapper.Map<List<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
             return View();
         }

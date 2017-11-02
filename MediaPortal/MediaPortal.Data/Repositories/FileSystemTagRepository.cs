@@ -22,24 +22,24 @@ namespace MediaPortal.Data.Repositories
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.FileSystemTags.Find(userId);
+                return null;
             }
         }
 
-        public IEnumerable<FileSystemTag> GetAll()
+        public List<FileSystemTag> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.FileSystemTags;
+                return null;
             }
         }
 
-        public IEnumerable<FileSystemTag> GetAll(string userId)
+        public List<FileSystemTag> GetAll(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<FileSystemTag> GetAll(string userId, string fileSystemParentId)
+        public List<FileSystemTag> GetAll(string userId, int? fileSystemParentId)
         {
             throw new NotImplementedException();
         }

@@ -7,7 +7,7 @@
     <Name>MediaPortalDB</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{8042344c-8d27-41fa-ab29-870fb86028a5}</ProjectGuid>
+    <ProjectGuid>{dd95c731-9563-4341-b9b1-fa0a9d9d0676}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
@@ -63,15 +63,15 @@
     <Folder Include="dbo\Tables\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Tag.sql" />
-    <Build Include="dbo\Tables\FileSystem.sql" />
-    <Build Include="dbo\Tables\FileSystemTag.sql" />
-    <Build Include="dbo\Tables\SharedAccess.sql" />
     <Build Include="dbo\Tables\__MigrationHistory.sql" />
     <Build Include="dbo\Tables\AspNetRoles.sql" />
     <Build Include="dbo\Tables\AspNetUserClaims.sql" />
     <Build Include="dbo\Tables\AspNetUserLogins.sql" />
     <Build Include="dbo\Tables\AspNetUserRoles.sql" />
     <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\Tag.sql" />
+    <Build Include="dbo\Tables\FileSystem.sql" />
+    <Build Include="dbo\Tables\FileSystemTag.sql" />
+    <Build Include="dbo\Tables\SharedAccess.sql" />
   </ItemGroup>
 </Project>

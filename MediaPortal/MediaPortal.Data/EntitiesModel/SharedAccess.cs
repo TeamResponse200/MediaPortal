@@ -14,15 +14,15 @@ namespace MediaPortal.Data.EntitiesModel
         [StringLength(128)]
         public string UserId { get; set; }
 
-        [Required]
-        [StringLength(128)]
-        public string FileSystemId { get; set; }
+        public int FileSystemId { get; set; }
 
         [Required]
         [StringLength(256)]
         public string Link { get; set; }
 
         public DateTime ExpirationDate { get; set; }
+
+        public virtual AspNetUser AspNetUser { get; set; }
 
         public virtual FileSystem FileSystem { get; set; }
     }

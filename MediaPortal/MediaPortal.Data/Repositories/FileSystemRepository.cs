@@ -26,27 +26,27 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public IEnumerable<FileSystem> GetAll()
+        public List<FileSystem> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.FileSystems;
+                return dbContext.FileSystems.ToList();
             }
         }
 
-        public IEnumerable<FileSystem> GetAll(string userId)
+        public List<FileSystem> GetAll(string userId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.FileSystems.Where(x => x.UserId == userId);
+                return dbContext.FileSystems.Where(x => x.UserId == userId).ToList();
             }
         }
 
-        public IEnumerable<FileSystem> GetAll(string userId, string parentId)
+        public List<FileSystem> GetAll(string userId, int? parentId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId);
+                return dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId).ToList();
             }
         }
     }

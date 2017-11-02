@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MediaPortal.Data.Interface
 {
-    public interface IRepository<T> where T: class
+    public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        List<T> GetAll();
 
-        IEnumerable<T> GetAll(string userId);
+        List<T> GetAll(string userId);
 
-        IEnumerable<T> GetAll(string userId, string fileSystemParentId);
+        List<T> GetAll(string userId, int? fileSystemParentId);
 
         T Get(string id);
     }

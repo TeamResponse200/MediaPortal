@@ -9,7 +9,7 @@ using MediaPortal.Data.EntitiesModel;
 
 namespace MediaPortal.Data.Repositories
 {
-    public class TagRepository: IRepository<Tag>
+    public class TagRepository : IRepository<Tag>
     {
         private string _connectionString;
 
@@ -26,20 +26,20 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public IEnumerable<Tag> GetAll()
+        public List<Tag> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.Tags;
+                return dbContext.Tags.ToList();
             }
         }
 
-        public IEnumerable<Tag> GetAll(string userId)
+        public List<Tag> GetAll(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Tag> GetAll(string userId, string fileSystemParentId)
+        public List<Tag> GetAll(string userId, int? fileSystemParentId)
         {
             throw new NotImplementedException();
         }

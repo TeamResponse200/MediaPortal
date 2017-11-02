@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[FileSystem] (
-    [Id]            NVARCHAR (128) NOT NULL,
+    [Id]            INT            IDENTITY (1, 1) NOT NULL,
     [UserId]        NVARCHAR (128) NOT NULL,
-    [ParentId]      NVARCHAR (128) NULL,
+    [ParentId]      INT            NULL,
     [Name]          NVARCHAR (256) NOT NULL,
     [Size]          INT            NULL,
     [Type]          NVARCHAR (256) NOT NULL,
