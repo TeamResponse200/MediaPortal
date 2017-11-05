@@ -1,0 +1,49 @@
+﻿@using MediaPortal.Models
+@using Microsoft.AspNet.Identity
+
+@model FileSystemModels
+
+<div class="col-md-12  btn" id="uploadButton">Загрузить файл</div>
+<div class="col-md-12  btn" id="folderCreateButton" data-toggle="modal" data-target="#folderModal">Создать папку</div>
+
+
+<div class="modal fade" id="folderModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 class="modal-title">Создание папки</h3>
+               
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("CreateFolder", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                       @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-1">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "registerInput", @placeholder = "Название папки" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-1">
+                            @Html.DropDownListFor(m => m.ParentId,new SelectList(ViewBag.Folders,"Id","Name"),"Выберите где создать папку")
+                            @Html.ValidationMessageFor(m => m.ParentId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-1">
+                            <button type="submit" class="btn col-md-12" id="registerButton">Создать папку</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Отменить</a>
+            </div>
+        </div>
+
+        <div class="btn btn-success" id="downloadHiddentButton">Скачать</div>
+    </div>
+</div>

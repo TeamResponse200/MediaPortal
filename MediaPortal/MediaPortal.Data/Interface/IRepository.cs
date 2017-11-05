@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediaPortal.Data.EntitiesModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace MediaPortal.Data.Interface
         List<T> GetAll(string userId);
 
         List<T> GetAll(string userId, int? fileSystemParentId);
+
+        void InsertObject(T t);
 
         T Get(string id);
     }

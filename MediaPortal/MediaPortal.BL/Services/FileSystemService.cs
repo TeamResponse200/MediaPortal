@@ -40,5 +40,12 @@ namespace MediaPortal.BL.Services
 
             return Mapper.Map<List<FileSystem>, List<FileSystemDTO>>(fileSystem);
         }
+
+        public void InsertFileSystem(FileSystemDTO model)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystem>());
+            var fileSystem = Mapper.Map<FileSystem>(model);
+            _fileSyatemRepository.InsertObject(fileSystem);
+        }
     }
 }

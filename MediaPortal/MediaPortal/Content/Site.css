@@ -260,3 +260,57 @@ button.dropDownButton {
     height: 45px;
     width: 45px;
 }
+
+
+
+/* FileSystemView*/
+
+#fileSystemListItem {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 5px;
+    margin-bottom:5px;
+    background-color: white;
+    height: 40px;
+}
+
+#fileSystemListItem:hover {
+    background-color: lightgray;
+}
+
+.folderActive {
+    content:url(/Content/icons/folder-purp.svg);
+}
+
+#iconFolder {
+    content: url(/Content/icons/folder.svg);
+    height: 25px;
+    width: 25px;
+    padding-top:5px;
+    margin-left: 10px;
+}
+#iconFile {
+    content: url(/Content/icons/picture.svg);
+    height: 25px;
+    width: 25px;
+    padding-top: 5px;
+    margin-left: 10px;
+}
+#fileNameListitem {
+    padding-top:5px;
+    font-family:"Raleway";
+    font-size:16px;
+}
+#fileTagListItem {
+    padding-top:5px;
+    font-family:"Raleway";
+    font-size:16px;
+}
+
+
+#downloadHiddentButton 
+{
+    display:none;
+}

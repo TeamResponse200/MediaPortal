@@ -49,5 +49,15 @@ namespace MediaPortal.Data.Repositories
                 return dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId).ToList();
             }
         }
+
+        public void InsertObject(FileSystem file)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                dbContext.FileSystems.Add(file);
+
+                dbContext.SaveChanges();
+            }
+        }
     }
 }

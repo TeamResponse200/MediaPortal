@@ -12,5 +12,7 @@ namespace MediaPortal.BL.Interface
         List<FileSystemDTO> GetAllUserFileSystem(string userId);
 
         List<FileSystemDTO> GetUserFileSystem(string userId, int? fileSystemParentId = null);
+
+        void InsertFileSystem(FileSystemDTO model);
     }
 }

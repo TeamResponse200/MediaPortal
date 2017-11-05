@@ -9,6 +9,7 @@ using Serilog;
 using MediaPortal.BL.Models;
 using AutoMapper;
 using MediaPortal.Models;
+using Microsoft.AspNet.Identity;
 
 namespace MediaPortal.Controllers
 {
@@ -35,23 +36,48 @@ namespace MediaPortal.Controllers
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         [Authorize]
-        public ActionResult GetUserFile(string userId)
+        public ActionResult UserFiles(int? folderID)
         {
-            userId = "e389e0d8-cbc4-4c66-8b29-60371862cdc0";            
+            var userId = User.Identity.GetUserId();
 
-            List<FileSystemDTO> fileSystemDtos = _fileSystemService.GetUserFileSystem(userId);
+            List<FileSystemDTO> fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, folderID);
 
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
 
             var files = Mapper.Map<List<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
+
+            var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
+            ViewBag.Folders = folders;
+
+            if (folderID != null)
+            {
+                var fileName = _fileSystemService.GetUserFileSystem(userId)
+                                                  .Where(i => i.Id == folderID)
+                                                  .FirstOrDefault().Name;
+                ViewBag.FolderPath = fileName;
+            }
+            
+            return View(files);
+        }
+
+        [Authorize]
+        public ActionResult CreateFolder(FileSystemModels model,string returnUrl)
+        {
+            model.UserId = User.Identity.GetUserId();
+            model.Type = "Folder";
+
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemModels,FileSystemDTO>());
+            var fileSystem = Mapper.Map<FileSystemDTO>(model);
+
+            _fileSystemService.InsertFileSystem(fileSystem);
+
+            return RedirectToAction("UserFiles", "Home");
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
 
             return View();
         }

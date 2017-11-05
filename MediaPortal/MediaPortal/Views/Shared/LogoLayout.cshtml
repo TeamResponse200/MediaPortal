@@ -41,7 +41,14 @@
 <div class="secondHeaderBlock">
     <div class="container">
         <div class="row">
-            <div class="col-md-6" id="userRoutes">Мои файлы</div>
+            @if (ViewBag.FolderPath != null)
+            {
+            <div class="col-md-6" id="userRoutes">Мои файлы / @ViewBag.FolderPath</div>
+            }
+            else
+            {
+                <div class="col-md-6" id="userRoutes">Мои файлы </div>
+            }
             <div class="col-md-6">
                 <div class="btn col-md-4 textUsual" id="userSettings">Настройки доступа</div>
                 <div class="col-md-4" id="userSettings">
@@ -110,6 +117,12 @@
     <script type="text/javascript">
         $("#mainDropDownButton").click(function () {
             $(this).toggleClass("active");
+        });
+
+        $("#FileSystemListItem").click(function () {
+            alert(hello);
+            $(this).find("iconFolder").toggleClass("folderActive");
+            $("downloadHiddentButton").toggle();
         });
     </script>
 

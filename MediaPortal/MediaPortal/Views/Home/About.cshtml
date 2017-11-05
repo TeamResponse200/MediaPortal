@@ -4,12 +4,14 @@
 }
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3 registerText">Вы успешно зарегистрированы</div>
-        <div class="col-md-4 col-md-offset-4 text-center">Теперь вы можете начать использование LOGO!
-            Загружайте свои файлы и делитесь ими 
-            с остальными пользователями!
+        <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-12 registerText">Вы успешно зарегистрированы</div>
+            <div class="col-md-8 col-md-offset-2 text-center">
+                Теперь вы можете начать использование LOGO!
+                Загружайте свои файлы и делитесь ими
+                с остальными пользователями!
+            </div>
+            @Html.Partial("_UploadCreatePartial") 
         </div>
-        <div class="col-md-2 col-md-offset-5 btn" id="uploadButton">Загрузить файл</div>
-        <div class="col-md-2 col-md-offset-5 btn" id="folderCreateButton">Создать папку</div>
     </div>
 </div>

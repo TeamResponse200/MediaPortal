@@ -43,5 +43,10 @@ namespace MediaPortal.Data.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void InsertObject(SharedAccess sharedAcess)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -338,6 +338,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\LogRegLayout.cshtml" />
     <Content Include="Views\Shared\LogoLayout.cshtml" />
+    <Content Include="Views\Shared\_UploadCreatePartial.cshtml" />
+    <Content Include="Views\Home\UserFiles.cshtml" />
+    <Content Include="Views\Shared\FileSystemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
