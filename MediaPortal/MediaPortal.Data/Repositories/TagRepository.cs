@@ -33,20 +33,6 @@ namespace MediaPortal.Data.Repositories
                 return dbContext.Tags.ToList();
             }
         }
-
-        public List<Tag> GetAll(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Tag> GetAll(string userId, int? fileSystemParentId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertObject(Tag tag)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

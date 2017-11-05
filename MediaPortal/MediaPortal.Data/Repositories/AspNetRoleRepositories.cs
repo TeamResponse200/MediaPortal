@@ -32,20 +32,6 @@ namespace MediaPortal.Data.Repositories
             {
                 return dbContext.AspNetRoles.ToList();
             }
-        }
-
-        public List<AspNetRole> GetAll(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<AspNetRole> GetAll(string userId, int? fileSystemParentId)
-        {
-            throw new NotImplementedException();
-        }
-        public void InsertObject(AspNetRole role)
-        {
-            throw new NotImplementedException();
-        }
+        }        
     }
 }

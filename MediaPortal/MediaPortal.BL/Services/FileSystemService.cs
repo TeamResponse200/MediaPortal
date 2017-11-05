@@ -11,14 +11,16 @@ using MediaPortal.BL.Interface;
 using MediaPortal.BL.Models;
 using MediaPortal.Data.EntitiesModel;
 using AutoMapper;
+using MediaPortal.BL.Infrastructure;
+using System.Diagnostics;
 
 namespace MediaPortal.BL.Services
 {
     public class FileSystemService : IFileSystemService
     {
-        private readonly IRepository<FileSystem> _fileSyatemRepository;
+        private readonly IFileSystemRepository<FileSystem> _fileSyatemRepository;
 
-        public FileSystemService(IRepository<FileSystem> fileSyatemRepository)
+        public FileSystemService(IFileSystemRepository<FileSystem> fileSyatemRepository)
         {
             _fileSyatemRepository = fileSyatemRepository;
         }
@@ -35,8 +37,15 @@ namespace MediaPortal.BL.Services
         public List<FileSystemDTO> GetUserFileSystem(string userId, int? fileSystemParentId = null)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
-
-            var fileSystem = _fileSyatemRepository.GetAll(userId, fileSystemParentId);
+            List<FileSystem> fileSystem = null;
+            try
+            {
+                fileSystem = _fileSyatemRepository.GetAll(userId, fileSystemParentId);
+            } 
+            catch (Exception)
+            {
+                Trace.TraceError("Current user not found");                    
+            }
 
             return Mapper.Map<List<FileSystem>, List<FileSystemDTO>>(fileSystem);
         }

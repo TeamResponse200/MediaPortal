@@ -32,21 +32,6 @@ namespace MediaPortal.Data.Repositories
             {
                 return dbContext.SharedAccesses.ToList();
             }
-        }
-
-        public List<SharedAccess> GetAll(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<SharedAccess> GetAll(string userId, int? fileSystemParentId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertObject(SharedAccess sharedAcess)
-        {
-            throw new NotImplementedException();
-        }
+        }        
     }
 }

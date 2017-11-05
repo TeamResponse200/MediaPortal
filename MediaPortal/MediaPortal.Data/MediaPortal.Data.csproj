@@ -102,6 +102,7 @@
     <Compile Include="EntitiesModel\AspNetUserLogin.cs" />
     <Compile Include="EntitiesModel\FileSystem.cs" />
     <Compile Include="EntitiesModel\FileSystemTag.cs" />
+    <Compile Include="Interface\IFileSystemRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="DataAccess\MediaPortalDbContext.cs" />
     <Compile Include="Repositories\AspNetRoleRepositories.cs" />

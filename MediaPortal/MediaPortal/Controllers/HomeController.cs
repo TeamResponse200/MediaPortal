@@ -39,29 +39,30 @@ namespace MediaPortal.Controllers
         [Authorize]
         public ActionResult UserFiles(int? folderID, string folderName)
         {
-            var userId = User.Identity.GetUserId();
+            string userId = User.Identity.GetUserId();
+            List<FileSystemModels> files = null;
+            List<FileSystemDTO> fileSystemDtos;
 
-            List<FileSystemDTO> fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, folderID);
+            try
+            {
+                fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, folderID);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
 
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
-
-            var files = Mapper.Map<List<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
+            files = Mapper.Map<List<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
             var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
             ViewBag.Folders = folders;
 
             if (folderID != null)
             {
-                try
-                {
-                    ViewBag.FolderPath = folderName;
-                }
-                catch (Exception)
-                {
-                    return View("Error");
-                }
+                ViewBag.FolderPath = folderName;
             }
-            
+
             return View(files);
         }
 
@@ -84,7 +85,7 @@ namespace MediaPortal.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            return View("Error");
         }
     }
 }

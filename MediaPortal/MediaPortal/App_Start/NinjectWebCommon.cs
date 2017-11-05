@@ -79,7 +79,7 @@ namespace MediaPortal.App_Start
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
             kernel.Bind<IFileSystemService>().To<FileSystemService>();
-            kernel.Bind<IRepository<FileSystem>>().To<FileSystemRepository>()
+            kernel.Bind<IFileSystemRepository<FileSystem>>().To<FileSystemRepository>()
                 .WithConstructorArgument("connectionString", connectionString);
         }
     }

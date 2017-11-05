@@ -279,6 +279,24 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\icons\cancel.svg" />
+    <Content Include="Content\icons\facebook.svg" />
+    <Content Include="Content\icons\folder-purp.svg" />
+    <Content Include="Content\icons\folder.svg" />
+    <Content Include="Content\icons\icon-play.svg" />
+    <Content Include="Content\icons\list.svg" />
+    <Content Include="Content\icons\minus.svg" />
+    <Content Include="Content\icons\next.svg" />
+    <Content Include="Content\icons\picture-purp.svg" />
+    <Content Include="Content\icons\picture.svg" />
+    <Content Include="Content\icons\search.svg" />
+    <Content Include="Content\icons\success.svg" />
+    <Content Include="Content\icons\tile.svg" />
+    <Content Include="Content\icons\unlink.svg" />
+    <Content Include="Content\icons\user.svg" />
+    <Content Include="Content\icons\userImage.png" />
+    <Content Include="Content\icons\video-player-purp.svg" />
+    <Content Include="Content\icons\video-player.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -289,6 +307,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
+    <None Include="Properties\PublishProfiles\TeamResponse200MediaPortal - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

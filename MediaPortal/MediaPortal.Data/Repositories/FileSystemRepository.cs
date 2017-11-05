@@ -9,7 +9,7 @@ using MediaPortal.Data.Interface;
 
 namespace MediaPortal.Data.Repositories
 {
-    public class FileSystemRepository : IRepository<FileSystem>
+    public class FileSystemRepository : IFileSystemRepository<FileSystem>
     {
         private string _connectionString;
 

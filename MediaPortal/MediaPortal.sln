@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPortal.Data", "MediaPo
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MediaPortalDB", "MediaPortalDB\MediaPortalDB.sqlproj", "{DD95C731-9563-4341-B9B1-FA0A9D9D0676}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPortalTests", "MediaPortalTests\MediaPortalTests.csproj", "{9C7E696D-FE85-4D81-A7A3-243EE326CAFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{DD95C731-9563-4341-B9B1-FA0A9D9D0676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD95C731-9563-4341-B9B1-FA0A9D9D0676}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD95C731-9563-4341-B9B1-FA0A9D9D0676}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9C7E696D-FE85-4D81-A7A3-243EE326CAFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C7E696D-FE85-4D81-A7A3-243EE326CAFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C7E696D-FE85-4D81-A7A3-243EE326CAFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C7E696D-FE85-4D81-A7A3-243EE326CAFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

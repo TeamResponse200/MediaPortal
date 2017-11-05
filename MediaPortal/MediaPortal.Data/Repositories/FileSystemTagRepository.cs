@@ -33,20 +33,6 @@ namespace MediaPortal.Data.Repositories
                 return null;
             }
         }
-
-        public List<FileSystemTag> GetAll(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<FileSystemTag> GetAll(string userId, int? fileSystemParentId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertObject(FileSystemTag role)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

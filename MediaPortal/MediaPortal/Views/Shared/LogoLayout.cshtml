@@ -50,7 +50,9 @@
                 <div class="col-md-6" id="userRoutes">Мои файлы </div>
             }
             <div class="col-md-6">
-                <div class="btn col-md-4 textUsual" id="userSettings">Настройки доступа</div>
+                <div class="btn col-md-4 textUsual" id="userSettings" data-toggle="modal" data-target="#accessesFolderModal">
+                    Настройки доступа
+                </div>
                 <div class="col-md-4" id="userSettings">
                     <button type="button" id="mainDropDownButton" class="btn dropdown-toggle textUsual" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         По дате создания <span id="iconSortFilter"></span>
@@ -71,6 +73,44 @@
         </div>
     </div>
 </div>
+
+
+    <div class="modal fade " id="accessesFolderModal" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content col-md-8 col-md-offset-2 accsseseContainer accsseseCastomPad accsseseContainerCastomPad">
+                <div class="modal-header col-md-12 accssese-titleCast">
+                    Настройки доступа
+                </div>
+                <div class="modal-body col-md-12 accsseseCastomPad ">
+                    <div class="col-md-12 accssese-userCast">
+                        Пользователи
+                    </div>
+                    <div class="col-md-12 accsseseBady accssese-paddCast">
+                        <div class="col-md-7 accsseseBady accssese-userInputCast">
+                            <input type="text" class="form-control accssese-textAreaCast" maxlength="200">
+                        </div>
+                        <div class="col-md-5 accssesecastomPadBot ">
+                            <div class="btn btn-primary accssese-btn-primary">
+                                Добавить
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer col-md-12 accsseseCastomPad accssese-urlTopCast">
+                    <div class="col-md-7 accssese-urlCast">
+                        Доступ по ссылке
+                    </div>
+                    <div class="col-md-5 accssesecastomPadBot ">
+                        <div class="btn btn-primary accssese-btn-primary">
+                            Включить
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
 
 @*<header id="HomeHeader">
     <div id="topContainer" class="container">

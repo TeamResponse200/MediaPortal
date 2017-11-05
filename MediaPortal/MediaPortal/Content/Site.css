@@ -314,8 +314,103 @@ button.dropDownButton {
     font-size:16px;
 }
 
-
 #downloadHiddentButton 
 {
     display:none;
+}
+
+
+
+.error500Padd {
+    padding-top: 20%;
+}
+
+.error500PaddTitle {
+    padding-top: 5%;
+}
+
+.error500PaddBady {
+    padding-top: 1%;
+}
+
+.error500PaddBtn-primary {
+    background-color: #4640c8;
+    border-color: #4640c8;
+}
+
+
+
+.accsseseContainer {
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+.accsseseBady {
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+.accsseseCastomPad {    
+    padding-left: 0%;
+    padding-right: 0%;
+    text-align: left;
+}
+
+.accsseseContainerCastomPad {
+    margin-top: 30%;
+}
+
+.accssesecastomPadBot {
+    padding-left: 5%;
+}
+
+.accssese-btn-primary {
+    background-color: #4640c8;
+    border-color: #4640c8;
+}
+
+.accssese-textAreaCast {
+    resize: none;
+    border: 1px rgb(153, 153, 153) solid;
+    box-shadow: none;
+    width: 100%;
+    color: rgb(100, 100, 100);
+}
+
+.accssese-titleCast {
+    color: white;
+    background-color: rgb(100, 100, 100);
+    padding-top: 4%;
+    padding-left: 7%;
+    padding-bottom: 4%;
+}
+
+.accssese-userCast {
+    color: rgb(153, 153, 153);
+    padding-top: 0%;
+    padding-left: 7%;
+    padding-bottom: 3%;
+}
+
+.accssese-userInputCast {
+    padding-top: 0%;
+    padding-left: 7%;
+    padding-bottom: 0%;
+}
+
+.accssese-paddCast {
+    padding-bottom: 5%;
+}
+
+.accssese-urlTopCast {
+    padding-top: 7%;
+    padding-bottom: 6%;
+}
+
+.accssese-urlCast {
+    color: rgb(153, 153, 153);
+    padding-left: 7%;
+    padding-top: 2%;
 }
