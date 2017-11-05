@@ -12,6 +12,8 @@
             <span id="iconFile"></span>
         }
     </div>
-    <div class="col-md-8" id="fileNameListItem">@Model.Name</div>
+    <div class="col-md-8" id="fileNameListItem">
+        @Model.Name
+        @Html.ActionLink("linkText","UserFiles","Home", routeValues: new { folderId = Model.Id, folderName = Model.Name },htmlAttributes: null)</div>
     <div class="col-md-3" id="fileTagListItem">#проект #работа</div>
 </div>

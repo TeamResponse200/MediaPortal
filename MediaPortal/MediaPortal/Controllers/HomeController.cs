@@ -37,7 +37,7 @@ namespace MediaPortal.Controllers
         }
 
         [Authorize]
-        public ActionResult UserFiles(int? folderID)
+        public ActionResult UserFiles(int? folderID, string folderName)
         {
             var userId = User.Identity.GetUserId();
 
@@ -52,16 +52,21 @@ namespace MediaPortal.Controllers
 
             if (folderID != null)
             {
-                var fileName = _fileSystemService.GetUserFileSystem(userId)
-                                                  .Where(i => i.Id == folderID)
-                                                  .FirstOrDefault().Name;
-                ViewBag.FolderPath = fileName;
+                try
+                {
+                    ViewBag.FolderPath = folderName;
+                }
+                catch (Exception)
+                {
+                    return View("Error");
+                }
             }
             
             return View(files);
         }
 
         [Authorize]
+        [HttpPost]
         public ActionResult CreateFolder(FileSystemModels model,string returnUrl)
         {
             model.UserId = User.Identity.GetUserId();

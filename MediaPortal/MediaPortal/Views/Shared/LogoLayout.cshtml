@@ -43,7 +43,7 @@
         <div class="row">
             @if (ViewBag.FolderPath != null)
             {
-            <div class="col-md-6" id="userRoutes">Мои файлы / @ViewBag.FolderPath</div>
+                <div class="col-md-6" id="userRoutes">@Html.ActionLink("Мои файлы", "UserFiles", "Home", routeValues: null , htmlAttributes: null) / @ViewBag.FolderPath</div>
             }
             else
             {
@@ -123,6 +123,12 @@
             alert(hello);
             $(this).find("iconFolder").toggleClass("folderActive");
             $("downloadHiddentButton").toggle();
+        });
+        $("#FileSystemListItem").click(function () {
+            alert(hello);
+        });
+        $("#defaultLogo").click(function () {
+            alert(hello);
         });
     </script>
 

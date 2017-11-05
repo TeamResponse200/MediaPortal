@@ -10,9 +10,5 @@ E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\Me
 D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dacpac
 D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dll
 D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
-D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\Model.xml
-D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\refactor.xml
-D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\postdeploy.sql
-D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql
 D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
 D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
