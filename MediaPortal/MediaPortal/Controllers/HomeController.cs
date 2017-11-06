@@ -67,6 +67,36 @@ namespace MediaPortal.Controllers
         }
 
         [Authorize]
+        public ActionResult UserFilesBlock(int? folderID, string folderName)
+        {
+            string userId = User.Identity.GetUserId();
+            List<FileSystemModels> files = null;
+            List<FileSystemDTO> fileSystemDtos;
+
+            try
+            {
+                fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, folderID);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
+            files = Mapper.Map<List<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
+
+            var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
+            ViewBag.Folders = folders;
+
+            if (folderID != null)
+            {
+                ViewBag.FolderPath = folderName;
+            }
+
+            return View(files);
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult CreateFolder(FileSystemModels model,string returnUrl)
         {

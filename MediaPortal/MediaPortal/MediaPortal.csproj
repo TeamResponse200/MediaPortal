@@ -360,6 +360,8 @@
     <Content Include="Views\Shared\_UploadCreatePartial.cshtml" />
     <Content Include="Views\Home\UserFiles.cshtml" />
     <Content Include="Views\Shared\FileSystemView.cshtml" />
+    <Content Include="Views\Home\UserFilesBlock.cshtml" />
+    <Content Include="Views\Shared\FileSystemBlockView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

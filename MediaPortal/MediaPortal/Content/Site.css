@@ -319,8 +319,17 @@ button.dropDownButton {
     display:none;
 }
 
+#FileSystemBlockItem {
+    border:1px solid black;
+    border-radius:8px;
+    height:150px;
+}
+#fileBlockTitle {
+background-color:white;
+}
 
-
+#thumbnailImage {
+}
 .error500Padd {
     padding-top: 20%;
 }
