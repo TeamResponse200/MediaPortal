@@ -8,3 +8,8 @@ D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\b
 D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
 D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
 D:\SoftThemeProject\MediaPortalDeployed1\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
+C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dacpac
+C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
+C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb

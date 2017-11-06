@@ -37,9 +37,9 @@
                         или
                     </div>
                     <div class="col-md-12  error500PaddBady">
-                        <div class="btn btn-primary error500PaddBtn-primary">
-                            Перейти на домашнюю страницу
-                        </div>
+                        @*<div class="btn btn-primary error500PaddBtn-primary">*@
+                            @Html.ActionLink("Перейти на домашнюю страницу", "UserFiles", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary error500Btn-primary"})
+                        @*</div>*@
                     </div>
                 </div>
             </div>
