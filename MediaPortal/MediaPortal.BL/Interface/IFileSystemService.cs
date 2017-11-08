@@ -9,9 +9,9 @@ namespace MediaPortal.BL.Interface
 {
     public interface IFileSystemService
     {
-        List<FileSystemDTO> GetAllUserFileSystem(string userId);
+        IEnumerable<FileSystemDTO> GetAllUserFileSystem(string userId);
 
-        List<FileSystemDTO> GetUserFileSystem(string userId, int? fileSystemParentId = null);
+        IEnumerable<FileSystemDTO> GetUserFileSystem(string userId, int? fileSystemParentId = null);
 
         void InsertFileSystem(FileSystemDTO model);
     }

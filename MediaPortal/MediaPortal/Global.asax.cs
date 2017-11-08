@@ -14,14 +14,15 @@ namespace MediaPortal
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static string MYSTRING;
+        public static string AzureStorageBlobLink;
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            MYSTRING = ConfigurationManager.AppSettings["myString"];
+            AzureStorageBlobLink = ConfigurationManager.AppSettings["azureStorageBlobLink"];
         }
     }
 }

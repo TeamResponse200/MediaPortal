@@ -9,7 +9,7 @@ namespace MediaPortal.Data.Interface
 {
     public interface IRepository<T> where T : class
     {
-        List<T> GetAll();        
+        IEnumerable<T> GetAll();        
 
         T Get(string id);      
     }

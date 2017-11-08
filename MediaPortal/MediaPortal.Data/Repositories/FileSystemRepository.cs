@@ -26,7 +26,7 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public List<FileSystem> GetAll()
+        public IEnumerable<FileSystem> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
@@ -34,7 +34,7 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public List<FileSystem> GetAll(string userId)
+        public IEnumerable<FileSystem> GetAll(string userId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
@@ -42,7 +42,7 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public List<FileSystem> GetAll(string userId, int? parentId)
+        public IEnumerable<FileSystem> GetAll(string userId, int? parentId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {

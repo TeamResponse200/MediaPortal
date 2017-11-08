@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\FileSystemServiceTests.cs" />
     <Compile Include="HomeControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +80,10 @@
     <ProjectReference Include="..\MediaPortal.BL\MediaPortal.BL.csproj">
       <Project>{1216D3EE-B7B0-46C0-BC12-59DEFFED1D59}</Project>
       <Name>MediaPortal.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaPortal.Data\MediaPortal.Data.csproj">
+      <Project>{36ea4a26-531f-47af-b4c5-4454ea58ad48}</Project>
+      <Name>MediaPortal.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\MediaPortal\MediaPortal.csproj">
       <Project>{44F1FB77-56CC-4E04-9698-95A502BE2A7F}</Project>

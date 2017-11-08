@@ -26,7 +26,7 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public List<Tag> GetAll()
+        public IEnumerable<Tag> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {

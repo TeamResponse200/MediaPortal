@@ -10,6 +10,7 @@ using MediaPortal.BL.Models;
 using AutoMapper;
 using MediaPortal.Models;
 using Microsoft.AspNet.Identity;
+using System.Data;
 
 namespace MediaPortal.Controllers
 {
@@ -49,10 +50,9 @@ namespace MediaPortal.Controllers
                 Response.Cookies["viewType"].Value = "List";
             }
 
-
             string userId = User.Identity.GetUserId();
             List<FileSystemModels> files = null;
-            List<FileSystemDTO> fileSystemDtos;
+            IEnumerable<FileSystemDTO> fileSystemDtos;
 
             try
             {
@@ -60,11 +60,12 @@ namespace MediaPortal.Controllers
             }
             catch (Exception)
             {
+                // some logic for user
                 return View("Error");
             }
 
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
-            files = Mapper.Map<List<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
+            files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
             //var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
             //ViewBag.Folders = folders;
@@ -88,7 +89,7 @@ namespace MediaPortal.Controllers
         {
             string userId = User.Identity.GetUserId();
             List<FileSystemModels> files = null;
-            List<FileSystemDTO> fileSystemDtos;
+            IEnumerable<FileSystemDTO> fileSystemDtos;
 
             try
             {
@@ -96,11 +97,12 @@ namespace MediaPortal.Controllers
             }
             catch (Exception)
             {
+                // some logic for user
                 return View("Error");
             }
 
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
-            files = Mapper.Map<List<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
+            files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
             //var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
             //ViewBag.Folders = folders;
@@ -123,7 +125,15 @@ namespace MediaPortal.Controllers
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemModels,FileSystemDTO>());
             var fileSystem = Mapper.Map<FileSystemDTO>(model);
 
-            _fileSystemService.InsertFileSystem(fileSystem);
+            try
+            {
+                _fileSystemService.InsertFileSystem(fileSystem);
+            }
+            catch (DataException)
+            {
+                // some logic for user
+                return View("Error");
+            }
 
             return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name});
         }

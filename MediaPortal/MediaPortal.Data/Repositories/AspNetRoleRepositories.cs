@@ -26,7 +26,7 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public List<AspNetRole> GetAll()
+        public IEnumerable<AspNetRole> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {

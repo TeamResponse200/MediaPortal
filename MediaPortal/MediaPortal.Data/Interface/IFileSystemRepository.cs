@@ -8,9 +8,9 @@ namespace MediaPortal.Data.Interface
 {
     public interface IFileSystemRepository<T> : IRepository<T> where T : class
     {
-        List<T> GetAll(string userId);
+        IEnumerable<T> GetAll(string userId);
 
-        List<T> GetAll(string userId, int? fileSystemParentId);
+        IEnumerable<T> GetAll(string userId, int? fileSystemParentId);
 
         void InsertObject(T t);
     }

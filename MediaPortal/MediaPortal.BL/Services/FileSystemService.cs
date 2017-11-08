@@ -13,48 +13,68 @@ using MediaPortal.Data.EntitiesModel;
 using AutoMapper;
 using MediaPortal.BL.Infrastructure;
 using System.Diagnostics;
+using System.Data;
 
 namespace MediaPortal.BL.Services
 {
     public class FileSystemService : IFileSystemService
     {
-        private readonly IFileSystemRepository<FileSystem> _fileSyatemRepository;
+        private readonly IFileSystemRepository<FileSystem> _fileSystemRepository;
 
         public FileSystemService(IFileSystemRepository<FileSystem> fileSyatemRepository)
         {
-            _fileSyatemRepository = fileSyatemRepository;
+            _fileSystemRepository = fileSyatemRepository;
         }
 
-        public List<FileSystemDTO> GetAllUserFileSystem(string userId)
+        public IEnumerable<FileSystemDTO> GetAllUserFileSystem(string userId)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
 
-            var fileSystems = _fileSyatemRepository.GetAll();
+            var fileSystems = _fileSystemRepository.GetAll();
 
-            return Mapper.Map<List<FileSystem>, List<FileSystemDTO>>(fileSystems);
+            return Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystems);
         }
 
-        public List<FileSystemDTO> GetUserFileSystem(string userId, int? fileSystemParentId = null)
+        public IEnumerable<FileSystemDTO> GetUserFileSystem(string userId, int? fileSystemParentId = null)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
-            List<FileSystem> fileSystem = null;
+            IEnumerable<FileSystem> fileSystem = null;
             try
             {
-                fileSystem = _fileSyatemRepository.GetAll(userId, fileSystemParentId);
+                fileSystem = _fileSystemRepository.GetAll(userId, fileSystemParentId);
             } 
-            catch (Exception)
+            catch (DataException ex)
             {
-                Trace.TraceError("Current user not found");                    
+                Trace.TraceError(ex.Message);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+                throw;
             }
 
-            return Mapper.Map<List<FileSystem>, List<FileSystemDTO>>(fileSystem);
+            return Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystem);
         }
 
         public void InsertFileSystem(FileSystemDTO model)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystem>());
             var fileSystem = Mapper.Map<FileSystem>(model);
-            _fileSyatemRepository.InsertObject(fileSystem);
+            try
+            {
+                _fileSystemRepository.InsertObject(fileSystem);
+            }
+            catch (DataException ex)
+            {
+                Trace.TraceError(ex.Message);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+                throw;
+            }
         }
     }
 }
