@@ -1,0 +1,16 @@
+﻿@model MediaPortal.Models.FileSystemModels
+
+
+<div class="col-md-3 FileSystemListItem">
+    
+        @if (Model.Type.Equals("Folder"))
+        {
+            <span id="iconFolder"></span>
+        }
+        else
+        {
+            <span id="iconFile"></span>
+        }
+
+        @Model.Name
+</div>

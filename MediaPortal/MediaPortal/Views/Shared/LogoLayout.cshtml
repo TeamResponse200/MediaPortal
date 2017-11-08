@@ -50,10 +50,10 @@
                 <div class="col-md-6" id="userRoutes">Мои файлы </div>
             }
             <div class="col-md-6">
-                <div class="btn col-md-4 textUsual" id="userSettings" data-toggle="modal" data-target="#accessesFolderModal">
+                <div class="btn col-md-4 textUsual userSettings"  data-toggle="modal" data-target="#accessesFolderModal">
                     Настройки доступа
                 </div>
-                <div class="col-md-4" id="userSettings">
+                <div class="col-md-4 userSettings">
                     <button type="button" id="mainDropDownButton" class="btn dropdown-toggle textUsual" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         По дате создания <span id="iconSortFilter"></span>
                     </button>
@@ -150,6 +150,7 @@
     
 @RenderBody()
 
+@RenderSection("scripts",false)
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
@@ -159,17 +160,23 @@
             $(this).toggleClass("active");
         });
 
-        $("#FileSystemListItem").click(function () {
-            alert(hello);
-            $(this).find("iconFolder").toggleClass("folderActive");
-            $("downloadHiddentButton").toggle();
+        $(".FileSystemListItem").dblclick(function () {
+            //alert("hello");
+           
         });
-        $("#FileSystemListItem").click(function () {
-            alert(hello);
+        $(".FileSystemListItem").click(function () {
+            //alert("hello");
+            $(this).find("#iconFolder").toggleClass("folderActive");
+            $("downloadHiddenButton").toggle();
         });
-        $("#defaultLogo").click(function () {
-            alert(hello);
-        });
+        $(".buttonList").click(function() {
+            document.cookie = "viewType=List";
+            location.reload();
+        })
+        $(".buttonTile").click(function () {
+            document.cookie = "viewType=BlockView";
+            location.reload();
+        })
     </script>
 
 </body>

@@ -39,6 +39,17 @@ namespace MediaPortal.Controllers
         [Authorize]
         public ActionResult UserFiles(int? folderID, string folderName)
         {
+            string viewType = string.Empty;
+            if (Request.Cookies["viewType"] != null)
+            {
+                viewType = Request.Cookies["viewType"].Value.ToString();
+            }
+            else
+            {
+                Response.Cookies["viewType"].Value = "List";
+            }
+
+
             string userId = User.Identity.GetUserId();
             List<FileSystemModels> files = null;
             List<FileSystemDTO> fileSystemDtos;
@@ -55,12 +66,18 @@ namespace MediaPortal.Controllers
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
             files = Mapper.Map<List<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
-            var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
-            ViewBag.Folders = folders;
+            //var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
+            //ViewBag.Folders = folders;
+            ViewBag.FolderID = folderID;
 
             if (folderID != null)
             {
                 ViewBag.FolderPath = folderName;
+            }
+
+            if (viewType.Equals("BlockView"))
+            {
+                return View("UserFilesBlock", files);
             }
 
             return View(files);
@@ -85,8 +102,8 @@ namespace MediaPortal.Controllers
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
             files = Mapper.Map<List<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
-            var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
-            ViewBag.Folders = folders;
+            //var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
+            //ViewBag.Folders = folders;
 
             if (folderID != null)
             {
@@ -108,7 +125,7 @@ namespace MediaPortal.Controllers
 
             _fileSystemService.InsertFileSystem(fileSystem);
 
-            return RedirectToAction("UserFiles", "Home");
+            return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name});
         }
 
         public ActionResult Contact()

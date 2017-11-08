@@ -237,7 +237,7 @@ button.dropDownButton {
     text-decoration:none;
 }
 
-#userSettings {
+.userSettings {
     border-right: 1px solid #e8e9ec;
 }
 
@@ -270,7 +270,7 @@ button.dropDownButton {
 
 /* FileSystemView*/
 
-#fileSystemListItem {
+.fileSystemListItem {
     border: 1px solid black;
     border-radius: 5px;
     padding-top: 3px;
@@ -281,7 +281,7 @@ button.dropDownButton {
     height: 40px;
 }
 
-#fileSystemListItem:hover {
+.fileSystemListItem:hover {
     background-color: lightgray;
 }
 
@@ -422,4 +422,22 @@ background-color:white;
     color: rgb(153, 153, 153);
     padding-left: 7%;
     padding-top: 2%;
+}
+
+.thumbnail {
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 0 4px 2px -2px gray;
+    margin-bottom: 30px;
+}
+.thumbnail img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 150px;
+    width: 100%;
+}
+
+
+.file-block-item {
+
 }

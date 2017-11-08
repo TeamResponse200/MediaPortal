@@ -13,3 +13,12 @@ C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortalDB\bin\D
 C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
 C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
 C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
+C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dacpac
+C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
+C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\Model.xml
+C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\refactor.xml
+C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\postdeploy.sql
+C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql
+C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb

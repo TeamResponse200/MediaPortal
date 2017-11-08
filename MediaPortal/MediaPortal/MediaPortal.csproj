@@ -362,6 +362,7 @@
     <Content Include="Views\Shared\FileSystemView.cshtml" />
     <Content Include="Views\Home\UserFilesBlock.cshtml" />
     <Content Include="Views\Shared\FileSystemBlockView.cshtml" />
+    <Content Include="Views\Shared\FileSystemFolderBlockView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

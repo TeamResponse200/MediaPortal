@@ -29,26 +29,33 @@ else
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <div class="col-md-3 col-md-offset-1">Название</div>
-                    <div class="col-md-2 col-md-push-3">Теги</div>
+                    <div class="col-md-3">Название</div>
                 </div>
                 <div class="col-md-9">
+                    <div class="row">
+                    <div class="col-md-12">
 
                     @foreach (var item in Model)
-                {
-                    if (item.Type.Equals("Folder"))
                     {
-                            @Html.Partial("FileSystemView", item)
+                        if (item.Type.Equals("Folder"))
+                        {
+                            @Html.Partial("FileSystemFolderBlockView", item)
                         }
                     }
-                    @foreach (var item in Model)
-                {
-                    if (!item.Type.Equals("Folder"))
-                    {
-                            @Html.Partial("FileSystemBlockView", item)
-                        }
-                    }
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @foreach (var item in Model)
+                        {
+                            if (!item.Type.Equals("Folder"))
+                            {
+                                @Html.Partial("FileSystemBlockView", item)
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
                 <div class="col-md-2 col-md-offset-1 ">
                     @Html.Partial("_UploadCreatePartial", new FileSystemModels())
                 </div>

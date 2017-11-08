@@ -1,12 +1,13 @@
 ﻿@model MediaPortal.Models.FileSystemModels
 
 
-<div class="col-md-3" id="FileSystemBlockItem">
-    
-    <div class="fileBlockTitle">
-        <div class="col-md-1">
-            <span id="iconFile"></span>
+<div class="col-sm-6 col-md-3">
+        <div class="thumbnail file-block-item">
+            <img src="@Model.BlobLink" alt="blobLink">
+            <div class="caption">
+                <span id="iconFile"></span>
+                <span class="file-name">@Model.Name</span>
+            </div>
         </div>
-        <div class="col-md-3 col-md-push-2" id="fileNameListitem">@Model.Name</div>
-    </div>
 </div>
+
