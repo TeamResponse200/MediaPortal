@@ -17,15 +17,7 @@ namespace MediaPortal.Controllers
     public class HomeController : Controller
     {
         private IFileSystemService _fileSystemService;
-        private List<int> GetTree(int userID,int? folderID)
-        {
-            var tree = new List<int>();
-
-            
-
-            return tree;
-        }
-
+       
         public HomeController(IFileSystemService fileSystemService)
         {
             _fileSystemService = fileSystemService;
