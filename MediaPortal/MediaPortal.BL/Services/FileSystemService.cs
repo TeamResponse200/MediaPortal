@@ -30,7 +30,7 @@ namespace MediaPortal.BL.Services
         {
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
 
-            var fileSystems = _fileSystemRepository.GetAll();
+            var fileSystems = _fileSystemRepository.GetAll(userId);
 
             return Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystems);
         }
@@ -75,6 +75,45 @@ namespace MediaPortal.BL.Services
                 Trace.TraceError(ex.Message);
                 throw;
             }
+        }
+
+        public Tuple<List<int?>, List<string>> GetFoldersIdNamePair(int? folderID,string userId)
+        {
+            var folderIDs = new List<int?>();
+            var folderNames = new List<string>();
+            IEnumerable<FileSystemDTO> allFiles = new List<FileSystemDTO>();
+
+            folderIDs.Add(folderID);
+            try
+            {
+                allFiles = GetAllUserFileSystem(userId);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+                throw;
+            }
+            while (folderID != null)
+            {
+
+                var parentID = allFiles.Where(file => file.Id == folderID).FirstOrDefault().ParentId;
+                if (parentID != null)
+                {
+                    folderIDs.Add(parentID);
+                }
+                folderID = parentID;
+            }
+
+            foreach (int? id in folderIDs)
+            {
+                var name = allFiles.Where(file => file.Id == id).FirstOrDefault().Name;
+                folderNames.Add(name);
+            }
+
+            folderIDs.Reverse();
+            folderNames.Reverse();
+
+            return new Tuple<List<int?>, List<string>>(folderIDs, folderNames);
         }
     }
 }

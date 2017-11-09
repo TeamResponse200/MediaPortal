@@ -13,6 +13,8 @@ namespace MediaPortal.BL.Interface
 
         IEnumerable<FileSystemDTO> GetUserFileSystem(string userId, int? fileSystemParentId = null);
 
+        Tuple<List<int?>, List<string>> GetFoldersIdNamePair(int? folderID, string userId);
+
         void InsertFileSystem(FileSystemDTO model);
     }
 }

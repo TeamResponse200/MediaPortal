@@ -17,6 +17,14 @@ namespace MediaPortal.Controllers
     public class HomeController : Controller
     {
         private IFileSystemService _fileSystemService;
+        private List<int> GetTree(int userID,int? folderID)
+        {
+            var tree = new List<int>();
+
+            
+
+            return tree;
+        }
 
         public HomeController(IFileSystemService fileSystemService)
         {
@@ -67,33 +75,49 @@ namespace MediaPortal.Controllers
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
-            //var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
-            //ViewBag.Folders = folders;
-            ViewBag.FolderID = folderID;
+            var folderIDs = new List<int?>();
+            var folderNames = new List<string>();
 
             if (folderID != null)
             {
-                ViewBag.FolderPath = folderName;
+                var tupleIdName = _fileSystemService.GetFoldersIdNamePair(folderID, userId);
+                folderIDs = tupleIdName.Item1;
+                folderNames = tupleIdName.Item2;
             }
+
+            var viewModel = new UserFilesViewModels() { Files = files, FolderIDs = folderIDs, FolderNames = folderNames };
 
             if (viewType.Equals("BlockView"))
             {
-                return View("UserFilesBlock", files);
+                return View("UserFilesBlock", viewModel);
             }
 
-            return View(files);
+            return View(viewModel);
         }
 
         [Authorize]
-        public ActionResult UserFilesBlock(int? folderID, string folderName)
+        [HttpPost]
+        public ActionResult SearchFiles(string searchValue)
         {
+            string viewType = string.Empty;
+            if (Request.Cookies["viewType"] != null)
+            {
+                viewType = Request.Cookies["viewType"].Value.ToString();
+            }
+            else
+            {
+                Response.Cookies["viewType"].Value = "List";
+            }
+
             string userId = User.Identity.GetUserId();
             List<FileSystemModels> files = null;
+            IEnumerable<FileSystemDTO> allFileSystemDtos;
             IEnumerable<FileSystemDTO> fileSystemDtos;
 
             try
             {
-                fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, folderID);
+                allFileSystemDtos = _fileSystemService.GetAllUserFileSystem(userId);
+                fileSystemDtos = allFileSystemDtos.Where(file => file.Name.Contains(searchValue));
             }
             catch (Exception)
             {
@@ -104,25 +128,25 @@ namespace MediaPortal.Controllers
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
-            //var folders = files.Where(m => m.Type.Equals("Folder")).ToList();
-            //ViewBag.Folders = folders;
+            var viewModel = new UserFilesViewModels() { Files = files,FolderIDs = new List<int?>(),FolderNames = new List<string>()};
 
-            if (folderID != null)
+            if (viewType.Equals("BlockView"))
             {
-                ViewBag.FolderPath = folderName;
+                return View("UserFilesBlock", viewModel);
             }
 
-            return View(files);
+            return View("UserFiles", viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult CreateFolder(FileSystemModels model,string returnUrl)
+        public ActionResult CreateFolder(FileSystemModels model, string returnUrl)
         {
+
             model.UserId = User.Identity.GetUserId();
             model.Type = "Folder";
 
-            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemModels,FileSystemDTO>());
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemModels, FileSystemDTO>());
             var fileSystem = Mapper.Map<FileSystemDTO>(model);
 
             try
@@ -134,8 +158,14 @@ namespace MediaPortal.Controllers
                 // some logic for user
                 return View("Error");
             }
-
-            return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name});
+            if (model.ParentId == null)
+            {
+                return RedirectToAction("UserFiles");
+            }
+            else
+            {
+                return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name });
+            }
         }
 
         public ActionResult Contact()

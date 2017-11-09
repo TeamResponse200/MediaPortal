@@ -1,12 +1,38 @@
 ﻿@using MediaPortal.Models
-@model IList<MediaPortal.Models.FileSystemModels>
+@model UserFilesViewModels
 @{
     ViewBag.Title = "UserFilesTitle";
     Layout = "~/Views/Shared/LogoLayout.cshtml";
 }
 
-@if (Model.ToList().Count == 0)
+@section userRoutes{
+    @for (var i = 0; i < Model.FolderIDs.Count; i++)
+    {
+        <span id="icon-href-delimiter"></span>
+        @Html.ActionLink(Model.FolderNames.ElementAt(i), "UserFiles", "Home", new { folderID = Model.FolderIDs.ElementAt(i) }, htmlAttributes: null)
+        
+    }
+}
+
+@if (Model.Files.ToList().Count == 0)
 {
+    if (Request.Cookies["registered"] == null)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-12 registerText">Эта папка пустая.
+                    <br />
+                    Пожалуйста загрузите ваши файлы.</div>
+                    <div class="col-md-4 col-md-offset-4">
+                        @Html.Partial("_UploadCreatePartial", new FileSystemModels() { ParentId = Model.FolderIDs.Count != 0 ? Model.FolderIDs.Last() : null })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -17,11 +43,12 @@
                     с остальными пользователями!
                 </div>
                 <div class="col-md-4 col-md-offset-4">
-                    @Html.Partial("_UploadCreatePartial", new FileSystemModels())
+                    @Html.Partial("_UploadCreatePartial", new FileSystemModels() { ParentId = Model.FolderIDs.Count != 0 ? Model.FolderIDs.Last() : null })
                 </div>
             </div>
         </div>
     </div>
+    }
 }
 else
 {
@@ -35,7 +62,7 @@ else
                     <div class="row">
                     <div class="col-md-12">
 
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Files)
                     {
                         if (item.Type.Equals("Folder"))
                         {
@@ -46,7 +73,7 @@ else
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Files)
                         {
                             if (!item.Type.Equals("Folder"))
                             {
@@ -57,9 +84,24 @@ else
                 </div>
             </div>
                 <div class="col-md-2 col-md-offset-1 ">
-                    @Html.Partial("_UploadCreatePartial", new FileSystemModels())
+                    @Html.Partial("_UploadCreatePartial", new FileSystemModels() { ParentId = Model.FolderIDs.Count != 0 ? Model.FolderIDs.Last() : null })
                 </div>
             </div>
         </div>
     </div>
+}
+
+@section scripts {
+    <script>
+        $(".fileSystem-list-item").dblclick(function () {
+
+            var folderId = $(this).attr("name");
+            var folderName = $(this).attr("folder-name");
+            var link = "/Home/UserFiles/" + folderId + "/" + folderName;
+
+            window.location.href = link;
+
+        });
+
+    </script>
 }

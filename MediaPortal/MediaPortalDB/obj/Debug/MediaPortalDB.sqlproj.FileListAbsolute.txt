@@ -22,3 +22,12 @@ C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortal
 C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql
 C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
 C:\Users\1\Desktop\MediaService\Проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
+D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dacpac
+D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dll
+D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
+D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\Model.xml
+D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\refactor.xml
+D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\postdeploy.sql
+D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql
+D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
+D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
