@@ -485,3 +485,37 @@ background-color:white;
 .file-block-item {
 
 }
+
+
+.hide {
+    display: none;
+}
+
+#rmenu {
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    box-shadow: -2px 2px 6px -2px #969696;
+}
+
+.rmenu-ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    color: rgb(153, 153, 153);
+}
+
+.rmenu-li {
+    list-style: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid #e8e9ec;
+    cursor: pointer;
+}
+
+    .rmenu-li:hover {
+        background-color: #eeeeee;
+    }
