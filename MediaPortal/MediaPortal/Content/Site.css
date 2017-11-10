@@ -486,6 +486,14 @@ background-color:white;
 
 }
 
+.ModalDeleterr {
+    margin: 0;
+}
+
+.ModalDeleterr1 {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
 
 .hide {
     display: none;

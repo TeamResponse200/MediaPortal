@@ -656,3 +656,5 @@ D:\SoftThemeProject\101117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\Me
 D:\SoftThemeProject\101117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.csproj.CoreCompileInputs.cache
 D:\SoftThemeProject\101117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.dll
 D:\SoftThemeProject\101117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.pdb
+C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.WindowsAzure.Configuration.dll
+C:\Users\1\Desktop\intership\PROJECT\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.WindowsAzure.Configuration.xml
