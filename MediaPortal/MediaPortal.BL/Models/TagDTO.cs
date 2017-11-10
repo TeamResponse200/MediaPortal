@@ -12,5 +12,7 @@ namespace MediaPortal.BL.Models
         public int Id { get; set; }
         
         public string Name { get; set; }
+
+        public virtual ICollection<FileSystemDTO> FileSystems { get; set; }
     }
 }

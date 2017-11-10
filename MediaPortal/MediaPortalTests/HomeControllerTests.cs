@@ -22,8 +22,7 @@ namespace MediaPortalTests
             _fileSystemService = Substitute.For<IFileSystemService>();
             _controller = new HomeController(_fileSystemService);
         }
-
-        [Test]
+        
         public void UserFiles_Correct()
         {
             int? folderId = null;

@@ -38,7 +38,7 @@ namespace MediaPortal.Data.EntitiesModel
         [StringLength(256)]
         public string BlobLink { get; set; }
 
-        [StringLength(1)]
+        [StringLength(256)]
         public string BlobThumbnail { get; set; }
 
         public virtual AspNetUser AspNetUser { get; set; }

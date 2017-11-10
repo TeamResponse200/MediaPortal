@@ -59,5 +59,51 @@ namespace MediaPortal.Data.Repositories
                 dbContext.SaveChanges();
             }
         }
+
+        public void DeleteFileSystem(int fileSystemId)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                var fileSystem = dbContext.FileSystems.Where(x => x.Id == fileSystemId).FirstOrDefault();
+
+                if (fileSystem != null)
+                {
+                    dbContext.FileSystems.Remove(fileSystem);
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+
+        public void RenameFileSystem(int fileSystemId, string name)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                var fileSystem = dbContext.FileSystems.Where(x => x.Id == fileSystemId).FirstOrDefault();
+
+                if (fileSystem != null)
+                {
+                    fileSystem.Name = name;
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+
+        public void AddTag(int fileSystemId, List<Tag> tags)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                var fileSystem = dbContext.FileSystems.Where(x => x.Id == fileSystemId).FirstOrDefault();
+
+                if (fileSystem != null)
+                {
+                    foreach (var tag in tags)
+                    {
+                        fileSystem.Tags.Add(tag);
+                    }
+
+                    dbContext.SaveChanges();
+                }
+            }
+        }
     }
 }

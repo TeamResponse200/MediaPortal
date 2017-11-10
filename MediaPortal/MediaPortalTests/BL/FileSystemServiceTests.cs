@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MediaPortal.BL.Interface;
 using MediaPortal.BL.Models;
 using MediaPortal.BL.Services;
@@ -12,14 +13,14 @@ namespace MediaPortalTests.BL
 {
     public class FileSystemServiceTests
     {
-        private IFileSystemRepository<FileSystem> _fileSyatemRepository;
+        private IFileSystemRepository<FileSystem> _fileSystemRepository;
         private IFileSystemService _fileSystemService;
 
         [SetUp]
         public void SetUp()
         {
-            _fileSyatemRepository = Substitute.For<IFileSystemRepository<FileSystem>>();
-            _fileSystemService = new FileSystemService(_fileSyatemRepository);
+            _fileSystemRepository = Substitute.For<IFileSystemRepository<FileSystem>>();
+            _fileSystemService = new FileSystemService(_fileSystemRepository);
         }
 
         [Test]
@@ -29,10 +30,10 @@ namespace MediaPortalTests.BL
             string userId = "userId";
             var fileSystems = GetMockFileSystems(userId);
 
-            _fileSyatemRepository.GetAll().Returns(fileSystems);
+            _fileSystemRepository.GetAll(userId).Returns(fileSystems);
 
             // Act
-            List<FileSystemDTO> dto = _fileSystemService.GetAllUserFileSystem(userId);
+            List<FileSystemDTO> dto = _fileSystemService.GetAllUserFileSystem(userId).ToList();
 
             // Assert
             Assert.AreEqual(fileSystems.Count, dto.Count);
@@ -52,10 +53,10 @@ namespace MediaPortalTests.BL
             string userId = "userId";
             var fileSystems = GetMockFileSystems(userId);
 
-            _fileSyatemRepository.GetAll(userId, fileSystemParentId).Returns(fileSystems);
+            _fileSystemRepository.GetAll(userId, fileSystemParentId).Returns(fileSystems);
 
             // Act
-            List<FileSystemDTO> dto = _fileSystemService.GetUserFileSystem(userId, fileSystemParentId);
+            List<FileSystemDTO> dto = _fileSystemService.GetUserFileSystem(userId, fileSystemParentId).ToList();
 
             // Assert
             Assert.AreEqual(fileSystems.Count, dto.Count);
@@ -74,10 +75,10 @@ namespace MediaPortalTests.BL
             // Arrange
             string userId = "userId";
 
-            _fileSyatemRepository.GetAll(userId, fileSystemParentId).Returns(x => { throw new Exception(); });
+            _fileSystemRepository.GetAll(userId, fileSystemParentId).Returns(x => { throw new Exception(); });
 
-            // Act
-            List<FileSystemDTO> dto = _fileSystemService.GetUserFileSystem(userId, fileSystemParentId);
+            // Assert
+            Assert.Throws<Exception>(() => _fileSystemService.GetUserFileSystem(userId, fileSystemParentId));
 
             // TODO: write test for logger
         }

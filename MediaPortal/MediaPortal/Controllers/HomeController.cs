@@ -58,13 +58,17 @@ namespace MediaPortal.Controllers
             {
                 fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, folderID);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // some logic for user
                 return View("Error");
             }
 
-            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
+            //Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
+
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>()
+                .ForMember(dest => dest.Tags, opt => opt.Ignore()));
+
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
             var folderIDs = new List<int?>();
@@ -117,7 +121,11 @@ namespace MediaPortal.Controllers
                 return View("Error");
             }
 
-            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
+            //Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
+
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>()
+                .ForMember(dest => dest.Tags, opt => opt.Ignore()));
+
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
             var viewModel = new UserFilesViewModels() { Files = files,FolderIDs = new List<int?>(),FolderNames = new List<string>()};
@@ -158,6 +166,57 @@ namespace MediaPortal.Controllers
             {
                 return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name });
             }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult DeleteFileSystem(FileSystemModels model, string returnUrl)
+        {
+            try
+            {
+                _fileSystemService.DeleteFileSystem(model.Id);
+            }
+            catch (DataException)
+            {
+                // some logic for user
+                return View("Error");
+            }
+
+            return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult RenameFileSystem(FileSystemModels model, string returnUrl)
+        {
+            try
+            {
+                _fileSystemService.RenameFileSystem(model.Id, model.Name);
+            }
+            catch (DataException)
+            {
+                // some logic for user
+                return View("Error");
+            }
+
+            return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddTag(FileSystemModels model, string tegName)
+        {
+            try
+            {
+                _fileSystemService.AddTag(model.Id, tegName);
+            }
+            catch (DataException)
+            {
+                // some logic for user
+                return View("Error");
+            }
+
+            return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name });
         }
 
         public ActionResult Contact()

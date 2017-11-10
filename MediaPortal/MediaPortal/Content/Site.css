@@ -257,6 +257,26 @@ button.dropDownButton {
     color: rgb(255, 255, 255);
     background-color: #514bc8;
     margin-top: 25px;
+    padding: 0;
+}
+
+.file-upload {
+    opacity: 0;
+    cursor: pointer;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    height: 7px;
+}
+
+.upload-file-label {
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.upload-file-span {
+    height: 7px;
 }
 
 #folderCreateButton {

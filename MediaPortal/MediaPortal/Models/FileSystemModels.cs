@@ -21,6 +21,6 @@ namespace MediaPortal.Models
 
         public string BlobLink { get; set; }
 
-        public string BlobThumbnail { get; set; }
+        public virtual ICollection<TagModels> Tags { get; set; }
     }
 }

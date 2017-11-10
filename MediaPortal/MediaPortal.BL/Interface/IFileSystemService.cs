@@ -16,5 +16,11 @@ namespace MediaPortal.BL.Interface
         Tuple<List<int?>, List<string>> GetFoldersIdNamePair(int? folderID, string userId);
 
         void InsertFileSystem(FileSystemDTO model);
+
+        void DeleteFileSystem(int fileSystemId);
+
+        void RenameFileSystem(int fileSystemId, string name);
+
+        void AddTag(int fileSystemId, string tegName);
     }
 }
