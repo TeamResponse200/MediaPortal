@@ -129,11 +129,14 @@
     margin-top: 10px;
 }
 
-#IconSearch {
+.IconSearch {
     content: url(/Content/icons/search.svg);
     height: 16px;
     width: 16px;
     margin-right: 10px;
+}
+.IconSearch:hover {
+    content: url(/Content/)
 }
 
 #iconSearchFilter {
@@ -299,7 +302,22 @@ button.dropDownButton {
 
 
 /* FileSystemView*/
-
+.fileSystem-list-item-folder {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: white;
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fileSystem-list-item-folder .element-name {
+    padding-top:5px;
+}
 .fileSystem-list-item {
     border: 1px solid black;
     border-radius: 5px;
@@ -313,6 +331,16 @@ button.dropDownButton {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+    .fileSystem-list-item-folder:hover {
+        background-color: lightgray;
+    }
+
+.fileSystem-list-item-folder-active {
+    color: blue;
+    border: 1px solid blue;
+    background-color: lightgray;
+}
+
 
 .fileSystem-list-item .element-name{
     padding-top:5px;
@@ -320,7 +348,6 @@ button.dropDownButton {
 
 .fileSystem-list-item:hover {
     background-color: lightgray;
-    overflow:visible;
 }
 .fileSystem-list-item-active {
     color:blue;

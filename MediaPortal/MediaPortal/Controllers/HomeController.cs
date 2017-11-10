@@ -26,7 +26,7 @@ namespace MediaPortal.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return RedirectToAction("UserFiles");
+            return RedirectToAction("UserFiles","Home");
         }
 
         [Authorize]

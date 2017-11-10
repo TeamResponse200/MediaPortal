@@ -31,3 +31,8 @@ D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\postd
 D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql
 D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
 D:\SoftThemeProject\091117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
+C:\Users\1\Desktop\MediaService\111017\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dacpac
+C:\Users\1\Desktop\MediaService\111017\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\MediaService\111017\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
+C:\Users\1\Desktop\MediaService\111017\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\MediaService\111017\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb

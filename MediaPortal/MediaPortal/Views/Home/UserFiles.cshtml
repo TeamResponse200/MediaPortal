@@ -119,9 +119,9 @@ else
 
 @section scripts {
     <script>
-        $(".fileSystem-list-item").dblclick(function () {
+        $(".fileSystem-list-item-folder").dblclick(function () {
 
-            var folderId = $(this).attr("name");
+            var folderId = $(this).data("name");
             var folderName = $(this).attr("folder-name");
             var link = "/Home/UserFiles/" + folderId + "/" + folderName;
 
@@ -131,10 +131,17 @@ else
         $(".fileSystem-list-item").click(function () {
             $(this).toggleClass("fileSystem-list-item-active");
         });
+        $(".fileSystem-list-item-folder").click(function () {
+            $(this).toggleClass("fileSystem-list-item-folder-active");
+        });
     </script>
 
 <script>
-
+        //var els = $('.col-md-1');
+        //for (var i = 0; i < els.length; i++) {
+        //    debugger;
+        //    els[i].addEventListener;
+        //}
         if (document.getElementById('context-menu').addEventListener) {
             document.getElementById('context-menu').addEventListener('contextmenu', function (e) {
                 $("#rmenu").toggleClass("hide");

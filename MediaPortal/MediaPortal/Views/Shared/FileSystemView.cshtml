@@ -1,23 +1,36 @@
 ﻿@model MediaPortal.Models.FileSystemModels
 
+@if (Model.Type.Equals("Folder"))
+{
+    <div class="col-md-12 fileSystem-list-item-folder" data-name="@Model.Id" data-folder-name="@Model.Name">
+        <div class="col-md-1">
+           
+                <span id="iconFolder"></span>
+           
+        </div>
+        <div class="col-md-8 file-name-list-item">
+            @Model.Name
+            @*@Html.ActionLink("linkText","UserFiles","Home", routeValues: new { folderID = Model.Id, folderName = Model.Name },htmlAttributes: null)*@
+        </div>
+        <div class="col-md-3" id="fileTagListItem"> + Добавить тег</div>
 
-<div class="col-md-12 fileSystem-list-item" name="@Model.Id" folder-name="@Model.Name">
-    <div class="col-md-1">
-        @if (Model.Type.Equals("Folder"))
-        {
-            <span id="iconFolder"></span>
-        }
-        else
-        {
-            <span id="iconFile"></span>
-        }
+
     </div>
-    <div class="col-md-8 file-name-list-item">
-        @Model.Name
-        @*@Html.ActionLink("linkText","UserFiles","Home", routeValues: new { folderID = Model.Id, folderName = Model.Name },htmlAttributes: null)*@
-    </div>
-    <div class="col-md-3" id="fileTagListItem"> + Добавить тег</div>
+}
+else
+{
+    <div class="col-md-12 fileSystem-list-item" name="@Model.Id" folder-name="@Model.Name" >
+        <div class="col-md-1">
+                <span id="iconFile"></span>
+        </div>
+        <div class="col-md-8 file-name-list-item">
+            @Model.Name
+            @*@Html.ActionLink("linkText","UserFiles","Home", routeValues: new { folderID = Model.Id, folderName = Model.Name },htmlAttributes: null)*@
+        </div>
+        <div class="col-md-3" id="fileTagListItem"> + Добавить тег</div>
 
     
-</div>
+    </div>
+}
+
 

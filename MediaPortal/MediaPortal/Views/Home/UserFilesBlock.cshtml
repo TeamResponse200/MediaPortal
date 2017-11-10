@@ -60,32 +60,61 @@ else
                 </div>
                 <div class="col-md-9">
                     <div class="row">
-                    <div class="col-md-12">
+                        <div class="col-md-12" id="context-menu">
 
-                    @foreach (var item in Model.Files)
-                    {
-                        if (item.Type.Equals("Folder"))
-                        {
-                            @Html.Partial("FileSystemFolderBlockView", item)
-                        }
-                    }
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        @foreach (var item in Model.Files)
-                        {
-                            if (!item.Type.Equals("Folder"))
+                            @foreach (var item in Model.Files)
                             {
-                                @Html.Partial("FileSystemBlockView", item)
+                                if (item.Type.Equals("Folder"))
+                                {
+                                    @Html.Partial("FileSystemFolderBlockView", item)
+                                }
                             }
-                        }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @foreach (var item in Model.Files)
+                            {
+                                if (!item.Type.Equals("Folder"))
+                                {
+                                    @Html.Partial("FileSystemBlockView", item)
+                                }
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
                 <div class="col-md-2 col-md-offset-1 ">
                     @Html.Partial("_UploadCreatePartial", new FileSystemModels() { ParentId = Model.FolderIDs.Count != 0 ? Model.FolderIDs.Last() : null })
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-1 hide" id="rmenu">
+        <ul class="rmenu-ul">
+            <li class="rmenu-li">Переименовать</li>
+            <li class="rmenu-li">Добавить тег</li>
+            <li class="rmenu-li">Скачать файл</li>
+            <li class="rmenu-li" data-toggle="modal" data-target="#ModalDelete">Удалить файл</li>
+        </ul>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade " id="ModalDelete" role="dialog">
+        <div class="modal-dialog ">
+            <!-- Modal content-->
+            <div class="modal-content col-md-6 col-md-offset-4  ModalDeleteww">
+
+                <div class="modal-body col-md-12 col-md-offset-1  ModalDeleterr">
+                    <div class="col-md-12 ModalDeleterr1">
+                        Вы уверенны, что хотите удалить этот файл
+                    </div>
+                    <div class="col-md-12 ModalDeleterr ModalDeleterr1">
+                        <div class="btn btn-primary col-md-5 ModalDeletecastomPadBot">Ой нет!</div>
+                        <div class="btn btn-primary col-md-5 col-md-offset-1  ModalDeletebtn-primary2 ModalDeletecastomPadBot">Да, удалить!</div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -106,5 +135,28 @@ else
             $(this).toggleClass("fileSystem-list-item-active");
         });
 
+    </script>
+    
+    <script>
+
+        if (document.getElementById('context-menu').addEventListener) {
+            document.getElementById('context-menu').addEventListener('contextmenu', function (e) {
+                $("#rmenu").toggleClass("hide");
+                $("#rmenu").css({
+                        position: "absolute",
+                        top: e.pageY,
+                        left: e.pageX
+                    }
+                );
+                e.preventDefault();
+            }, false);
+        }
+
+    </script>
+
+    <script>
+        $(document).bind("click", function (event) {
+            document.getElementById("rmenu").className = "col-md-1 hide";
+        });
     </script>
 }
