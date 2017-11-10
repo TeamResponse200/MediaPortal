@@ -21,7 +21,7 @@
                 
                     
                     @using (Html.BeginForm("SearchFiles", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
+                    {
                         @Html.AntiForgeryToken()
                         <div class="input-group input-group-sm" id="customSearch">
                             <span class="input-group-addon" id="sizing-addon"><span id="IconSearch"></span></span>
@@ -51,7 +51,7 @@
 <div class="secondHeaderBlock">
     <div class="container">
         <div class="row">
-            <div class="col-md-6" id="userRoutes"><a href="https://localhost:44369/Home/UserFiles">Мои файлы</a>@RenderSection("userRoutes",required:false) </div>
+            <div class="col-md-6" id="userRoutes">@Html.ActionLink("Мои файлы","Index","Home",null,null) @RenderSection("userRoutes", required: false) </div>
            
             <div class="col-md-6">
                 <div class="btn col-md-4 textUsual userSettings"  data-toggle="modal" data-target="#accessesFolderModal">
