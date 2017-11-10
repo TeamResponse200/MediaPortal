@@ -113,7 +113,7 @@ namespace MediaPortal.Controllers
             try
             {
                 allFileSystemDtos = _fileSystemService.GetAllUserFileSystem(userId);
-                fileSystemDtos = allFileSystemDtos.Where(file => file.Name.Contains(searchValue));
+                fileSystemDtos = allFileSystemDtos.Where(file => file.Name.ToLower().Contains(searchValue.ToLower()));
             }
             catch (Exception)
             {
