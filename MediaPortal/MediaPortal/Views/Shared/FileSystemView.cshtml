@@ -1,8 +1,10 @@
-﻿@model MediaPortal.Models.FileSystemModels
+﻿@using MediaPortal.Models
+
+@model FileSystemModels
 
 @if (Model.Type.Equals("Folder"))
 {
-    <div class="col-md-12 fileSystem-list-item-folder" data-name="@Model.Id" data-folder-name="@Model.Name">
+    <div class="col-md-12 fileSystem-list-item-folder context-menu-folder" data-name="@Model.Id" data-folder-name="@Model.Name">
         <div class="col-md-1">
            
                 <span id="iconFolder"></span>
@@ -13,13 +15,12 @@
             @*@Html.ActionLink("linkText","UserFiles","Home", routeValues: new { folderID = Model.Id, folderName = Model.Name },htmlAttributes: null)*@
         </div>
         <div class="col-md-3" id="fileTagListItem"> + Добавить тег</div>
-
-
     </div>
+   
 }
 else
 {
-    <div class="col-md-12 fileSystem-list-item" name="@Model.Id" folder-name="@Model.Name" >
+    <div class="col-md-12 fileSystem-list-item context-menu-file" data-name="@Model.Id" data-file-name="@Model.Name" >
         <div class="col-md-1">
                 <span id="iconFile"></span>
         </div>
@@ -27,10 +28,6 @@ else
             @Model.Name
             @*@Html.ActionLink("linkText","UserFiles","Home", routeValues: new { folderID = Model.Id, folderName = Model.Name },htmlAttributes: null)*@
         </div>
-        <div class="col-md-3" id="fileTagListItem"> + Добавить тег</div>
-
-    
+        <div class="col-md-3" id="fileTagListItem"> + Добавить тег</div>    
     </div>
 }
-
-

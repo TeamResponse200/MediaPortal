@@ -60,7 +60,7 @@ else
                 </div>
                 <div class="col-md-9">
                     <div class="row">
-                        <div class="col-md-12" id="context-menu">
+                        <div class="col-md-12">
 
                             @foreach (var item in Model.Files)
                             {
@@ -89,43 +89,53 @@ else
             </div>
         </div>
     </div>
+   
+}
 
-    <div class="col-md-1 hide" id="rmenu">
-        <ul class="rmenu-ul">
-            <li class="rmenu-li">Переименовать</li>
-            <li class="rmenu-li">Добавить тег</li>
-            <li class="rmenu-li">Скачать файл</li>
-            <li class="rmenu-li" data-toggle="modal" data-target="#ModalDelete">Удалить файл</li>
-        </ul>
-    </div>
+<div class="col-md-1 hide rmenu" id="rmenu-folder">
+    <ul class="rmenu-ul">
+        <li class="rmenu-li" id="rename">Переименовать</li>
+        <li class="rmenu-li" id="add-tag">Добавить тег</li>
+        <li class="rmenu-li" id="zip-download">Скачать ZIP-архив</li>
+        <li class="rmenu-li" id="folder-delete" data-toggle="modal" data-target="#ModalDelete">Удалить папку</li>
+    </ul>
+</div>
 
-    <!-- Modal -->
-    <div class="modal fade " id="ModalDelete" role="dialog">
-        <div class="modal-dialog ">
-            <!-- Modal content-->
-            <div class="modal-content col-md-6 col-md-offset-4  ModalDeleteww">
+<div class="col-md-1 hide rmenu" id="rmenu-file">
+    <ul class="rmenu-ul">
+        <li class="rmenu-li" id="rename">Переименовать</li>
+        <li class="rmenu-li" id="add-tag">Добавить тег</li>
+        <li class="rmenu-li" id="file-download">Скачать файл</li>
+        <li class="rmenu-li" id="file-delete" data-toggle="modal" data-target="#ModalDelete">Удалить файл</li>
+    </ul>
+</div>
 
-                <div class="modal-body col-md-12 col-md-offset-1  ModalDeleterr">
-                    <div class="col-md-12 ModalDeleterr1">
-                        Вы уверенны, что хотите удалить этот файл
-                    </div>
-                    <div class="col-md-12 ModalDeleterr ModalDeleterr1">
-                        <div class="btn btn-primary col-md-5 ModalDeletecastomPadBot">Ой нет!</div>
-                        <div class="btn btn-primary col-md-5 col-md-offset-1  ModalDeletebtn-primary2 ModalDeletecastomPadBot">Да, удалить!</div>
-                    </div>
+<!-- Modal -->
+<div class="modal fade " id="ModalDelete" role="dialog">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content col-md-6 col-md-offset-4  ModalDeleteww">
+            <div class="modal-body col-md-12 col-md-offset-1  ModalDeleterr">
+
+                <div class="col-md-12 ModalDeleterr1">
+                    Вы уверенны, что хотите удалить этот файл
+                </div>
+                <div class="col-md-12 ModalDeleterr ModalDeleterr1">
+                    <div class="btn btn-primary col-md-5 ModalDeletecastomPadBot" data-dismiss="modal">Ой нет!</div>
+                    <div class="btn btn-primary col-md-5 col-md-offset-1  ModalDeletebtn-primary2 ModalDeletecastomPadBot" data-dismiss="modal" onclick="DeleteFileSystem();">Да, удалить!</div>
                 </div>
 
             </div>
         </div>
     </div>
-}
+</div>
 
 @section scripts {
     <script>
         $(".fileSystem-list-item").dblclick(function () {
 
-            var folderId = $(this).attr("name");
-            var folderName = $(this).attr("folder-name");
+            var folderId = $(this).data("name");
+            var folderName = $(this).data("folder-name");
             var link = "/Home/UserFiles/" + folderId + "/" + folderName;
 
             window.location.href = link;
@@ -137,26 +147,91 @@ else
 
     </script>
     
-    <script>
+   <script>
+        var els = $('.context-menu-folder');
+        for (var i = 0; i < els.length; i++) {
+            if (els[i].addEventListener) {
+                els[i].addEventListener('contextmenu', function (e) {
 
-        if (document.getElementById('context-menu').addEventListener) {
-            document.getElementById('context-menu').addEventListener('contextmenu', function (e) {
-                $("#rmenu").toggleClass("hide");
-                $("#rmenu").css({
+                    if (!$(this).is(".fileSystem-list-item-active")) {
+                        $(this).toggleClass("fileSystem-list-item-active");
+                    } 
+                    
+                    $("#rmenu-folder").toggleClass("hide");                    
+                    $("#rmenu-folder").css({
                         position: "absolute",
                         top: e.pageY,
                         left: e.pageX
                     }
-                );
-                e.preventDefault();
-            }, false);
+                    );
+                    e.preventDefault();
+                }, false);
+            }
+        }
+</script>
+
+<script>
+
+        var els = $('.context-menu-file');
+        for (var i = 0; i < els.length; i++) {
+            if (els[i].addEventListener) {
+                els[i].addEventListener('contextmenu', function (e) {
+                    
+                    $("#rmenu-file").toggleClass("hide");                    
+                    $("#rmenu-file").css({
+                        position: "absolute",
+                        top: e.pageY,
+                        left: e.pageX
+                    }
+                    );
+                    e.preventDefault();
+                }, false);
+            }
+        }
+</script>
+
+<script>
+        $(document).bind("click", function (event) {
+            document.getElementById("rmenu-folder").className = "col-md-1 hide rmenu";
+            $(this).toggleClass("fileSystem-list-item-active");
+        });
+</script>
+
+<script>
+        $(document).bind("click", function (event) {
+            document.getElementById("rmenu-file").className = "col-md-1 hide rmenu";
+        });
+</script>
+
+<script>
+           
+    function DeleteFileSystem() {
+            
+            var fileSystemIdList = [];
+
+            $(".context-menu-folder").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-active")) {
+                    fileSystemIdList.push($(this).data("name"));
+                };
+            });
+
+            $(".context-menu-file").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-active")) {
+                    fileSystemIdList.push($(this).data("name"));
+                };
+            });
+
+            $.ajax({
+            url: '@Url.Action("DeleteFileSystem", "Home")',
+            type: 'POST',
+            dataType: 'json',
+            traditional: true,
+
+            data: {
+                fileSystemsId: fileSystemIdList
+            }
+            });
         }
 
-    </script>
-
-    <script>
-        $(document).bind("click", function (event) {
-            document.getElementById("rmenu").className = "col-md-1 hide";
-        });
-    </script>
+</script>
 }

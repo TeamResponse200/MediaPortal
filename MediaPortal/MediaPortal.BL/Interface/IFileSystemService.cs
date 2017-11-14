@@ -17,7 +17,7 @@ namespace MediaPortal.BL.Interface
 
         void InsertFileSystem(FileSystemDTO model);
 
-        void DeleteFileSystem(int fileSystemId);
+        void DeleteFileSystem(int[] fileSystemsId);
 
         void RenameFileSystem(int fileSystemId, string name);
 

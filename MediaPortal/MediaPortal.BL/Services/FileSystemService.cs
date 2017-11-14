@@ -142,11 +142,14 @@ namespace MediaPortal.BL.Services
             return new Tuple<List<int?>, List<string>>(folderIDs, folderNames);
         }
 
-        public void DeleteFileSystem(int fileSystemId)
+        public void DeleteFileSystem(int[] fileSystemsId)
         {
             try
             {
-                _fileSystemRepository.DeleteFileSystem(fileSystemId);
+                foreach(var fileSystemId in fileSystemsId)
+                {
+                    _fileSystemRepository.DeleteFileSystem(fileSystemId);
+                }                
             }
             catch (Exception ex)
             {

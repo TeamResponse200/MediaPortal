@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MediaPortal.Data.EntitiesModel;
 using MediaPortal.Data.DataAccess;
 using MediaPortal.Data.Interface;
+using System.Data.Entity;
+using System.Data.SqlClient;
 
 namespace MediaPortal.Data.Repositories
 {
@@ -64,14 +66,17 @@ namespace MediaPortal.Data.Repositories
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                var fileSystem = dbContext.FileSystems.Where(x => x.Id == fileSystemId).FirstOrDefault();
+                var param = new SqlParameter("@Id", fileSystemId);
 
-                if (fileSystem != null)
-                {
-                    dbContext.FileSystems.Remove(fileSystem);
-                    dbContext.SaveChanges();
-                }
-            }
+                //var fileSystem = dbContext.FileSystems.SqlQuery("prFileSystemDelete @Id", param).ToList();
+
+                //dbContext.Database.ExecuteSqlCommand("WITH [CTE](Id, ParentId) AS (         SELECT Id, ParentId         FROM FileSystem fs         WHERE (fs.Id = @Id)          UNION ALL          SELECT fs.Id, fs.ParentId             FROM FileSystem fs INNER JOIN [CTE] p ON fs.ParentId = p.Id      ) DELETE FROM FileSystem WHERE Id IN(     SELECT TOP 100 PERCENT t.Id     FROM [CTE] t)", param);
+                dbContext.Database.ExecuteSqlCommand("prFileSystemDelete @Id", param);
+
+                //dbContext.SaveChanges();
+                                
+            }            
+
         }
 
         public void RenameFileSystem(int fileSystemId, string name)

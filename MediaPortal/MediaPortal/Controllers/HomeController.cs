@@ -170,19 +170,19 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult DeleteFileSystem(FileSystemModels model, string returnUrl)
+        public ActionResult DeleteFileSystem(int[] fileSystemsId)
         {
             try
             {
-                _fileSystemService.DeleteFileSystem(model.Id);
+                _fileSystemService.DeleteFileSystem(fileSystemsId);
             }
             catch (DataException)
             {
                 // some logic for user
                 return View("Error");
             }
-
-            return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name });
+            
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.T‌​oString());
         }
 
         [Authorize]

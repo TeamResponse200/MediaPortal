@@ -23,7 +23,7 @@ namespace MediaPortal.Data.DataAccess
         //public virtual DbSet<FileSystemTag> FileSystemTags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
+        {          
             modelBuilder.Entity<AspNetRole>()
                 .HasMany(e => e.AspNetUsers)
                 .WithMany(e => e.AspNetRoles)
@@ -57,7 +57,7 @@ namespace MediaPortal.Data.DataAccess
             modelBuilder.Entity<FileSystem>()
                 .HasMany(e => e.Tags)
                 .WithMany(e => e.FileSystems)
-                .Map(m => m.ToTable("FileSystemTag").MapLeftKey("FileSystemId").MapRightKey("TagId"));
+                .Map(m => m.ToTable("FileSystemTag").MapLeftKey("FileSystemId").MapRightKey("TagId"));            
         }
     }
 }

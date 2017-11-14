@@ -1,7 +1,7 @@
 ﻿@model MediaPortal.Models.FileSystemModels
 
 
-<div class="col-md-3 fileSystem-list-item" name="@Model.Id" folder-name="@Model.Name">
+<div class="col-md-3 fileSystem-list-item context-menu-folder" data-name="@Model.Id" data-folder-name="@Model.Name">
     <div class="col-md-4 col-md-pull-2">
         @if (Model.Type.Equals("Folder"))
         {

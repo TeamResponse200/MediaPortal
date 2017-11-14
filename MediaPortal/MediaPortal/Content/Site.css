@@ -232,7 +232,7 @@ button.dropDownButton {
 
 .secondHeaderBlock {
     background-color: #ffffff;
-    box-shadow: 0 4px 2px -2px gray;
+    box-shadow: 0px 2px 5px 0px #c4c4c4;
     margin-top: 2px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -303,7 +303,6 @@ button.dropDownButton {
 
 /* FileSystemView*/
 .fileSystem-list-item-folder {
-    border: 1px solid black;
     border-radius: 5px;
     padding-top: 5px;
     padding-bottom: 3px;
@@ -314,12 +313,12 @@ button.dropDownButton {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    box-shadow: 0px 2px 5px 0px #c4c4c4;
 }
 .fileSystem-list-item-folder .element-name {
     padding-top:5px;
 }
 .fileSystem-list-item {
-    border: 1px solid black;
     border-radius: 5px;
     padding-top: 5px;
     padding-bottom: 3px;
@@ -330,6 +329,7 @@ button.dropDownButton {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    box-shadow: 0px 2px 5px 0px #c4c4c4;
 }
     .fileSystem-list-item-folder:hover {
         background-color: lightgray;
@@ -515,6 +515,7 @@ background-color:white;
 
 .ModalDeleterr {
     margin: 0;
+    padding: 0;
 }
 
 .ModalDeleterr1 {
@@ -522,11 +523,15 @@ background-color:white;
     margin-top: 15px;
 }
 
+.ModalDeleteww {
+    padding-bottom: 10px;
+}
+
 .hide {
     display: none;
 }
 
-#rmenu {
+.rmenu {
     background-color: white;
     border-radius: 5px;
     padding-left: 0;
