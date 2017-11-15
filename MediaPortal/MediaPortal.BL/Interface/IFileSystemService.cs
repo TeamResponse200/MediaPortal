@@ -22,5 +22,7 @@ namespace MediaPortal.BL.Interface
         void RenameFileSystem(int fileSystemId, string name);
 
         void AddTag(int fileSystemId, string tegName);
+
+        void UploadAndInsertFiles(FilesToUploadDTO filesToUpload);
     }
 }

@@ -7,6 +7,8 @@
     [Type]          NVARCHAR (256) NOT NULL,
     [BlobLink]      NVARCHAR (256) NULL,
     [BlobThumbnail] NVARCHAR (256) NULL,
+    [CreationDate] DATETIME NOT NULL, 
+    [UploadDate] DATETIME NOT NULL, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([ParentId]) REFERENCES [dbo].[FileSystem] ([Id]),
     FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE

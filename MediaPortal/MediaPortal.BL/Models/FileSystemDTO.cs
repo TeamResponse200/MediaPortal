@@ -25,6 +25,10 @@ namespace MediaPortal.BL.Models
         
         public string BlobThumbnail { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
+        public DateTime UploadDate { get; set; }
+
         public virtual ICollection<TagDTO> Tags { get; set; }
     }
 }

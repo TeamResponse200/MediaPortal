@@ -11,6 +11,7 @@ using AutoMapper;
 using MediaPortal.Models;
 using Microsoft.AspNet.Identity;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace MediaPortal.Controllers
 {
@@ -145,6 +146,8 @@ namespace MediaPortal.Controllers
 
             model.UserId = User.Identity.GetUserId();
             model.Type = "Folder";
+            model.CreationDate = DateTime.Now;
+            model.UploadDate = DateTime.Now;
 
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemModels, FileSystemDTO>());
             var fileSystem = Mapper.Map<FileSystemDTO>(model);
@@ -170,6 +173,25 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
+        public ActionResult UploadFiles(FilesToUploadModels model)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<FilesToUploadModels, FilesToUploadDTO>());
+            var filesToUpload = Mapper.Map<FilesToUploadDTO>(model);
+            try
+            {
+                _fileSystemService.UploadAndInsertFiles(filesToUpload);
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+
+
+            return RedirectToAction("UserFiles", new { folderID = model.ParrentID });
+        }
+
+        [Authorize]
+        [HttpPost]
         public ActionResult DeleteFileSystem(int[] fileSystemsId)
         {
             try
@@ -181,7 +203,7 @@ namespace MediaPortal.Controllers
                 // some logic for user
                 return View("Error");
             }
-            
+
             return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.T‌​oString());
         }
 

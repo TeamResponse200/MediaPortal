@@ -274,6 +274,7 @@
     </Compile>
     <Compile Include="Helpers\IdentityExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FilesToUploadModels.cs" />
     <Compile Include="Models\FileSystemModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -314,6 +315,7 @@
     </Content>
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
     <Content Include="Connected Services\teamresponse200kvAzureStorage\ConnectedService.json" />
+    <None Include="Properties\PublishProfiles\TeamResponse200KV - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\TeamResponse200MediaPortal - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -370,6 +372,7 @@
     <Content Include="Views\Home\UserFilesBlock.cshtml" />
     <Content Include="Views\Shared\FileSystemBlockView.cshtml" />
     <Content Include="Views\Shared\FileSystemFolderBlockView.cshtml" />
+    <Content Include="Views\Shared\_FilesToUploadPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Models\FilesToUploadDTO.cs" />
     <Compile Include="Services\FileSystemService.cs" />
     <Compile Include="Interface\IFileSystemService.cs" />
     <Compile Include="Models\FileSystemDTO.cs" />

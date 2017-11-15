@@ -15,6 +15,8 @@ using MediaPortal.BL.Infrastructure;
 using System.Diagnostics;
 using System.Data;
 using MediaPortal.Data.DataAccess;
+using System.Web;
+using System.IO;
 
 namespace MediaPortal.BL.Services
 {
@@ -188,6 +190,42 @@ namespace MediaPortal.BL.Services
 
             //_fileSystemRepository.RenameFileSystem(fileSystemId, name);
 
+        }
+        public void UploadAndInsertFiles(FilesToUploadDTO filesToUpload)
+        {
+            Parallel.ForEach(filesToUpload.Files, file => {
+                if (file != null) {
+                    var fileSystem = new FileSystem()
+                    {
+                        UserId = filesToUpload.UserID,
+                        ParentId = filesToUpload.ParrentID,
+                        Name = Path.GetFileNameWithoutExtension(file.FileName),
+                        Type = Path.GetExtension(file.FileName),
+                        Size = file.ContentLength,
+                        UploadDate = DateTime.Now,
+                        CreationDate = DateTime.Now
+                    };
+
+                    _fileSystemRepository.InsertObject(fileSystem);
+
+                    // blob upload logic
+                }
+            });
+            //foreach (HttpPostedFileBase file in filesToUpload.Files)
+            //{
+            //    var fileSystem = new FileSystem()
+            //    {
+            //        UserId = filesToUpload.UserID,
+            //        ParentId = filesToUpload.ParrentID,
+            //        Name = Path.GetFileNameWithoutExtension(file.FileName),
+            //        Type = Path.GetExtension(file.FileName),
+            //        Size = file.ContentLength
+            //    };
+
+            //    _fileSystemRepository.InsertObject(fileSystem);
+
+            //    // blob upload logic
+            //}
         }
     }
 }

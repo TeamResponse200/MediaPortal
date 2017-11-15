@@ -41,6 +41,12 @@ namespace MediaPortal.Data.EntitiesModel
         [StringLength(256)]
         public string BlobThumbnail { get; set; }
 
+        [Required]
+        public DateTime CreationDate { get; set; }
+
+        [Required]
+        public DateTime UploadDate { get; set; }
+
         public virtual AspNetUser AspNetUser { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
