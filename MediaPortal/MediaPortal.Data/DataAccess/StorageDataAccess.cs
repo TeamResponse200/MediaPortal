@@ -13,6 +13,7 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.RetryPolicies;
 using Microsoft.WindowsAzure.Storage.Table;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace MediaPortal.Data.DataAccess
 {
@@ -26,6 +27,30 @@ namespace MediaPortal.Data.DataAccess
         public void Upload(byte[] file, string fileName)
         {
             UploadFileInBlocks(file, fileName);
+        }
+
+        public async Task<string> UploadFileInBlocksAsync(HttpPostedFileBase file)
+        {
+            CloudBlobContainer cloudBlobContainer = GetContainerReference();
+            var fileExtension = Path.GetExtension(file.FileName);
+            var guidName = Guid.NewGuid().ToString();
+            var blobName = guidName + fileExtension;
+            CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(blobName);
+
+            blob.DeleteIfExists();
+            await blob.UploadFromStreamAsync(file.InputStream).ConfigureAwait(false);
+            return blob.Uri.ToString();
+        }
+
+        public async Task<Stream> GetImageThumbnail(string blobLink)
+        {
+            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
+            var file = await blob.OpenReadAsync();
+            return file;
+            
         }
 
         public void UploadFileInBlocks(byte[] file, string fileName)

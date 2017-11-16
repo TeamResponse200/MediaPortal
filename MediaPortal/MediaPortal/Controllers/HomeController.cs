@@ -283,5 +283,12 @@ namespace MediaPortal.Controllers
 
             return View("Error");
         }
+
+        public async Task<ActionResult> GetImage(int fileSystemId)
+        {
+            var fileImageStream = await _fileSystemService.GetFileSystemThumbnailAsync(fileSystemId);
+
+            return File(fileImageStream, "image/png");
+        }
     }
 }

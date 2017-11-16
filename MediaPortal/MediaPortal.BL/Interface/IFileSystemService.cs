@@ -1,6 +1,7 @@
 ﻿using MediaPortal.BL.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,5 +29,7 @@ namespace MediaPortal.BL.Interface
         void AddTag(int fileSystemId, string tegName);
 
         void UploadAndInsertFiles(FilesToUploadDTO filesToUpload);
+
+        Task<Stream> GetFileSystemThumbnailAsync(int fileSystemId);
     }
 }

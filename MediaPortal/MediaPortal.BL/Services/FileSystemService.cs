@@ -17,6 +17,7 @@ using System.Data;
 using MediaPortal.Data.DataAccess;
 using System.Web;
 using System.IO;
+using System.Threading;
 
 namespace MediaPortal.BL.Services
 {
@@ -33,6 +34,7 @@ namespace MediaPortal.BL.Services
             _storageDataAccess = new StorageDataAccess();
         }
 
+        
         // add blob 
         public void InsertFile(FileSystemDTO model, byte[] file, string fileName)
         {
@@ -234,41 +236,46 @@ namespace MediaPortal.BL.Services
             //_fileSystemRepository.RenameFileSystem(fileSystemId, name);
 
         }
+
+        public async Task<Stream> GetFileSystemThumbnailAsync(int fileSystemId)
+        {
+            var fileSystem = _fileSystemRepository.Get(fileSystemId);
+            var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
+
+            var fileStream = await _storageDataAccess.GetImageThumbnail(blobLink);
+
+            return fileStream;
+        }
+
         public void UploadAndInsertFiles(FilesToUploadDTO filesToUpload)
         {
-            Parallel.ForEach(filesToUpload.Files, file => {
+             Parallel.ForEach(filesToUpload.Files, file => {
                 if (file != null) {
-                    var fileSystem = new FileSystem()
-                    {
-                        UserId = filesToUpload.UserID,
-                        ParentId = filesToUpload.ParrentID,
-                        Name = Path.GetFileNameWithoutExtension(file.FileName),
-                        Type = Path.GetExtension(file.FileName),
-                        Size = file.ContentLength,
-                        UploadDate = DateTime.Now,
-                        CreationDate = DateTime.Now
-                    };
+                     var uri =  _storageDataAccess.UploadFileInBlocksAsync(file).Result;
+                     var cuttedUri = GetFileCuttedUri(uri);
 
-                    _fileSystemRepository.InsertObject(fileSystem);
+                     var fileSystem = new FileSystem()
+                     {
+                         UserId = filesToUpload.UserID,
+                         ParentId = filesToUpload.ParrentID,
+                         Name = Path.GetFileNameWithoutExtension(file.FileName),
+                         Type = Path.GetExtension(file.FileName),
+                         Size = file.ContentLength,
+                         BlobLink = cuttedUri,
+                         UploadDate = DateTime.Now,
+                         CreationDate = DateTime.Now
+                     };
 
-                    // blob upload logic
-                }
+                     _fileSystemRepository.InsertObject(fileSystem);
+
+                     // TODO: queue add logic
+                 }
             });
-            //foreach (HttpPostedFileBase file in filesToUpload.Files)
-            //{
-            //    var fileSystem = new FileSystem()
-            //    {
-            //        UserId = filesToUpload.UserID,
-            //        ParentId = filesToUpload.ParrentID,
-            //        Name = Path.GetFileNameWithoutExtension(file.FileName),
-            //        Type = Path.GetExtension(file.FileName),
-            //        Size = file.ContentLength
-            //    };
-
-            //    _fileSystemRepository.InsertObject(fileSystem);
-
-            //    // blob upload logic
-            //}
+        }
+        private string GetFileCuttedUri(string blobLink)
+        {
+            var cuttedLink = blobLink.Replace(ConfigurationManager.AppSettings.Get("azureStorageBlobLink"),"");
+            return cuttedLink;
         }
     }
 }
