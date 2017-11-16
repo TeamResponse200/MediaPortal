@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ApplicationInsightsResourceId>/subscriptions/49c2fc07-cb85-4c45-87bc-0b753d4345c4/resourcegroups/TeamResponse200KV/providers/microsoft.insights/components/AppInsightsTeamResponse200KV</ApplicationInsightsResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/b15c8f0e-8628-4317-8031-7737ea09f1c7/resourcegroups/InternshipTeam1/providers/microsoft.insights/components/AppInsightsTeamResponse200KV</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>
     </ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
@@ -314,7 +314,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
-    <Content Include="Connected Services\teamresponse200kvAzureStorage\ConnectedService.json" />
+    <Content Include="Connected Services\teamresponse200AzureStorage\ConnectedService.json" />
     <None Include="Properties\PublishProfiles\TeamResponse200KV - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\TeamResponse200MediaPortal - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -155,7 +155,7 @@ else
 
                     if (!$(this).is(".fileSystem-list-item-folder-active")) {
                         $(this).toggleClass("fileSystem-list-item-folder-active");
-                    }                    
+                    }     
                     
                     $("#rmenu-folder").toggleClass("hide");                    
                     $("#rmenu-folder").css({
@@ -176,7 +176,11 @@ else
         for (var i = 0; i < els.length; i++) {
             if (els[i].addEventListener) {
                 els[i].addEventListener('contextmenu', function (e) {
-                    
+
+                    if (!$(this).is(".fileSystem-list-item-active")) {
+                        $(this).toggleClass("fileSystem-list-item-active");
+                    }  
+
                     $("#rmenu-file").toggleClass("hide");                    
                     $("#rmenu-file").css({
                         position: "absolute",
@@ -215,7 +219,7 @@ else
             });
 
             $(".context-menu-file").each(function (index, element) {
-                if ($(this).is(".fileSystem-list-item-folder-active")) {
+                if ($(this).is(".fileSystem-list-item-active")) {
                     fileSystemIdList.push($(this).data("name"));
                 };
             });
