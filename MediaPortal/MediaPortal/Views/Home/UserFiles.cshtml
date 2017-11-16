@@ -102,7 +102,7 @@ else
     <ul class="rmenu-ul">
         <li class="rmenu-li" id="rename">Переименовать</li>
         <li class="rmenu-li" id="add-tag">Добавить тег</li>
-        <li class="rmenu-li" id="file-download">Скачать файл</li>
+        <li class="rmenu-li" id="file-download" onclick="DownloadFileSystem()>Скачать файл</li>
         <li class="rmenu-li" id="file-delete" data-toggle="modal" data-target="#ModalDelete">Удалить файл</li>
     </ul>
 </div>
@@ -237,5 +237,34 @@ else
         }
 
     </script>
+
+<script>
+
+        function DownloadFileSystem() {
+
+            var fileSystemId;     
+            var fileSystemName;   
+
+            $(".context-menu-file").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-active")) {
+                    fileSystemId = $(this).data("name");
+                    fileSystemName = $(this).data("file-name");
+                };
+            });
+
+            $.ajax({
+            url: '@Url.Action("DownloadFileSystem", "Home")',
+            type: 'POST',
+            dataType: 'json',
+            traditional: true,
+
+            data: {
+                fileSystemId: fileSystemId,
+                fileSystemName: fileSystemName
+            },
+            });
+        }
+
+</script>
 
 }

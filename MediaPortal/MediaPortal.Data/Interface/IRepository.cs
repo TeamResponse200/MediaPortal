@@ -11,6 +11,6 @@ namespace MediaPortal.Data.Interface
     {
         IEnumerable<T> GetAll();        
 
-        T Get(string id);      
+        T Get(int id);      
     }
 }

@@ -18,7 +18,7 @@ namespace MediaPortal.Data.Repositories
             _connectionString = connectionString;
         }
 
-        public SharedAccess Get(string userId)
+        public SharedAccess Get(int userId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {

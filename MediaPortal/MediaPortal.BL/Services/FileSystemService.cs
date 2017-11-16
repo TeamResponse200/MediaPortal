@@ -150,6 +150,13 @@ namespace MediaPortal.BL.Services
             {
                 foreach(var fileSystemId in fileSystemsId)
                 {
+                    var fileSystem = _fileSystemRepository.Get(fileSystemId);
+
+                    if (fileSystem.BlobLink != null)
+                    {
+                        _storageDataAccess.DeleteFileSystem(fileSystem.Name + fileSystem.Type);
+                    }
+
                     _fileSystemRepository.DeleteFileSystem(fileSystemId);
                 }                
             }
@@ -158,6 +165,42 @@ namespace MediaPortal.BL.Services
                 Trace.TraceError(ex.Message);
                 throw;
             }
+        }
+
+        public byte[] DownloadFileSystem(int fileSystemId)
+        {
+            byte[] fileBytes;
+
+            try
+            {
+                var fileSystem = _fileSystemRepository.Get(fileSystemId);
+
+                fileBytes = _storageDataAccess.DownloadFileInBlocks(fileSystem.Name + fileSystem.Type); 
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+                throw;
+            }
+
+            return fileBytes;
+        }
+
+        public byte[] DownloadFileSystemZIP(int[] fileSystemsId)
+        {
+            byte[] fileBytes = null;
+
+            try
+            {
+               //...
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+                throw;
+            }
+
+            return fileBytes;
         }
 
         public void RenameFileSystem(int fileSystemId, string name)

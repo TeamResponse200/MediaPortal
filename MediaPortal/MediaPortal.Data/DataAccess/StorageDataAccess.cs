@@ -18,8 +18,8 @@ namespace MediaPortal.Data.DataAccess
 {
     public class StorageDataAccess
     {
-        private const string ConnectionStringSettingName = "StorageConnectionString";
-        private const string ContainerName = "products";
+        private const string ConnectionStringSettingName = "teamresponse200_AzureStorageConnectionString";
+        private const string ContainerName = "filesystem";
 
         #region Upload
 
@@ -85,7 +85,44 @@ namespace MediaPortal.Data.DataAccess
             return Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}", blockId.ToString("0000000"))));
         }
 
+        public byte[] DownloadFileInBlocks(string fileName)
+        {
+            CloudBlobContainer cloudBlobContainer = GetContainerReference();
+            CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(Path.GetFileName(fileName));
+
+            int blockSize = 1024 * 1024; // 1 MB block size
+
+            blob.FetchAttributes();
+            long fileSize = blob.Properties.Length;
+
+            var blobContents = new byte[fileSize];
+            var fullSizeCount = (int)(fileSize / blockSize);
+            var restSize = (int)(fileSize - fullSizeCount * blockSize);
+
+            IEnumerable<int> parts = Enumerable.Range(0, fullSizeCount);
+            int currentPart = -1;
+
+            Parallel.ForEach(parts, part =>
+            {
+                blob.DownloadRangeToByteArray(blobContents, Interlocked.Add(ref currentPart, blockSize), currentPart, blockSize);
+            });
+
+            int finalIndexAndOffset = fullSizeCount + restSize;
+            blob.DownloadRangeToByteArray(blobContents, finalIndexAndOffset, finalIndexAndOffset, restSize);
+
+            return blobContents;
+        }
+
         #endregion
+
+
+        public void DeleteFileSystem(string fileName)
+        {
+            CloudBlobContainer cloudBlobContainer = GetContainerReference();
+            CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(Path.GetFileName(fileName));
+
+            blob.DeleteIfExists();
+        }
 
         public CloudBlobContainer GetContainerReference()
         {

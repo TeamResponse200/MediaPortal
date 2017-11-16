@@ -355,8 +355,14 @@ button.dropDownButton {
     background-color:lightgray;
 }
 
+.fileSystem-list-item-file-active {
+    color: blue;
+    border: 1px solid blue;
+    background-color: lightgray;
+}
+
 #folderActive {
-    content:url(/Content/icons/folder-purp.svg);
+    content: url(/Content/icons/folder-purp.svg);
 }
 
 #iconFolder {

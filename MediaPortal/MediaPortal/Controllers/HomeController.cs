@@ -209,6 +209,42 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
+        public ActionResult DownloadFileSystem(int fileSystemId, string fileSystemName)
+        {
+            byte[] fileBytes;
+
+            try
+            {
+                fileBytes = _fileSystemService.DownloadFileSystem(fileSystemId);
+            }
+            catch (DataException)
+            {
+                // some logic for user
+                return View("Error");
+            }
+            
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult DownloadFileSystemZIP(int[] fileSystemsId)
+        {
+            try
+            {
+                _fileSystemService.DownloadFileSystemZIP(fileSystemsId);
+            }
+            catch (DataException)
+            {
+                // some logic for user
+                return View("Error");
+            }
+
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.T‌​oString());
+        }
+
+        [Authorize]
+        [HttpPost]
         public ActionResult RenameFileSystem(FileSystemModels model, string returnUrl)
         {
             try

@@ -19,6 +19,10 @@ namespace MediaPortal.BL.Interface
 
         void DeleteFileSystem(int[] fileSystemsId);
 
+        byte[] DownloadFileSystem(int fileSystemId);
+
+        byte[] DownloadFileSystemZIP(int[] fileSystemsId);
+
         void RenameFileSystem(int fileSystemId, string name);
 
         void AddTag(int fileSystemId, string tegName);

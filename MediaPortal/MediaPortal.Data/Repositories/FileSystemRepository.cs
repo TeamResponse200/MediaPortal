@@ -20,11 +20,11 @@ namespace MediaPortal.Data.Repositories
             _connectionString = connectionString;
         }
 
-        public FileSystem Get(string userId)
+        public FileSystem Get(int fileSystemId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.FileSystems.Find(userId);
+                return dbContext.FileSystems.Where(x => x.Id == fileSystemId).FirstOrDefault();
             }
         }
 

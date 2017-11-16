@@ -18,7 +18,7 @@ namespace MediaPortal.Data.Repositories
             _connectionString = connectionString;
         }
 
-        public Tag Get(string userId)
+        public Tag Get(int userId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {

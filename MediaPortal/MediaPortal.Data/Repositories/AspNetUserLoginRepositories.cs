@@ -18,7 +18,7 @@ namespace MediaPortal.Data.Repositories
             _connectionString = connectionString;
         }
 
-        public AspNetUserLogin Get(string userId)
+        public AspNetUserLogin Get(int userId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {

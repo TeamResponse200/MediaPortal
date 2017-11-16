@@ -144,7 +144,11 @@ else
 
         $(".fileSystem-list-item").click(function () {
             $(this).toggleClass("fileSystem-list-item-active");
-        });        
+        });      
+
+        $(".fileSystem-list-item-file").click(function () {
+            $(this).toggleClass("fileSystem-list-item-file-active");
+        });
 
     </script>
     
@@ -177,7 +181,11 @@ else
         for (var i = 0; i < els.length; i++) {
             if (els[i].addEventListener) {
                 els[i].addEventListener('contextmenu', function (e) {
-                    
+
+                    if (!$(this).is(".fileSystem-list-item-file-active")) {
+                        $(this).toggleClass("fileSystem-list-item-file-active");
+                    } 
+
                     $("#rmenu-file").toggleClass("hide");                    
                     $("#rmenu-file").css({
                         position: "absolute",
@@ -217,7 +225,7 @@ else
             });
 
             $(".context-menu-file").each(function (index, element) {
-                if ($(this).is(".fileSystem-list-item-active")) {
+                if ($(this).is(".fileSystem-list-item-file-active")) {
                     fileSystemIdList.push($(this).data("name"));
                 };
             });
