@@ -102,7 +102,7 @@ else
     <ul class="rmenu-ul">
         <li class="rmenu-li" id="rename">Переименовать</li>
         <li class="rmenu-li" id="add-tag">Добавить тег</li>
-        <li class="rmenu-li" id="file-download" onclick="DownloadFileSystem()>Скачать файл</li>
+        <li class="rmenu-li" id="file-download" onclick="DownloadFileSystem()">Скачать файл</li>
         <li class="rmenu-li" id="file-delete" data-toggle="modal" data-target="#ModalDelete">Удалить файл</li>
     </ul>
 </div>
@@ -262,6 +262,12 @@ else
                 fileSystemId: fileSystemId,
                 fileSystemName: fileSystemName
             },
+
+            success: function (data) {
+
+                var url = window.URL.createObjectURL(data);
+                window.URL.revokeObjectURL(url);
+            }
             });
         }
 

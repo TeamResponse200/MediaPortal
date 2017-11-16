@@ -208,21 +208,23 @@ namespace MediaPortal.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        public ActionResult DownloadFileSystem(int fileSystemId, string fileSystemName)
+
+        public async Task<FileResult> DownloadFileSystem(int fileSystemId, string fileSystemName)
         {
             byte[] fileBytes;
 
             try
             {
-                fileBytes = _fileSystemService.DownloadFileSystem(fileSystemId);
+                var tupleFileBytes = await _fileSystemService.DownloadFileSystem(fileSystemId);
+                fileBytes = tupleFileBytes.Item1;
+                fileSystemName += tupleFileBytes.Item2;
             }
-            catch (DataException)
+            catch (Exception ex)
             {
                 // some logic for user
-                return View("Error");
+                return null;
             }
-            
+
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName);
         }
 

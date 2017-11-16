@@ -14,6 +14,7 @@ using Microsoft.WindowsAzure.Storage.RetryPolicies;
 using Microsoft.WindowsAzure.Storage.Table;
 using System.Threading.Tasks;
 using System.Web;
+using System.Configuration;
 
 namespace MediaPortal.Data.DataAccess
 {
@@ -110,35 +111,24 @@ namespace MediaPortal.Data.DataAccess
             return Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}", blockId.ToString("0000000"))));
         }
 
-        public byte[] DownloadFileInBlocks(string fileName)
-        {
-            CloudBlobContainer cloudBlobContainer = GetContainerReference();
-            CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(Path.GetFileName(fileName));
+        #endregion
 
-            int blockSize = 1024 * 1024; // 1 MB block size
+        public async Task<byte[]> DownloadFile(string blobLink)
+        {
+            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
 
             blob.FetchAttributes();
             long fileSize = blob.Properties.Length;
 
             var blobContents = new byte[fileSize];
-            var fullSizeCount = (int)(fileSize / blockSize);
-            var restSize = (int)(fileSize - fullSizeCount * blockSize);
 
-            IEnumerable<int> parts = Enumerable.Range(0, fullSizeCount);
-            int currentPart = -1;
-
-            Parallel.ForEach(parts, part =>
-            {
-                blob.DownloadRangeToByteArray(blobContents, Interlocked.Add(ref currentPart, blockSize), currentPart, blockSize);
-            });
-
-            int finalIndexAndOffset = fullSizeCount + restSize;
-            blob.DownloadRangeToByteArray(blobContents, finalIndexAndOffset, finalIndexAndOffset, restSize);
+            await blob.DownloadToByteArrayAsync(blobContents, 0);
 
             return blobContents;
         }
-
-        #endregion
 
 
         public void DeleteFileSystem(string fileName)

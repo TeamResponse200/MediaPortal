@@ -152,40 +152,48 @@ namespace MediaPortal.BL.Services
             {
                 foreach(var fileSystemId in fileSystemsId)
                 {
-                    var fileSystem = _fileSystemRepository.Get(fileSystemId);
+                    var fileSystem = _fileSystemRepository.Get(fileSystemId);                                       
 
-                    if (fileSystem.BlobLink != null)
+                    if(fileSystem != null)
                     {
-                        _storageDataAccess.DeleteFileSystem(fileSystem.Name + fileSystem.Type);
-                    }
+                        if (fileSystem.BlobLink != null)
+                        {
+                            _storageDataAccess.DeleteFileSystem(fileSystem.Name + fileSystem.Type);
+                        }
 
-                    _fileSystemRepository.DeleteFileSystem(fileSystemId);
+                        _fileSystemRepository.DeleteFileSystem(fileSystemId);
+                    }                    
                 }                
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.Message);
+                Trace.TraceError(ex.InnerException.Message);
                 throw;
             }
         }
 
-        public byte[] DownloadFileSystem(int fileSystemId)
+        public async Task<Tuple<byte[], string>> DownloadFileSystem(int fileSystemId)
         {
             byte[] fileBytes;
+            string fileType;
 
             try
             {
                 var fileSystem = _fileSystemRepository.Get(fileSystemId);
 
-                fileBytes = _storageDataAccess.DownloadFileInBlocks(fileSystem.Name + fileSystem.Type); 
+                fileType = fileSystem.Type;
+                
+                var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
+
+                fileBytes = await _storageDataAccess.DownloadFile(blobLink);
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.Message);
+                Trace.TraceError(ex.InnerException.Message);
                 throw;
             }
 
-            return fileBytes;
+            return new Tuple<byte[], string>(fileBytes, fileType);
         }
 
         public byte[] DownloadFileSystemZIP(int[] fileSystemsId)
@@ -194,7 +202,7 @@ namespace MediaPortal.BL.Services
 
             try
             {
-               //...
+                //...
             }
             catch (Exception ex)
             {

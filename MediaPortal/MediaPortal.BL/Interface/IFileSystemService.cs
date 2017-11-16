@@ -20,7 +20,7 @@ namespace MediaPortal.BL.Interface
 
         void DeleteFileSystem(int[] fileSystemsId);
 
-        byte[] DownloadFileSystem(int fileSystemId);
+        Task<Tuple<byte[], string>> DownloadFileSystem(int fileSystemId);
 
         byte[] DownloadFileSystemZIP(int[] fileSystemsId);
 
