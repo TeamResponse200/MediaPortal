@@ -802,12 +802,13 @@ D:\SoftThemeProject\151117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\Me
 D:\SoftThemeProject\151117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.csproj.CoreCompileInputs.cache
 D:\SoftThemeProject\151117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.dll
 D:\SoftThemeProject\151117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.pdb
+D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.ApplicationInsights.dll
+D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.Data.OData.xml
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\MediaPortal.Data.dll.config
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\MediaPortal.Data.dll
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\MediaPortal.Data.pdb
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\EntityFramework.dll
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\EntityFramework.SqlServer.dll
-D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.ApplicationInsights.dll
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.Data.Edm.dll
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.Data.OData.dll
@@ -825,7 +826,6 @@ D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\En
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.ApplicationInsights.xml
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.Azure.KeyVault.Core.xml
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.Data.Edm.xml
-D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.Data.OData.xml
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.Data.Services.Client.xml
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.WindowsAzure.Configuration.xml
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\Microsoft.WindowsAzure.Storage.pdb
@@ -870,7 +870,6 @@ D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\ko
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\ru\System.Spatial.resources.dll
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\zh-Hans\System.Spatial.resources.dll
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\bin\Debug\zh-Hant\System.Spatial.resources.dll
-D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.csprojResolveAssemblyReference.cache
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.csproj.CoreCompileInputs.cache
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.dll
 D:\SoftThemeProject\161117\MediaPortal\MediaPortal\MediaPortal.Data\obj\Debug\MediaPortal.Data.pdb

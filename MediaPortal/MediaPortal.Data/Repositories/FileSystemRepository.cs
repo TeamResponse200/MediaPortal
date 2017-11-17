@@ -52,13 +52,15 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public void InsertObject(FileSystem file)
+        public int InsertObject(FileSystem file)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
                 dbContext.FileSystems.Add(file);
 
                 dbContext.SaveChanges();
+
+                return file.Id;
             }
         }
 
@@ -106,6 +108,20 @@ namespace MediaPortal.Data.Repositories
                         fileSystem.Tags.Add(tag);
                     }
 
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+
+        public void FileSystemAddThumbnailLink(int fileSystemId, string link)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                var fileSystem = dbContext.FileSystems.Where(x => x.Id == fileSystemId).FirstOrDefault();
+
+                if (fileSystem != null)
+                {
+                    fileSystem.BlobThumbnail = link;
                     dbContext.SaveChanges();
                 }
             }

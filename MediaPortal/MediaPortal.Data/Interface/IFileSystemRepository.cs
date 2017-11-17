@@ -12,10 +12,12 @@ namespace MediaPortal.Data.Interface
 
         IEnumerable<T> GetAll(string userId, int? fileSystemParentId);
 
-        void InsertObject(T t);
+        int InsertObject(T t);
 
         void DeleteFileSystem(int fileSystemId);
 
         void RenameFileSystem(int fileSystemId, string name);
+
+        void FileSystemAddThumbnailLink(int fileSystemId, string link);
     }
 }

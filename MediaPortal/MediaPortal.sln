@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPortal", "MediaPortal\MediaPortal.csproj", "{44F1FB77-56CC-4E04-9698-95A502BE2A7F}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPortalTests", "MediaPortalTests\MediaPortalTests.csproj", "{9C7E696D-FE85-4D81-A7A3-243EE326CAFE}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MediaPortalDB", "MediaPortalDB\MediaPortalDB.sqlproj", "{D1EB4CDE-72E4-4C01-BDA0-B2D36D7107BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThumbnailCreatorWebJob", "ThumbnailCreatorWebJob\ThumbnailCreatorWebJob.csproj", "{AD0CB692-9422-4805-9FC2-A900F1097862}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{D1EB4CDE-72E4-4C01-BDA0-B2D36D7107BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1EB4CDE-72E4-4C01-BDA0-B2D36D7107BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1EB4CDE-72E4-4C01-BDA0-B2D36D7107BF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AD0CB692-9422-4805-9FC2-A900F1097862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD0CB692-9422-4805-9FC2-A900F1097862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD0CB692-9422-4805-9FC2-A900F1097862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD0CB692-9422-4805-9FC2-A900F1097862}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

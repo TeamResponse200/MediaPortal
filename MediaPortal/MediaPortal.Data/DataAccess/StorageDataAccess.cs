@@ -15,6 +15,9 @@ using Microsoft.WindowsAzure.Storage.Table;
 using System.Threading.Tasks;
 using System.Web;
 using System.Configuration;
+using MediaPortal.Data.Models;
+using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 
 namespace MediaPortal.Data.DataAccess
 {
@@ -40,6 +43,7 @@ namespace MediaPortal.Data.DataAccess
 
             blob.DeleteIfExists();
             await blob.UploadFromStreamAsync(file.InputStream).ConfigureAwait(false);
+           
             return blob.Uri.ToString();
         }
 
@@ -51,7 +55,6 @@ namespace MediaPortal.Data.DataAccess
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
             var file = await blob.OpenReadAsync();
             return file;
-            
         }
 
         public void UploadFileInBlocks(byte[] file, string fileName)
@@ -152,6 +155,28 @@ namespace MediaPortal.Data.DataAccess
             return container;
         }
 
+        public CloudQueue GetQueueReference()
+        {
+            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
 
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+            CloudQueue queue = queueClient.GetQueueReference("filesthumbnailsqueue");
+            queue.CreateIfNotExists();
+
+            return queue;
+        }
+
+        public void PutMessageRequestForThumbnail(int id, string blobUri)
+        {
+            var queue = GetQueueReference();
+            FileIdBlobModel file = new FileIdBlobModel() { FileId = id, BlobLink = blobUri };
+            
+            string fileJson = JsonConvert.SerializeObject(file, Formatting.Indented);
+            CloudQueueMessage messageBlobFile = new CloudQueueMessage(fileJson);
+
+            queue.AddMessage(messageBlobFile);
+        }
     }
 }

@@ -248,11 +248,20 @@ namespace MediaPortal.BL.Services
         public async Task<Stream> GetFileSystemThumbnailAsync(int fileSystemId)
         {
             var fileSystem = _fileSystemRepository.Get(fileSystemId);
-            var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
-
-            var fileStream = await _storageDataAccess.GetImageThumbnail(blobLink);
-
-            return fileStream;
+            var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobThumbnail;
+            Stream fileStream;
+            try
+            {
+                fileStream = await _storageDataAccess.GetImageThumbnail(blobLink);
+                return fileStream;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.InnerException.Message);
+            }
+            
+            return null;
+            
         }
 
         public void UploadAndInsertFiles(FilesToUploadDTO filesToUpload)
@@ -260,6 +269,7 @@ namespace MediaPortal.BL.Services
              Parallel.ForEach(filesToUpload.Files, file => {
                 if (file != null) {
                      var uri =  _storageDataAccess.UploadFileInBlocksAsync(file).Result;
+
                      var cuttedUri = GetFileCuttedUri(uri);
 
                      var fileSystem = new FileSystem()
@@ -274,7 +284,12 @@ namespace MediaPortal.BL.Services
                          CreationDate = DateTime.Now
                      };
 
-                     _fileSystemRepository.InsertObject(fileSystem);
+                     //
+
+                     var insertedId = _fileSystemRepository.InsertObject(fileSystem);
+                                          
+                     _storageDataAccess.PutMessageRequestForThumbnail(insertedId, uri);
+
 
                      // TODO: queue add logic
                  }
