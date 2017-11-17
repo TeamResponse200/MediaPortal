@@ -88,11 +88,10 @@ else
     </div>
 
 }
-
 <div class="col-md-1 hide rmenu" id="rmenu-folder">
     <ul class="rmenu-ul">
         <li class="rmenu-li" id="rename">Переименовать</li>
-        <li class="rmenu-li" id="add-tag">Добавить тег</li>
+        <li class="rmenu-li" id="add-tag" data-toggle="modal" data-target="#ModalTag">Добавить тег</li>
         <li class="rmenu-li" id="zip-download">Скачать ZIP-архив</li>
         <li class="rmenu-li" id="folder-delete" data-toggle="modal" data-target="#ModalDelete">Удалить папку</li>
     </ul>
@@ -101,16 +100,14 @@ else
 <div class="col-md-1 hide rmenu" id="rmenu-file">
     <ul class="rmenu-ul">
         <li class="rmenu-li" id="rename">Переименовать</li>
-        <li class="rmenu-li" id="add-tag">Добавить тег</li>
+        <li class="rmenu-li" id="add-tag" data-toggle="modal" data-target="#ModalTag">Добавить тег</li>
         <li class="rmenu-li" id="file-download" onclick="DownloadFileSystem()">Скачать файл</li>
         <li class="rmenu-li" id="file-delete" data-toggle="modal" data-target="#ModalDelete">Удалить файл</li>
     </ul>
 </div>
 
-<!-- Modal -->
 <div class="modal fade " id="ModalDelete" role="dialog">
     <div class="modal-dialog ">
-        <!-- Modal content-->
         <div class="modal-content col-md-6 col-md-offset-4  ModalDeleteww">
             <div class="modal-body col-md-12 col-md-offset-1  ModalDeleterr">
 
@@ -127,6 +124,32 @@ else
     </div>
 </div>
 
+<div class="modal fade" id="ModalTag" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content col-md-offset-2 col-md-10 modal-content-tag">
+            <div class="row">
+                <div class="col-md-12 row-tag">
+                    <div class="modal-header modal-header-tag">
+                        <h3 class="modal-title modal-title-tag"><strong>Добавить тег</strong></h3>
+                    </div>
+                    <div class="modal-body modal-body-tag">
+                        <textarea class="form-control form-control-tag" id="text-tag" maxlength="200"></textarea>
+                    </div>
+                    <div class="modal-footer modal-footer-tag">
+                        <div class="row">
+                            <div class="col-md-6 row-tag2">
+                                <div>Максимальное</div><div class="tag-count">количество тегов - 200</div>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-primary btn-tag" data-dismiss="modal" onclick="AddTag()">Добавить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @section scripts {
     <script>
         $(".fileSystem-list-item-folder").dblclick(function () {
@@ -147,7 +170,7 @@ else
     </script>
 
 
-    <script>
+<script>
         var els = $('.context-menu-folder');
         for (var i = 0; i < els.length; i++) {
             if (els[i].addEventListener) {
@@ -155,9 +178,40 @@ else
 
                     if (!$(this).is(".fileSystem-list-item-folder-active")) {
                         $(this).toggleClass("fileSystem-list-item-folder-active");
-                    }     
-                    
-                    $("#rmenu-folder").toggleClass("hide");                    
+                    }
+
+
+                    var file = 0;
+                    var folder = 0;
+
+                    $(".context-menu-folder").each(function (index, element) {
+                        if ($(this).is(".fileSystem-list-item-folder-active")) {
+                            folder += 1;
+                        };
+                    });
+
+                    $(".context-menu-file").each(function (index, element) {
+                        if ($(this).is(".fileSystem-list-item-active")) {
+                            file += 1;
+                        };
+                    });
+
+                    if (folder == 1 && file < 1) {
+                        document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
+                        document.getElementById("folder-delete").innerHTML = "Удалить папку";
+
+                    }
+                    else if (folder > 1 && file < 1) {
+                        document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
+                        document.getElementById("folder-delete").innerHTML = "Удалить папки";
+                    }
+                    else {
+                        document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
+                        document.getElementById("folder-delete").innerHTML = "Удалить обьекты";
+                    }
+
+
+                    $("#rmenu-folder").toggleClass("hide");
                     $("#rmenu-folder").css({
                         position: "absolute",
                         top: e.pageY,
@@ -168,9 +222,9 @@ else
                 }, false);
             }
         }
-    </script>
+</script>
 
-    <script>
+<script>
 
         var els = $('.context-menu-file');
         for (var i = 0; i < els.length; i++) {
@@ -179,9 +233,38 @@ else
 
                     if (!$(this).is(".fileSystem-list-item-active")) {
                         $(this).toggleClass("fileSystem-list-item-active");
-                    }  
+                    };
 
-                    $("#rmenu-file").toggleClass("hide");                    
+                    var file = 0;
+                    var folder = 0;
+
+                    $(".context-menu-folder").each(function (index, element) {
+                        if ($(this).is(".fileSystem-list-item-folder-active")) {
+                            folder += 1;
+                        };
+                    });
+
+                    $(".context-menu-file").each(function (index, element) {
+                        if ($(this).is(".fileSystem-list-item-active")) {
+                            file += 1;
+                        };
+                    });
+
+                    if (folder < 1 && file == 1) {
+                        document.getElementById("file-download").innerHTML = "Скачать файл";
+                        document.getElementById("file-delete").innerHTML = "Удалить файл";
+
+                    }
+                    else if (folder < 1 && file > 1) {
+                        document.getElementById("file-download").innerHTML = "Скачать ZIP-архив";
+                        document.getElementById("file-delete").innerHTML = "Удалить файлы";
+                    }
+                    else {
+                        document.getElementById("file-download").innerHTML = "Скачать ZIP-архив";
+                        document.getElementById("file-delete").innerHTML = "Удалить обьекты";
+                    }
+
+                    $("#rmenu-file").toggleClass("hide");
                     $("#rmenu-file").css({
                         position: "absolute",
                         top: e.pageY,
@@ -189,24 +272,59 @@ else
                     }
                     );
                     e.preventDefault();
+
                 }, false);
             }
         }
-    </script>
+</script>
 
-    <script>
+<script>
         $(document).bind("click", function (event) {
             document.getElementById("rmenu-folder").className = "col-md-1 hide rmenu";
         });
-    </script>
+</script>
 
-    <script>
+<script>
         $(document).bind("click", function (event) {
             document.getElementById("rmenu-file").className = "col-md-1 hide rmenu";
         });
-    </script>   
+</script>
 
-    <script>
+<script>
+
+        function AddTag() {
+            debugger;
+            var fileSystemIdList = [];
+            var textTag = document.getElementById("text-tag").value;
+
+            $(".context-menu-folder").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-folder-active")) {
+                    fileSystemIdList.push($(this).data("name"));
+                };
+            });
+
+            $(".context-menu-file").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-active")) {
+                    fileSystemIdList.push($(this).data("name"));
+                };
+            });
+
+            $.ajax({
+            url: '@Url.Action("AddTag", "Home")',
+            type: 'POST',
+            dataType: 'json',
+            traditional: true,
+
+            data: {
+                fileSystemsId: fileSystemIdList,
+                tagValue: textTag
+            },
+            });
+        }
+
+</script>
+
+<script>
 
         function DeleteFileSystem() {
 
@@ -223,7 +341,7 @@ else
                     fileSystemIdList.push($(this).data("name"));
                 };
             });
-            
+
             $.ajax({
             url: '@Url.Action("DeleteFileSystem", "Home")',
             type: 'POST',
@@ -236,39 +354,67 @@ else
             });
         }
 
-    </script>
+</script>
 
 <script>
 
         function DownloadFileSystem() {
 
-            var fileSystemId;     
-            var fileSystemName;   
+            var fileSystemId = [];
+            var fileSystemName = [];
 
-            $(".context-menu-file").each(function (index, element) {
-                if ($(this).is(".fileSystem-list-item-active")) {
-                    fileSystemId = $(this).data("name");
-                    fileSystemName = $(this).data("file-name");
+            $(".context-menu-folder").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-folder-active")) {
+                    fileSystemId.push($(this).data("name"));
+                    fileSystemName.push($(this).data("file-name"));
                 };
             });
 
-            $.ajax({
-            url: '@Url.Action("DownloadFileSystem", "Home")',
-            type: 'POST',
-            dataType: 'json',
-            traditional: true,
-
-            data: {
-                fileSystemId: fileSystemId,
-                fileSystemName: fileSystemName
-            },
-
-            success: function (data) {
-
-                var url = window.URL.createObjectURL(data);
-                window.URL.revokeObjectURL(url);
-            }
+            $(".context-menu-file").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-active")) {
+                    fileSystemId.push($(this).data("name"));
+                    fileSystemName.push($(this).data("file-name"));
+                };
             });
+
+            if (fileSystemId.length == 1) {
+                $.ajax({
+                    url: '@Url.Action("DownloadFileSystem", "Home")',
+                type: 'POST',
+                dataType: 'json',
+                traditional: true,
+
+                data: {
+                    fileSystemId: fileSystemId[0],
+                    fileSystemName: fileSystemName[0]
+                },
+
+                success: function (data) {
+
+                    var url = window.URL.createObjectURL(data);
+                    window.URL.revokeObjectURL(url);
+                }
+                });
+            }
+            else
+            {
+                $.ajax({
+                url: '@Url.Action("DownloadFileSystemZIP", "Home")',
+                type: 'POST',
+                dataType: 'json',
+                traditional: true,
+
+                data: {
+                    fileSystemId: fileSystemId
+                },
+
+                success: function (data) {
+
+                    var url = window.URL.createObjectURL(data);
+                    window.URL.revokeObjectURL(url);
+                }
+                });
+            }
         }
 
 </script>

@@ -134,12 +134,14 @@ namespace MediaPortal.Data.DataAccess
         }
 
 
-        public void DeleteFileSystem(string fileName)
+        public async Task<bool> DeleteFileSystem(string blobLink)
         {
-            CloudBlobContainer cloudBlobContainer = GetContainerReference();
-            CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(Path.GetFileName(fileName));
+            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
 
-            blob.DeleteIfExists();
+            CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
+
+            return await blob.DeleteIfExistsAsync();
         }
 
         public CloudBlobContainer GetContainerReference()

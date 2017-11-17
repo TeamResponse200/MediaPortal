@@ -18,15 +18,15 @@ namespace MediaPortal.BL.Interface
 
         void InsertFileSystem(FileSystemDTO model);
 
-        void DeleteFileSystem(int[] fileSystemsId);
+        Task<bool> DeleteFileSystem(int[] fileSystemsId);
 
         Task<Tuple<byte[], string>> DownloadFileSystem(int fileSystemId);
 
-        byte[] DownloadFileSystemZIP(int[] fileSystemsId);
+        Tuple<byte[], string> DownloadFileSystemZIP(int[] fileSystemsId);
 
         void RenameFileSystem(int fileSystemId, string name);
 
-        void AddTag(int fileSystemId, string tegName);
+        void AddTag(string fileSystemId, string tagValue);
 
         void UploadAndInsertFiles(FilesToUploadDTO filesToUpload);
 

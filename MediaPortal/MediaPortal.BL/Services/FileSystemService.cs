@@ -146,24 +146,34 @@ namespace MediaPortal.BL.Services
             return new Tuple<List<int?>, List<string>>(folderIDs, folderNames);
         }
 
-        public void DeleteFileSystem(int[] fileSystemsId)
+        public async Task<bool> DeleteFileSystem(int[] fileSystemsId)
         {
             try
             {
-                foreach(var fileSystemId in fileSystemsId)
+                foreach (var fileSystemId in fileSystemsId)
                 {
-                    var fileSystem = _fileSystemRepository.Get(fileSystemId);                                       
+                    var fileSystem = _fileSystemRepository.Get(fileSystemId);
 
-                    if(fileSystem != null)
+                    if (fileSystem != null)
                     {
                         if (fileSystem.BlobLink != null)
                         {
-                            _storageDataAccess.DeleteFileSystem(fileSystem.Name + fileSystem.Type);
+                            var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
+                            await _storageDataAccess.DeleteFileSystem(blobLink);
+
+                            if (fileSystem.BlobThumbnail != null)
+                            {
+                                var blobThumbnailLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobThumbnail;
+                                await _storageDataAccess.DeleteFileSystem(blobThumbnailLink);
+                            }
                         }
 
                         _fileSystemRepository.DeleteFileSystem(fileSystemId);
-                    }                    
-                }                
+
+                    }
+                }
+
+                return true;
             }
             catch (Exception ex)
             {
@@ -182,7 +192,7 @@ namespace MediaPortal.BL.Services
                 var fileSystem = _fileSystemRepository.Get(fileSystemId);
 
                 fileType = fileSystem.Type;
-                
+
                 var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
 
                 fileBytes = await _storageDataAccess.DownloadFile(blobLink);
@@ -196,13 +206,15 @@ namespace MediaPortal.BL.Services
             return new Tuple<byte[], string>(fileBytes, fileType);
         }
 
-        public byte[] DownloadFileSystemZIP(int[] fileSystemsId)
+        public Tuple<byte[], string> DownloadFileSystemZIP(int[] fileSystemsId)
         {
             byte[] fileBytes = null;
+            string fileName = null;
 
             try
             {
-                //...
+                DownloadFileSystemTree();
+                ZipArchivingFileSystemTree();
             }
             catch (Exception ex)
             {
@@ -210,7 +222,17 @@ namespace MediaPortal.BL.Services
                 throw;
             }
 
-            return fileBytes;
+            return new Tuple<byte[], string>(fileBytes, fileName);
+        }
+
+        public void DownloadFileSystemTree()
+        {
+
+        }
+
+        public void ZipArchivingFileSystemTree()
+        {
+
         }
 
         public void RenameFileSystem(int fileSystemId, string name)
@@ -295,10 +317,29 @@ namespace MediaPortal.BL.Services
                  }
             });
         }
+
         private string GetFileCuttedUri(string blobLink)
         {
             var cuttedLink = blobLink.Replace(ConfigurationManager.AppSettings.Get("azureStorageBlobLink"),"");
             return cuttedLink;
+        }
+
+        public void AddTag(string fileSystemId, string tagValue)
+        {
+            //IEnumerable<Tag> tag = null;
+
+            //tag = _tagRepository.GetTag(tegName);
+
+            //if (tag != null)
+            //{
+
+            //}
+
+            //Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
+            //Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystem);
+
+
+            //_fileSystemRepository.RenameFileSystem(fileSystemId, name);
         }
     }
 }

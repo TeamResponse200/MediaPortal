@@ -50,11 +50,11 @@ namespace ThumbnailCreatorWebJob.Listeners
                 FileIdBlobModel fileIdBlob = JsonConvert.DeserializeObject<FileIdBlobModel>(message.AsString);
 
                 Console.WriteLine(message.AsString);
-                CreateThumbnail(fileIdBlob.BlobLink);
+                var thumbnailLink = CreateThumbnailAsync(fileIdBlob.BlobLink).Result;
                 Queue.DeleteMessage(message);
                 
                 
-                UpdateFileSystem(fileIdBlob.FileId, fileIdBlob.BlobLink);
+                UpdateFileSystem(fileIdBlob.FileId, thumbnailLink);
                 // some operation here is performed
             }
         }
@@ -65,14 +65,14 @@ namespace ThumbnailCreatorWebJob.Listeners
             _fileSystemRepository.FileSystemAddThumbnailLink(id, cuttedUri);
         }
 
-        private async void CreateThumbnail(string blobUri)
+        private async Task<string> CreateThumbnailAsync(string blobUri)
         {
             // TODO : PUT THIS CONNECTION STRING TO APP SETTINGS
             string connectionString = ConfigurationManager.ConnectionStrings["azureConnection"].ConnectionString;
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobUri), storageAccount.Credentials);
-            var thumbnailImage = ResizeBlobAsync(blob).Result;
+            var thumbnailImage = await ResizeBlobAsync(blob).ConfigureAwait(false);
 
             if (thumbnailImage.Length > 0)
             {
@@ -82,8 +82,11 @@ namespace ThumbnailCreatorWebJob.Listeners
                 CloudBlockBlob blobThumbnail = BlobContainer.GetBlockBlobReference(blobName);
                 blobThumbnail.DeleteIfExists();
 
-                await blobThumbnail.UploadFromByteArrayAsync(thumbnailImage, 0, thumbnailImage.Length).ConfigureAwait(false);         
+                await blobThumbnail.UploadFromByteArrayAsync(thumbnailImage, 0, thumbnailImage.Length).ConfigureAwait(false);
+                return blobThumbnail.Uri.ToString();
             }
+
+            return null;
         }
 
         private async Task<byte[]> ResizeBlobAsync(CloudBlockBlob blob)

@@ -192,11 +192,11 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult DeleteFileSystem(int[] fileSystemsId)
+        public async Task<ActionResult> DeleteFileSystem(int[] fileSystemsId)
         {
             try
             {
-                _fileSystemService.DeleteFileSystem(fileSystemsId);
+                await _fileSystemService.DeleteFileSystem(fileSystemsId);
             }
             catch (DataException)
             {
@@ -228,21 +228,27 @@ namespace MediaPortal.Controllers
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName);
         }
 
+
         [Authorize]
         [HttpPost]
-        public ActionResult DownloadFileSystemZIP(int[] fileSystemsId)
+        public FileResult DownloadFileSystemZIP(int[] fileSystemsId)
         {
+            byte[] fileBytes = null;
+            string fileSystemName = null;
+
             try
             {
-                _fileSystemService.DownloadFileSystemZIP(fileSystemsId);
+                var tupleFileBytes = _fileSystemService.DownloadFileSystemZIP(fileSystemsId);
+                //fileBytes = tupleFileBytes.Item1;
+                //fileSystemName += tupleFileBytes.Item2;
             }
             catch (DataException)
             {
                 // some logic for user
-                return View("Error");
+                return null;
             }
 
-            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.T‌​oString());
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName);
         }
 
         [Authorize]
@@ -264,11 +270,11 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddTag(FileSystemModels model, string tegName)
+        public ActionResult AddTag(string fileSystemId, string tagValue)
         {
             try
             {
-                _fileSystemService.AddTag(model.Id, tegName);
+                _fileSystemService.AddTag(fileSystemId, tagValue);
             }
             catch (DataException)
             {
@@ -276,7 +282,7 @@ namespace MediaPortal.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name });
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public ActionResult Contact()

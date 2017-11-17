@@ -565,3 +565,64 @@ background-color:white;
     .rmenu-li:hover {
         background-color: #eeeeee;
     }
+
+
+.modal-content-tag {
+    margin-top: 35%;
+}
+
+.row-tag {
+    padding-left: 40px;
+    padding-right: 30px;
+}
+
+.modal-header-tag {
+    padding: 0;
+    padding-top: 36px;
+    padding-bottom: 16px;
+    border-bottom: none;
+}
+
+.modal-title-tag {
+    color: #898989;
+}
+
+.modal-body-tag {
+    padding: 0px;
+}
+
+.form-control-tag {
+    resize: none;
+    border: 1px #898989 solid;
+    box-shadow: none;
+    width: 430px;
+    height: 87px;
+}
+
+.modal-footer-tag {
+    border-top: none;
+    padding: 0px;
+    padding-top: 13px;
+    padding-bottom: 21px
+}
+
+.row-tag2 {
+    text-align: left;
+    color: #898989;
+    letter-spacing: 1px;
+    font-size: 9px;
+    line-height: 8px;
+}
+
+.tag-count {
+    margin-top: 6px;
+}
+
+.btn-tag {
+    background-color: #514BC8;
+    padding: 0px;
+    letter-spacing: 1px;
+    font-size: 18px;
+    height: 50px;
+    width: 160px;
+}
