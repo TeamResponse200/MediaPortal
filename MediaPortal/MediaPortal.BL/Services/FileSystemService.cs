@@ -25,11 +25,14 @@ namespace MediaPortal.BL.Services
     {
         private readonly IFileSystemRepository<FileSystem> _fileSystemRepository;
 
+        private readonly ITagRepository<Tag> _tagRepository;
+
         private readonly StorageDataAccess _storageDataAccess;
 
-        public FileSystemService(IFileSystemRepository<FileSystem> fileSyatemRepository)
+        public FileSystemService(IFileSystemRepository<FileSystem> fileSyatemRepository, ITagRepository<Tag> tagRepository)
         {
             _fileSystemRepository = fileSyatemRepository;
+            _tagRepository = tagRepository;
 
             _storageDataAccess = new StorageDataAccess();
         }
@@ -67,9 +70,9 @@ namespace MediaPortal.BL.Services
             //    cfg.CreateMap<FileSystem, FileSystemDTO>();
             //    cfg.CreateMap<Tag, TagDTO>();
             //});
-
+            
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>()
-                .ForMember(dest => dest.Tags, opt => opt.Ignore()));
+               .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new Tag {Id = o.Id, Name = o.Name}).ToList())));
 
             IEnumerable<FileSystem> fileSystem = null;
             try
@@ -247,26 +250,7 @@ namespace MediaPortal.BL.Services
                 throw;
             }
         }
-
-        public void AddTag(int fileSystemId, string tegName)
-        {
-            //IEnumerable<Tag> tag = null;
-
-            //tag = _tagRepository.GetTag(tegName);
-
-            //if (tag != null)
-            //{
-
-            //}
-
-            //Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
-            //Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystem);
-
-
-            //_fileSystemRepository.RenameFileSystem(fileSystemId, name);
-
-        }
-
+        
         public async Task<Stream> GetFileSystemThumbnailAsync(int fileSystemId)
         {
             var fileSystem = _fileSystemRepository.Get(fileSystemId);
@@ -324,22 +308,36 @@ namespace MediaPortal.BL.Services
             return cuttedLink;
         }
 
-        public void AddTag(string fileSystemId, string tagValue)
+        public void AddTag(int fileSystemId, string tagValue)
         {
-            //IEnumerable<Tag> tag = null;
+            var fileSystem = _fileSystemRepository.Get(fileSystemId);
 
-            //tag = _tagRepository.GetTag(tegName);
+            if (fileSystem != null)
+            {
+                var tag = _tagRepository.Get(tagValue);
 
-            //if (tag != null)
-            //{
+                int tagId;
 
-            //}
+                if (tag == null)
+                {
+                    var tagObj = new Tag()
+                    {
+                        Name = tagValue,
+                    };
 
-            //Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>());
-            //Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystem);
+                    tagId = _tagRepository.InsertObject(tagObj);
 
+                    var currentTag = _tagRepository.Get(tagId);
 
-            //_fileSystemRepository.RenameFileSystem(fileSystemId, name);
+                    _fileSystemRepository.AddTag(fileSystemId, currentTag.Id);
+
+                }
+                else
+                {
+                    fileSystem.Tags.Add(tag);
+                }                
+            }            
         }
+
     }
 }

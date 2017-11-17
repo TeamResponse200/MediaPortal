@@ -270,7 +270,7 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddTag(string fileSystemId, string tagValue)
+        public ActionResult AddTag(int fileSystemId, string tagValue)
         {
             try
             {

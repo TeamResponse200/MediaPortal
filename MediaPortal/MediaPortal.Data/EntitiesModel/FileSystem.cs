@@ -2,6 +2,7 @@ namespace MediaPortal.Data.EntitiesModel
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -57,7 +58,12 @@ namespace MediaPortal.Data.EntitiesModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SharedAccess> SharedAccesses { get; set; }
 
+        private ICollection<Tag> _tags;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags {
+            get { return _tags ?? (_tags = new Collection<Tag>()); }
+            set { _tags = value; }
+        }
     }
 }

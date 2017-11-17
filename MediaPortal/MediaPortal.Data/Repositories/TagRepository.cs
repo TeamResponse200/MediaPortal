@@ -9,7 +9,7 @@ using MediaPortal.Data.EntitiesModel;
 
 namespace MediaPortal.Data.Repositories
 {
-    public class TagRepository : IRepository<Tag>
+    public class TagRepository : ITagRepository<Tag>
     {
         private string _connectionString;
 
@@ -26,6 +26,14 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
+        public Tag Get(string name)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.Tags.Where(x => x.Name == name).FirstOrDefault();
+            }
+        }
+
         public IEnumerable<Tag> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
@@ -33,6 +41,18 @@ namespace MediaPortal.Data.Repositories
                 return dbContext.Tags.ToList();
             }
         }
-        
+
+        public int InsertObject(Tag tag)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                dbContext.Tags.Add(tag);
+
+                dbContext.SaveChanges();
+
+                return tag.Id;
+            }
+        }
+
     }
 }

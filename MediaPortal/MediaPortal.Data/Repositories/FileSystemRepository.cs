@@ -126,5 +126,17 @@ namespace MediaPortal.Data.Repositories
                 }
             }
         }
+
+        public void AddTag(int fileSystem, int tag)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                var filesystems = dbContext.FileSystems.Where(x => x.Id == fileSystem).FirstOrDefault();
+                var tags = dbContext.Tags.Where(x => x.Id == tag).FirstOrDefault();
+
+                filesystems.Tags.Add(tags);
+                dbContext.SaveChanges();
+            }
+        }
     }
 }

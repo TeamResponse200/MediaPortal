@@ -14,7 +14,15 @@
             @Model.Name
             @*@Html.ActionLink("linkText","UserFiles","Home", routeValues: new { folderID = Model.Id, folderName = Model.Name },htmlAttributes: null)*@
         </div>
-        <div class="col-md-3" id="fileTagListItem"> + Добавить тег</div>
+        @if (Model.Tags == null)
+        {
+            <div class="col-md-3" id="fileTagListItem"> Добавить тег</div>
+        }
+        else
+        {
+            <div class="col-md-3" id="fileTagListItem"> @Model.Tags.FirstOrDefault()</div>
+        }
+        
     </div>
    
 }

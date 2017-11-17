@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediaPortal.Data.EntitiesModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,7 @@ namespace MediaPortal.Data.Interface
         void RenameFileSystem(int fileSystemId, string name);
 
         void FileSystemAddThumbnailLink(int fileSystemId, string link);
+
+        void AddTag(int fileSystem, int tag);
     }
 }
