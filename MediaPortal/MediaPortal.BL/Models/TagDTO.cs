@@ -13,6 +13,6 @@ namespace MediaPortal.BL.Models
         
         public string Name { get; set; }
 
-        public virtual ICollection<FileSystemDTO> FileSystems { get; set; }
+        public virtual IEnumerable<FileSystemDTO> FileSystems { get; set; }
     }
 }

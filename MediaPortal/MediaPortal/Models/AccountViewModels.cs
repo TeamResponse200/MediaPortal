@@ -75,7 +75,7 @@ namespace MediaPortal.Models
         public string UserName { get; set; }
 
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "This is not valid Email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -106,7 +106,7 @@ namespace MediaPortal.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

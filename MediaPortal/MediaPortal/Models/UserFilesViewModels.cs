@@ -10,6 +10,5 @@ namespace MediaPortal.Models
         public IList<MediaPortal.Models.FileSystemModels> Files { get; set;}
         public IList<int?> FolderIDs { get; set; }
         public IList<string> FolderNames { get; set; }
-
     }
 }

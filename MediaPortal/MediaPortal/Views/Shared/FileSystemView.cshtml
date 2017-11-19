@@ -14,13 +14,18 @@
             @Model.Name
             @*@Html.ActionLink("linkText","UserFiles","Home", routeValues: new { folderID = Model.Id, folderName = Model.Name },htmlAttributes: null)*@
         </div>
-        @if (Model.Tags == null)
+        @if (Model.Tags == null || Model.Tags.Count == 0)
         {
-            <div class="col-md-3" id="fileTagListItem"> Добавить тег</div>
+            <div class="col-md-3" id="fileTagListItem"> Теги отсутствуют</div>
         }
         else
         {
-            <div class="col-md-3" id="fileTagListItem"> @Model.Tags.FirstOrDefault()</div>
+            <div class="col-md-3" id="fileTagListItem">
+                @foreach (TagModels tag in Model.Tags)
+                {
+                    <span>#@tag.Name</span>
+                }
+            </div>
         }
         
     </div>
@@ -36,6 +41,17 @@ else
             @Model.Name
             @Html.ActionLink("download", "DownloadFileSystem", "Home", routeValues: new { fileSystemId = Model.Id, fileSystemName = Model.Name }, htmlAttributes: null)
         </div>
-        <div class="col-md-3" id="fileTagListItem"> + Добавить тег</div>    
+        @if (Model.Tags == null || Model.Tags.Count == 0)
+        {
+            <div class="col-md-3" id="fileTagListItem"> Теги отсутствуют</div>
+        }
+        else
+        {
+            <div class="col-md-3" id="fileTagListItem">
+                @foreach(TagModels tag in Model.Tags){
+                    <span>#@tag.Name</span>
+                }
+            </div>
+        }
     </div>
 }

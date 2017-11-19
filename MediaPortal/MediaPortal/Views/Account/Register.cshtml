@@ -18,12 +18,13 @@
                     <div class="col-md-10 col-md-offset-1">
                         @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @id = "registerInput", @placeholder = "Имя пользователя" })
                         @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-1">
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "registerInput", @placeholder = "Email" })
-                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <p></p>

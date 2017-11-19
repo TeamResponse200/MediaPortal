@@ -446,7 +446,10 @@ namespace MediaPortal.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                if (error.ToLower().Contains("email"))
+                {
+                    ModelState.AddModelError("email", error);
+                }
             }
         }
 

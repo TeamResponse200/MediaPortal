@@ -32,9 +32,9 @@
                                     <span id="iconSearchFilter"></span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" id="searchDropDown">
-                                    <button class="btn dropdown-item textUsual dropDownButton">Поиск по файлам</button>
+                                    <button class="btn dropdown-item textUsual dropDownButton" id="searchByName">Поиск по файлам</button>
                                     <div role="separator" class="dropdown-divider"></div>
-                                    <button class="btn dropdown-item textUsual dropDownButton">Поиск по тегам</button>
+                                    <button class="btn dropdown-item textUsual dropDownButton" id="searchByTags">Поиск по тегам</button>
                                 </div>
                             </div>
                         </div>
@@ -63,11 +63,11 @@
                         По дате создания <span id="iconSortFilter"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button class="btn dropdown-item textUsual dropDownButton" >По дате создания</button>
+                        <button class="btn dropdown-item textUsual dropDownButton" id="sortByCreationDate">По дате создания</button>
                         <div role="separator" class="dropdown-divider"></div>
-                        <button class="btn dropdown-item textUsual dropDownButton" >По дате добавления</button>
+                        <button class="btn dropdown-item textUsual dropDownButton" id="sortByUploadDate">По дате добавления</button>
                         <div role="separator" class="dropdown-divider"></div>
-                        <button class="btn dropdown-item textUsual dropDownButton" >По размеру</button>
+                        <button class="btn dropdown-item textUsual dropDownButton" id="sortBySize">По размеру</button>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -183,6 +183,16 @@
             document.cookie = "viewType=BlockView" + "; " + "domain=;path=/";
             location.reload();
         })
+
+
+        $("#searchByName").click(function () {
+            document.cookie = "searchType=SearchByName" + "; " + "domain=;path=/";
+        })
+        $("#searchByTags").click(function () {
+            document.cookie = "searchType=SearchByTag" + "; " + "domain=;path=/";
+        })
+        
+
         //$(".fileSystem-list-item").click(function () {
         //    alert("hello");
 

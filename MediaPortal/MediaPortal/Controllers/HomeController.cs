@@ -68,7 +68,7 @@ namespace MediaPortal.Controllers
             //Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
 
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>()
-                .ForMember(dest => dest.Tags, opt => opt.Ignore()));
+                .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagModels { Id = o.Id, Name = o.Name }).ToList())));
 
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
@@ -97,6 +97,7 @@ namespace MediaPortal.Controllers
         public ActionResult SearchFiles(string searchValue)
         {
             string viewType = string.Empty;
+            string searchType = string.Empty;
             if (Request.Cookies["viewType"] != null)
             {
                 viewType = Request.Cookies["viewType"].Value.ToString();
@@ -104,6 +105,14 @@ namespace MediaPortal.Controllers
             else
             {
                 Response.Cookies["viewType"].Value = "List";
+            }
+            if (Request.Cookies["searchType"] != null)
+            {
+                searchType = Request.Cookies["searchType"].Value.ToString();
+            }
+            else
+            {
+                Response.Cookies["searchType"].Value = "SearchByName";
             }
 
             string userId = User.Identity.GetUserId();
@@ -114,7 +123,14 @@ namespace MediaPortal.Controllers
             try
             {
                 allFileSystemDtos = _fileSystemService.GetAllUserFileSystem(userId);
-                fileSystemDtos = allFileSystemDtos.Where(file => file.Name.ToLower().Contains(searchValue.ToLower()));
+                if (searchType.Equals("SearchByName"))
+                {
+                    fileSystemDtos = allFileSystemDtos.Where(file => file.Name.ToLower().Contains(searchValue.ToLower()));
+                }
+                else
+                {
+                    fileSystemDtos = allFileSystemDtos.Where(file => file.Tags.Any(tag => tag.Name.ToLower().Contains(searchValue.ToLower())));
+                }
             }
             catch (Exception)
             {
@@ -125,7 +141,7 @@ namespace MediaPortal.Controllers
             //Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>());
 
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>()
-                .ForMember(dest => dest.Tags, opt => opt.Ignore()));
+                .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagModels { Id = o.Id, Name = o.Name }).ToList())));
 
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
@@ -141,9 +157,41 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
+        public ActionResult SortFiles(UserFilesViewModels model)
+        {
+            string sortType = string.Empty;
+            if (Request.Cookies["sortType"] != null)
+            {
+                sortType = Request.Cookies["sortType"].Value.ToString();
+            }
+            else
+            {
+                Response.Cookies["sortType"].Value = "SortByAdditionDate";
+            }
+
+            switch (sortType)
+            {
+                case "SortByUploadDate":
+                    model.Files.OrderBy(elem => elem.UploadDate);
+                    break;
+                case "SortByCreationDate":
+                    model.Files.OrderBy(elem => elem.CreationDate);
+                    break;
+                case "SortBySize":
+                    model.Files.OrderBy(elem => elem.Size);
+                    break;
+                default:
+                    break;
+            }
+
+            return View("UserFiles", model);
+        }
+
+        [Authorize]
+        [HttpPost]
         public ActionResult CreateFolder(FileSystemModels model, string returnUrl)
         {
-
+            Response.Cookies["registered"].Expires = DateTime.Now.AddDays(-1);
             model.UserId = User.Identity.GetUserId();
             model.Type = "Folder";
             model.CreationDate = DateTime.Now;
@@ -175,6 +223,7 @@ namespace MediaPortal.Controllers
         [HttpPost]
         public ActionResult UploadFiles(FilesToUploadModels model)
         {
+            Response.Cookies["registered"].Expires = DateTime.Now.AddDays(-1);
             Mapper.Initialize(cfg => cfg.CreateMap<FilesToUploadModels, FilesToUploadDTO>());
             var filesToUpload = Mapper.Map<FilesToUploadDTO>(model);
             try

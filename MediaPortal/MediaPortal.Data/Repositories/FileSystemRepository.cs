@@ -40,7 +40,9 @@ namespace MediaPortal.Data.Repositories
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.FileSystems.Where(x => x.UserId == userId).ToList();
+                return dbContext.FileSystems.Where(x => x.UserId == userId)
+                                            .Include(x => x.Tags)
+                                            .ToList();
             }
         }
 
@@ -48,7 +50,10 @@ namespace MediaPortal.Data.Repositories
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                return dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId).ToList();
+                return dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId)
+                                            .Include(x=>x.Tags)
+                                            .ToList();
+                //return dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId).ToList();
             }
         }
 

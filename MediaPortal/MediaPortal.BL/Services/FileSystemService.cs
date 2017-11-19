@@ -56,7 +56,7 @@ namespace MediaPortal.BL.Services
         public IEnumerable<FileSystemDTO> GetAllUserFileSystem(string userId)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>()
-                .ForMember(dest => dest.Tags, opt => opt.Ignore()));
+                .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagDTO { Id = o.Id, Name = o.Name }).ToList())));
 
             var fileSystems = _fileSystemRepository.GetAll(userId);
 
@@ -70,9 +70,9 @@ namespace MediaPortal.BL.Services
             //    cfg.CreateMap<FileSystem, FileSystemDTO>();
             //    cfg.CreateMap<Tag, TagDTO>();
             //});
-            
-            Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>()
-               .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new Tag {Id = o.Id, Name = o.Name}).ToList())));
+
+            Mapper.Initialize(cfg =>  cfg.CreateMap<FileSystem, FileSystemDTO>()
+                .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagDTO { Id = o.Id, Name = o.Name }).ToList())));
 
             IEnumerable<FileSystem> fileSystem = null;
             try
@@ -84,8 +84,7 @@ namespace MediaPortal.BL.Services
                 Trace.TraceError(ex.Message);
                 throw;
             }
-
-            return Mapper.Map<IEnumerable<FileSystem>, List<FileSystemDTO>>(fileSystem);
+            return Mapper.Map<IEnumerable<FileSystem>, IEnumerable<FileSystemDTO>>(fileSystem);
         }
 
         public void InsertFileSystem(FileSystemDTO model)
@@ -295,9 +294,6 @@ namespace MediaPortal.BL.Services
                      var insertedId = _fileSystemRepository.InsertObject(fileSystem);
                                           
                      _storageDataAccess.PutMessageRequestForThumbnail(insertedId, uri);
-
-
-                     // TODO: queue add logic
                  }
             });
         }
@@ -334,7 +330,8 @@ namespace MediaPortal.BL.Services
                 }
                 else
                 {
-                    fileSystem.Tags.Add(tag);
+                    _fileSystemRepository.AddTag(fileSystemId, tag.Id);
+                    //fileSystem.Tags.Add(tag);
                 }                
             }            
         }
