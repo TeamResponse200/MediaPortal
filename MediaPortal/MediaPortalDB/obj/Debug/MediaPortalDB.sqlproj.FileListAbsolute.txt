@@ -48,3 +48,8 @@ C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj
 C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql
 C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
 C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
+C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dacpac
+C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
+C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
