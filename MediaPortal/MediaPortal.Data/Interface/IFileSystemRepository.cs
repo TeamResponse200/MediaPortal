@@ -1,4 +1,5 @@
 ﻿using MediaPortal.Data.EntitiesModel;
+using MediaPortal.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace MediaPortal.Data.Interface
         IEnumerable<T> GetAll(string userId, int? fileSystemParentId);
 
         int InsertObject(T t);
+
+        List<FileDeleteModel> SearchFileSystemForDelete(int fileSystemId);
 
         void DeleteFileSystem(int fileSystemId);
 

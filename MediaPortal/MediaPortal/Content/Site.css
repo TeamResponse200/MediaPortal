@@ -333,6 +333,7 @@ button.dropDownButton {
 }
     .fileSystem-list-item-folder:hover {
         background-color: lightgray;
+        cursor: pointer;
     }
 
 .fileSystem-list-item-folder-active {

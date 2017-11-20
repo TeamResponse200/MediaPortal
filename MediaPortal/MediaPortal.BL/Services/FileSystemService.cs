@@ -37,7 +37,7 @@ namespace MediaPortal.BL.Services
             _storageDataAccess = new StorageDataAccess();
         }
 
-        
+
         // add blob 
         public void InsertFile(FileSystemDTO model, byte[] file, string fileName)
         {
@@ -71,7 +71,7 @@ namespace MediaPortal.BL.Services
             //    cfg.CreateMap<Tag, TagDTO>();
             //});
 
-            Mapper.Initialize(cfg =>  cfg.CreateMap<FileSystem, FileSystemDTO>()
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>()
                 .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagDTO { Id = o.Id, Name = o.Name }).ToList())));
 
             IEnumerable<FileSystem> fileSystem = null;
@@ -109,13 +109,15 @@ namespace MediaPortal.BL.Services
             }
         }
 
-        public Tuple<List<int?>, List<string>> GetFoldersIdNamePair(int? folderID,string userId)
+        public Tuple<List<int?>, List<string>> GetFoldersIdNamePair(int? folderID, string userId)
         {
             var folderIDs = new List<int?>();
             var folderNames = new List<string>();
+
             IEnumerable<FileSystemDTO> allFiles = new List<FileSystemDTO>();
 
             folderIDs.Add(folderID);
+
             try
             {
                 allFiles = GetAllUserFileSystem(userId);
@@ -125,15 +127,21 @@ namespace MediaPortal.BL.Services
                 Trace.TraceError(ex.Message);
                 throw;
             }
+
             while (folderID != null)
             {
+                var parent = allFiles.Where(file => file.Id == folderID).FirstOrDefault();
 
-                var parentID = allFiles.Where(file => file.Id == folderID).FirstOrDefault().ParentId;
-                if (parentID != null)
+                if(parent != null)
                 {
-                    folderIDs.Add(parentID);
-                }
-                folderID = parentID;
+                    var parentID = parent.ParentId;
+
+                    if (parentID != null)
+                    {
+                        folderIDs.Add(parentID);
+                    }
+                    folderID = parentID;
+                }                
             }
 
             foreach (int? id in folderIDs)
@@ -154,24 +162,28 @@ namespace MediaPortal.BL.Services
             {
                 foreach (var fileSystemId in fileSystemsId)
                 {
-                    var fileSystem = _fileSystemRepository.Get(fileSystemId);
+                    var FileSystemsForDelete = _fileSystemRepository.SearchFileSystemForDelete(fileSystemId);                    
 
-                    if (fileSystem != null)
+                    if (FileSystemsForDelete != null)
                     {
-                        if (fileSystem.BlobLink != null)
+                        FileSystemsForDelete.Reverse();
+
+                        foreach (var fileSystem in FileSystemsForDelete)
                         {
-                            var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
-                            await _storageDataAccess.DeleteFileSystem(blobLink);
+                            _fileSystemRepository.DeleteFileSystem(fileSystem.Id);
 
-                            if (fileSystem.BlobThumbnail != null)
+                            if (fileSystem.BlobLink != null)
                             {
-                                var blobThumbnailLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobThumbnail;
-                                await _storageDataAccess.DeleteFileSystem(blobThumbnailLink);
+                                var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
+                                await _storageDataAccess.DeleteFileSystem(blobLink);
+
+                                if (fileSystem.BlobThumbnail != null)
+                                {
+                                    var blobThumbnailLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobThumbnail;
+                                    await _storageDataAccess.DeleteFileSystem(blobThumbnailLink);
+                                }
                             }
-                        }
-
-                        _fileSystemRepository.DeleteFileSystem(fileSystemId);
-
+                        }                            
                     }
                 }
 
@@ -249,7 +261,7 @@ namespace MediaPortal.BL.Services
                 throw;
             }
         }
-        
+
         public async Task<Stream> GetFileSystemThumbnailAsync(int fileSystemId)
         {
             var fileSystem = _fileSystemRepository.Get(fileSystemId);
@@ -264,76 +276,80 @@ namespace MediaPortal.BL.Services
             {
                 Trace.TraceError(ex.InnerException.Message);
             }
-            
+
             return null;
-            
+
         }
 
         public void UploadAndInsertFiles(FilesToUploadDTO filesToUpload)
         {
-             Parallel.ForEach(filesToUpload.Files, file => {
-                if (file != null) {
-                     var uri =  _storageDataAccess.UploadFileInBlocksAsync(file).Result;
+            Parallel.ForEach(filesToUpload.Files, file =>
+            {
+                if (file != null)
+                {
+                    var uri = _storageDataAccess.UploadFileInBlocksAsync(file).Result;
 
-                     var cuttedUri = GetFileCuttedUri(uri);
+                    var cuttedUri = GetFileCuttedUri(uri);
 
-                     var fileSystem = new FileSystem()
-                     {
-                         UserId = filesToUpload.UserID,
-                         ParentId = filesToUpload.ParrentID,
-                         Name = Path.GetFileNameWithoutExtension(file.FileName),
-                         Type = Path.GetExtension(file.FileName),
-                         Size = file.ContentLength,
-                         BlobLink = cuttedUri,
-                         UploadDate = DateTime.Now,
-                         CreationDate = DateTime.Now
-                     };
+                    var fileSystem = new FileSystem()
+                    {
+                        UserId = filesToUpload.UserID,
+                        ParentId = filesToUpload.ParrentID,
+                        Name = Path.GetFileNameWithoutExtension(file.FileName),
+                        Type = Path.GetExtension(file.FileName),
+                        Size = file.ContentLength,
+                        BlobLink = cuttedUri,
+                        UploadDate = DateTime.Now,
+                        CreationDate = DateTime.Now
+                    };
 
-                     //
+                    //
 
-                     var insertedId = _fileSystemRepository.InsertObject(fileSystem);
-                                          
-                     _storageDataAccess.PutMessageRequestForThumbnail(insertedId, uri);
-                 }
+                    var insertedId = _fileSystemRepository.InsertObject(fileSystem);
+
+                    _storageDataAccess.PutMessageRequestForThumbnail(insertedId, uri);
+                }
             });
         }
 
         private string GetFileCuttedUri(string blobLink)
         {
-            var cuttedLink = blobLink.Replace(ConfigurationManager.AppSettings.Get("azureStorageBlobLink"),"");
+            var cuttedLink = blobLink.Replace(ConfigurationManager.AppSettings.Get("azureStorageBlobLink"), "");
             return cuttedLink;
         }
 
-        public void AddTag(int fileSystemId, string tagValue)
+        public void AddTag(int[] fileSystemId, string tagValue)
         {
-            var fileSystem = _fileSystemRepository.Get(fileSystemId);
-
-            if (fileSystem != null)
+            for (int i = 0; i < fileSystemId.Length; i++)
             {
-                var tag = _tagRepository.Get(tagValue);
+                var fileSystem = _fileSystemRepository.Get(fileSystemId[i]);
 
-                int tagId;
-
-                if (tag == null)
+                if (fileSystem != null)
                 {
-                    var tagObj = new Tag()
+                    var tag = _tagRepository.Get(tagValue);
+
+                    int tagId;
+
+                    if (tag == null)
                     {
-                        Name = tagValue,
-                    };
+                        var tagObj = new Tag()
+                        {
+                            Name = tagValue,
+                        };
 
-                    tagId = _tagRepository.InsertObject(tagObj);
+                        tagId = _tagRepository.InsertObject(tagObj);
 
-                    var currentTag = _tagRepository.Get(tagId);
+                        var currentTag = _tagRepository.Get(tagId);
 
-                    _fileSystemRepository.AddTag(fileSystemId, currentTag.Id);
-
+                        _fileSystemRepository.AddTag(fileSystemId[i], currentTag.Id);
+                    }
+                    else
+                    {
+                        _fileSystemRepository.AddTag(fileSystemId[i], tag.Id);
+                    }
                 }
-                else
-                {
-                    _fileSystemRepository.AddTag(fileSystemId, tag.Id);
-                    //fileSystem.Tags.Add(tag);
-                }                
-            }            
+            }
+
         }
 
     }

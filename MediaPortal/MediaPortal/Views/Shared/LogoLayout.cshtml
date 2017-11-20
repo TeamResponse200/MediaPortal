@@ -63,11 +63,11 @@
                         По дате создания <span id="iconSortFilter"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button class="btn dropdown-item textUsual dropDownButton" id="sortByCreationDate">По дате создания</button>
+                        <button class="btn dropdown-item textUsual dropDownButton" id="sortByCreationDate" onclick="SortByCreationDate()">По дате создания</button>
                         <div role="separator" class="dropdown-divider"></div>
-                        <button class="btn dropdown-item textUsual dropDownButton" id="sortByUploadDate">По дате добавления</button>
+                        <button class="btn dropdown-item textUsual dropDownButton" id="sortByUploadDate" onclick="SortByUploadDate()">По дате добавления</button>
                         <div role="separator" class="dropdown-divider"></div>
-                        <button class="btn dropdown-item textUsual dropDownButton" id="sortBySize">По размеру</button>
+                        <button class="btn dropdown-item textUsual dropDownButton" id="sortBySize" onclick="SortBySize()">По размеру</button>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -158,9 +158,8 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required:false)
-    <script type="text/javascript">
 
-       
+    <script type="text/javascript">
 
         $("#mainDropDownButton").click(function () {
             $(this).toggleClass("active");
@@ -168,7 +167,7 @@
 
         $(".FileSystemListItem").dblclick(function () {
             //alert("hello");
-           
+
         });
         $(".FileSystemListItem").click(function () {
             //alert("hello");
@@ -192,12 +191,24 @@
             document.cookie = "searchType=SearchByTag" + "; " + "domain=;path=/";
         })
         
+        function SortBySize() {
+            debugger;
+            $(this);
 
-        //$(".fileSystem-list-item").click(function () {
-        //    alert("hello");
+            $.ajax({
+            url: '@Url.Action("SortFiles", "Home")',
+                type: 'POST',
+                dataType: 'json',
+                traditional: true,
 
-        //});
+                data: {
+                    fileSystemsId: $(this).id
+                },
+            });
+        }
+
     </script>
+
 
 </body>
 </html>

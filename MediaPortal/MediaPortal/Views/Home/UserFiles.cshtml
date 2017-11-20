@@ -137,7 +137,7 @@ else
                     <div class="modal-footer modal-footer-tag">
                         <div class="row">
                             <div class="col-md-6 row-tag2">
-                                <div>Максимальное</div><div class="tag-count">количество тегов - 200</div>
+                                <div>Максимальная</div><div class="tag-count">длина тегов - 200</div>
                             </div>
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-primary btn-tag" data-dismiss="modal" onclick="AddTag()">Добавить</button>
@@ -197,8 +197,7 @@ else
 
                     if (folder == 1 && file < 1) {
                         document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
-                        document.getElementById("folder-delete").innerHTML = "Удалить папку";
-
+                        document.getElementById("folder-delete").innerHTML = "Удалить папку";    
                     }
                     else if (folder > 1 && file < 1) {
                         document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
@@ -208,7 +207,6 @@ else
                         document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
                         document.getElementById("folder-delete").innerHTML = "Удалить обьекты";
                     }
-
 
                     $("#rmenu-folder").toggleClass("hide");
                     $("#rmenu-folder").css({
@@ -252,7 +250,6 @@ else
                     if (folder < 1 && file == 1) {
                         document.getElementById("file-download").innerHTML = "Скачать файл";
                         document.getElementById("file-delete").innerHTML = "Удалить файл";
-
                     }
                     else if (folder < 1 && file > 1) {
                         document.getElementById("file-download").innerHTML = "Скачать ZIP-архив";
@@ -315,7 +312,7 @@ else
             traditional: true,
 
             data: {
-                fileSystemId: fileSystemIdList[0],
+                fileSystemId: fileSystemIdList,
                 tagValue: textTag
             },
             });

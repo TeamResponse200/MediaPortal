@@ -8,6 +8,8 @@ using MediaPortal.Data.DataAccess;
 using MediaPortal.Data.Interface;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Data;
+using MediaPortal.Data.Models;
 
 namespace MediaPortal.Data.Repositories
 {
@@ -51,7 +53,7 @@ namespace MediaPortal.Data.Repositories
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
                 return dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId)
-                                            .Include(x=>x.Tags)
+                                            .Include(x => x.Tags)
                                             .ToList();
                 //return dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId).ToList();
             }
@@ -69,21 +71,27 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public void DeleteFileSystem(int fileSystemId)
+        public List<FileDeleteModel> SearchFileSystemForDelete(int fileSystemId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
                 var param = new SqlParameter("@Id", fileSystemId);
 
-                //var fileSystem = dbContext.FileSystems.SqlQuery("prFileSystemDelete @Id", param).ToList();
+                List<FileDeleteModel> fileSystem = dbContext.Database.SqlQuery<FileDeleteModel>("prFileSystemDelete @Id", param).ToList();
 
-                //dbContext.Database.ExecuteSqlCommand("WITH [CTE](Id, ParentId) AS (         SELECT Id, ParentId         FROM FileSystem fs         WHERE (fs.Id = @Id)          UNION ALL          SELECT fs.Id, fs.ParentId             FROM FileSystem fs INNER JOIN [CTE] p ON fs.ParentId = p.Id      ) DELETE FROM FileSystem WHERE Id IN(     SELECT TOP 100 PERCENT t.Id     FROM [CTE] t)", param);
-                dbContext.Database.ExecuteSqlCommand("prFileSystemDelete @Id", param);
+                return fileSystem;
+            }
+        }
 
-                //dbContext.SaveChanges();
-                                
-            }            
+        public void DeleteFileSystem(int fileSystemId)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                var fileSystem = dbContext.FileSystems.Where(x => x.Id == fileSystemId).FirstOrDefault();
 
+                dbContext.Entry(fileSystem).State = EntityState.Deleted;
+                dbContext.SaveChanges();
+            }
         }
 
         public void RenameFileSystem(int fileSystemId, string name)
@@ -95,24 +103,6 @@ namespace MediaPortal.Data.Repositories
                 if (fileSystem != null)
                 {
                     fileSystem.Name = name;
-                    dbContext.SaveChanges();
-                }
-            }
-        }
-
-        public void AddTag(int fileSystemId, List<Tag> tags)
-        {
-            using (var dbContext = new MediaPortalDbContext(_connectionString))
-            {
-                var fileSystem = dbContext.FileSystems.Where(x => x.Id == fileSystemId).FirstOrDefault();
-
-                if (fileSystem != null)
-                {
-                    foreach (var tag in tags)
-                    {
-                        fileSystem.Tags.Add(tag);
-                    }
-
                     dbContext.SaveChanges();
                 }
             }
