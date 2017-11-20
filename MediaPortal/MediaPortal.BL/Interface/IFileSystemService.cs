@@ -31,5 +31,7 @@ namespace MediaPortal.BL.Interface
         void UploadAndInsertFiles(FilesToUploadDTO filesToUpload);
 
         Task<Stream> GetFileSystemThumbnailAsync(int fileSystemId);
+
+        void UpdateThumbnail(int id, string thumbnailUri);
     }
 }

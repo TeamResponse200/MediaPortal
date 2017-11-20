@@ -39,3 +39,12 @@ E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\Me
 E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\refactor.xml
 E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\postdeploy.sql
 E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql
+C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dacpac
+C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
+C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\Model.xml
+C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\refactor.xml
+C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\postdeploy.sql
+C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql
+C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
+C:\Users\1\Desktop\MediaService\201117\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb

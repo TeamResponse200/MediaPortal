@@ -85,6 +85,10 @@
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MediaPortal.BL\MediaPortal.BL.csproj">
+      <Project>{1216d3ee-b7b0-46c0-bc12-59deffed1d59}</Project>
+      <Name>MediaPortal.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MediaPortal.Data\MediaPortal.Data.csproj">
       <Project>{36ea4a26-531f-47af-b4c5-4454ea58ad48}</Project>
       <Name>MediaPortal.Data</Name>

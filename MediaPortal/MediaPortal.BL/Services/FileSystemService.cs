@@ -352,5 +352,10 @@ namespace MediaPortal.BL.Services
 
         }
 
+        public void UpdateThumbnail(int id, string thumbnailUri)
+        {
+            _fileSystemRepository.FileSystemAddThumbnailLink(id,thumbnailUri);
+        }
+
     }
 }

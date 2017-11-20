@@ -11,7 +11,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediaPortal.BL.Services;
 using ThumbnailCreatorWebJob.Model;
+using MediaPortal.BL.Interface;
 
 namespace ThumbnailCreatorWebJob.Listeners
 {
@@ -21,15 +23,18 @@ namespace ThumbnailCreatorWebJob.Listeners
 
         public CloudBlobContainer BlobContainer { get; set; }
 
-        private readonly FileSystemRepository _fileSystemRepository;
+        //private readonly FileSystemRepository _fileSystemRepository;
+
+        private IFileSystemService _fileSystemService;
 
 
-        public ThumbnailListener()
+        public ThumbnailListener(IFileSystemService fileSystemService)
         {
             Queue = GetQueueReference();
             BlobContainer = GetContainerReference();
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            _fileSystemRepository = new FileSystemRepository(connectionString);
+            //_fileSystemRepository = new FileSystemRepository(connectionString);
+            _fileSystemService = fileSystemService;
 
         }
 
@@ -62,7 +67,7 @@ namespace ThumbnailCreatorWebJob.Listeners
         private void UpdateFileSystem(int id, string uri)
         {
             var cuttedUri = uri.Replace(ConfigurationManager.AppSettings.Get("azureStorageBlobLink"), "");
-            _fileSystemRepository.FileSystemAddThumbnailLink(id, cuttedUri);
+            _fileSystemService.UpdateThumbnail(id, uri);
         }
 
         private async Task<string> CreateThumbnailAsync(string blobUri)
