@@ -18,6 +18,8 @@ using MediaPortal.Data.DataAccess;
 using System.Web;
 using System.IO;
 using System.Threading;
+using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.Core;
 
 namespace MediaPortal.BL.Services
 {
@@ -132,7 +134,7 @@ namespace MediaPortal.BL.Services
             {
                 var parent = allFiles.Where(file => file.Id == folderID).FirstOrDefault();
 
-                if(parent != null)
+                if (parent != null)
                 {
                     var parentID = parent.ParentId;
 
@@ -141,7 +143,7 @@ namespace MediaPortal.BL.Services
                         folderIDs.Add(parentID);
                     }
                     folderID = parentID;
-                }                
+                }
             }
 
             foreach (int? id in folderIDs)
@@ -162,7 +164,7 @@ namespace MediaPortal.BL.Services
             {
                 foreach (var fileSystemId in fileSystemsId)
                 {
-                    var FileSystemsForDelete = _fileSystemRepository.SearchFileSystemForDelete(fileSystemId);                    
+                    var FileSystemsForDelete = _fileSystemRepository.SearchFileSystemForDelete(fileSystemId);
 
                     if (FileSystemsForDelete != null)
                     {
@@ -183,7 +185,7 @@ namespace MediaPortal.BL.Services
                                     await _storageDataAccess.DeleteFileSystem(blobThumbnailLink);
                                 }
                             }
-                        }                            
+                        }
                     }
                 }
 
@@ -220,15 +222,27 @@ namespace MediaPortal.BL.Services
             return new Tuple<byte[], string>(fileBytes, fileType);
         }
 
-        public Tuple<byte[], string> DownloadFileSystemZIP(int[] fileSystemsId)
+        public Tuple<byte[], string> DownloadFileSystemZIP(List<int> fileSystemsId)
         {
             byte[] fileBytes = null;
             string fileName = null;
 
+            string ZIParchiveId = Guid.NewGuid().ToString();
+
+            string ZIParchiveName = ZIParchiveId + ".zip";
+
             try
             {
-                DownloadFileSystemTree();
-                ZipArchivingFileSystemTree();
+                MemoryStream outputMemStream = new MemoryStream();
+                ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
+
+                zipStream.SetLevel(3);
+
+                ZipArchivingFileSystemTree(fileSystemsId, zipStream);
+
+                zipStream.IsStreamOwner = false;
+                zipStream.Position = 0;
+                zipStream.Close();
             }
             catch (Exception ex)
             {
@@ -239,13 +253,42 @@ namespace MediaPortal.BL.Services
             return new Tuple<byte[], string>(fileBytes, fileName);
         }
 
-        public void DownloadFileSystemTree()
+        public async Task ZipArchivingFileSystemTree(List<int> fileSystemsId, ZipOutputStream zipStream)
         {
+            foreach(var fileSystemId in fileSystemsId)
+            {
+                var fileSystem = _fileSystemRepository.Get(fileSystemId);
+                
+                if (fileSystem.BlobLink != null)
+                {
+                    var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
+                    byte[] fileBytes = await _storageDataAccess.DownloadFile(blobLink);
 
-        }
+                    string entryName = ZipEntry.CleanName(fileSystem.Name);
 
-        public void ZipArchivingFileSystemTree()
-        {
+                    ZipEntry newEntry = new ZipEntry(entryName);
+
+                    newEntry.Size = (long)fileSystem.Size;
+
+                    zipStream.PutNextEntry(newEntry);
+
+                    MemoryStream inputMemoryStream = new MemoryStream(fileBytes);
+
+                    byte[] buffer = new byte[4096];
+                    
+                    StreamUtils.Copy(inputMemoryStream, zipStream, buffer);
+                    
+                    zipStream.CloseEntry();
+                }
+                else
+                {
+                    
+
+                    zipStream.CloseEntry();
+                }
+                                
+                
+            }
 
         }
 
@@ -354,7 +397,7 @@ namespace MediaPortal.BL.Services
 
         public void UpdateThumbnail(int id, string thumbnailUri)
         {
-            _fileSystemRepository.FileSystemAddThumbnailLink(id,thumbnailUri);
+            _fileSystemRepository.FileSystemAddThumbnailLink(id, thumbnailUri);
         }
 
     }

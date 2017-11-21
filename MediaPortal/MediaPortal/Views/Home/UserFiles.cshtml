@@ -91,7 +91,7 @@ else
     <ul class="rmenu-ul">
         <li class="rmenu-li" id="rename">Переименовать</li>
         <li class="rmenu-li" id="add-tag" data-toggle="modal" data-target="#ModalTag">Добавить тег</li>
-        <li class="rmenu-li" id="zip-download">Скачать ZIP-архив</li>
+        <li class="rmenu-li" id="zip-download" onclick="DownloadFileSystem()">Скачать ZIP-архив</li>
         <li class="rmenu-li" id="folder-delete" data-toggle="modal" data-target="#ModalDelete">Удалить папку</li>
     </ul>
 </div>
@@ -355,14 +355,14 @@ else
 <script>
 
         function DownloadFileSystem() {
-
+            
             var fileSystemId = [];
             var fileSystemName = [];
 
             $(".context-menu-folder").each(function (index, element) {
                 if ($(this).is(".fileSystem-list-item-folder-active")) {
                     fileSystemId.push($(this).data("name"));
-                    fileSystemName.push($(this).data("file-name"));
+                    fileSystemName.push($(this).data("folder-name"));
                 };
             });
 
@@ -374,23 +374,10 @@ else
             });
 
             if (fileSystemId.length == 1) {
-                $.ajax({
-                    url: '@Url.Action("DownloadFileSystem", "Home")',
-                type: 'POST',
-                dataType: 'json',
-                traditional: true,
-
-                data: {
-                    fileSystemId: fileSystemId[0],
-                    fileSystemName: fileSystemName[0]
-                },
-
-                success: function (data) {
-
-                    var url = window.URL.createObjectURL(data);
-                    window.URL.revokeObjectURL(url);
-                }
-                });
+                
+                var link = "/Home/DownloadFileSystem/" + fileSystemId[0] + "/" + fileSystemName[0];
+                var win = window.open(link, '_blank');
+                win.focus();                
             }
             else
             {
@@ -401,13 +388,11 @@ else
                 traditional: true,
 
                 data: {
-                    fileSystemId: fileSystemId
+                    fileSystemsId: fileSystemId
                 },
 
                 success: function (data) {
-
-                    var url = window.URL.createObjectURL(data);
-                    window.URL.revokeObjectURL(url);
+                    
                 }
                 });
             }

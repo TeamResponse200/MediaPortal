@@ -257,7 +257,6 @@ namespace MediaPortal.Controllers
         }
 
         [Authorize]
-
         public async Task<FileResult> DownloadFileSystem(int fileSystemId, string fileSystemName)
         {
             byte[] fileBytes;
@@ -280,14 +279,14 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public FileResult DownloadFileSystemZIP(int[] fileSystemsId)
+        public FileResult DownloadFileSystemZIP(List<int> fileSystemsId)
         {
             byte[] fileBytes = null;
             string fileSystemName = null;
 
             try
             {
-                var tupleFileBytes = _fileSystemService.DownloadFileSystemZIP(fileSystemsId);
+                //var tupleFileBytes = _fileSystemService.DownloadFileSystemZIP(fileSystemsId);
                 //fileBytes = tupleFileBytes.Item1;
                 //fileSystemName += tupleFileBytes.Item2;
             }

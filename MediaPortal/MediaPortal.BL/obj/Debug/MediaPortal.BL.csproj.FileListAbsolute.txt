@@ -1538,3 +1538,4 @@ C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortal.BL\obj\Debug
 C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortal.BL\obj\Debug\MediaPortal.BL.csproj.CoreCompileInputs.cache
 C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortal.BL\obj\Debug\MediaPortal.BL.dll
 C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortal.BL\obj\Debug\MediaPortal.BL.pdb
+E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal.BL\bin\Debug\ICSharpCode.SharpZipLib.dll
