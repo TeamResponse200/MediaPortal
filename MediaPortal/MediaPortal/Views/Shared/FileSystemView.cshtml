@@ -39,7 +39,7 @@ else
         </div>
         <div class="col-md-8 file-name-list-item">
             @Model.Name
-            @*@Html.ActionLink("download", "DownloadFileSystem", "Home", routeValues: new { fileSystemId = Model.Id, fileSystemName = Model.Name }, htmlAttributes: null)*@
+            @Html.ActionLink("download", "DownloadFileSystemZIP", "Home", routeValues: new { fileSystemsId = Model.Id }, htmlAttributes: null)
         </div>
         @if (Model.Tags == null || Model.Tags.Count == 0)
         {

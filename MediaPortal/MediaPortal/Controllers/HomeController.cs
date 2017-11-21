@@ -278,17 +278,22 @@ namespace MediaPortal.Controllers
 
 
         [Authorize]
-        [HttpPost]
-        public FileResult DownloadFileSystemZIP(List<int> fileSystemsId)
+        //[HttpPost]
+        public async Task<FileResult> DownloadFileSystemZIP(List<int> fileSystemsId)
         {
+            fileSystemsId[0] = 114;
+            fileSystemsId.Add(118);
+
             byte[] fileBytes = null;
             string fileSystemName = null;
 
+            string userId = User.Identity.GetUserId();
+
             try
             {
-                //var tupleFileBytes = _fileSystemService.DownloadFileSystemZIP(fileSystemsId);
-                //fileBytes = tupleFileBytes.Item1;
-                //fileSystemName += tupleFileBytes.Item2;
+                var tupleFileBytes = await _fileSystemService.DownloadFileSystemZIP(fileSystemsId, userId);
+                fileBytes = tupleFileBytes.Item1;
+                fileSystemName += tupleFileBytes.Item2;
             }
             catch (DataException)
             {
@@ -296,7 +301,9 @@ namespace MediaPortal.Controllers
                 return null;
             }
 
-            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName);
+            string file_type = "application/zip";
+
+            return File(fileBytes, file_type, fileSystemName);
         }
 
         [Authorize]

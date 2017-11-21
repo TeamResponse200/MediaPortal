@@ -22,7 +22,7 @@ namespace MediaPortal.BL.Interface
 
         Task<Tuple<byte[], string>> DownloadFileSystem(int fileSystemId);
 
-        Tuple<byte[], string> DownloadFileSystemZIP(List<int> fileSystemsId);
+        Task<Tuple<byte[], string>> DownloadFileSystemZIP(List<int> fileSystemsId, string userId);
 
         void RenameFileSystem(int fileSystemId, string name);
 

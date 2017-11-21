@@ -222,74 +222,92 @@ namespace MediaPortal.BL.Services
             return new Tuple<byte[], string>(fileBytes, fileType);
         }
 
-        public Tuple<byte[], string> DownloadFileSystemZIP(List<int> fileSystemsId)
+        public async Task<Tuple<byte[], string>> DownloadFileSystemZIP(List<int> fileSystemsId, string userId)
         {
-            byte[] fileBytes = null;
-            string fileName = null;
-
             string ZIParchiveId = Guid.NewGuid().ToString();
-
             string ZIParchiveName = ZIParchiveId + ".zip";
+
+            MemoryStream outputMemStream;
 
             try
             {
-                MemoryStream outputMemStream = new MemoryStream();
+                outputMemStream = new MemoryStream();
                 ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
 
                 zipStream.SetLevel(3);
 
-                ZipArchivingFileSystemTree(fileSystemsId, zipStream);
+                string entryLocateName = "";
+
+                foreach (var fileSystemId in fileSystemsId)
+                {
+                    var fileSystem = _fileSystemRepository.Get(fileSystemId);
+
+                    await ZipArchivingFileSystemTree(fileSystem, zipStream, userId, entryLocateName);
+                }                                    
 
                 zipStream.IsStreamOwner = false;
-                zipStream.Position = 0;
                 zipStream.Close();
+
+                outputMemStream.Position = 0;
             }
             catch (Exception ex)
             {
                 Trace.TraceError(ex.Message);
                 throw;
-            }
+            }            
 
-            return new Tuple<byte[], string>(fileBytes, fileName);
+            return new Tuple<byte[], string>(outputMemStream.ToArray(), ZIParchiveName);
         }
 
-        public async Task ZipArchivingFileSystemTree(List<int> fileSystemsId, ZipOutputStream zipStream)
-        {
-            foreach(var fileSystemId in fileSystemsId)
+        public async Task ZipArchivingFileSystemTree(FileSystem fileSystem, ZipOutputStream zipStream, string userId, string entryLocateName)
+        {  
+            if (fileSystem.BlobLink != null)
             {
-                var fileSystem = _fileSystemRepository.Get(fileSystemId);
-                
-                if (fileSystem.BlobLink != null)
+                var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
+                byte[] fileBytes = await _storageDataAccess.DownloadFile(blobLink);
+
+                string locateName = entryLocateName;
+
+                if (entryLocateName != null)
                 {
-                    var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
-                    byte[] fileBytes = await _storageDataAccess.DownloadFile(blobLink);
-
-                    string entryName = ZipEntry.CleanName(fileSystem.Name);
-
-                    ZipEntry newEntry = new ZipEntry(entryName);
-
-                    newEntry.Size = (long)fileSystem.Size;
-
-                    zipStream.PutNextEntry(newEntry);
-
-                    MemoryStream inputMemoryStream = new MemoryStream(fileBytes);
-
-                    byte[] buffer = new byte[4096];
-                    
-                    StreamUtils.Copy(inputMemoryStream, zipStream, buffer);
-                    
-                    zipStream.CloseEntry();
+                    locateName += fileSystem.Name + fileSystem.Type;
                 }
-                else
-                {
-                    
 
-                    zipStream.CloseEntry();
-                }
-                                
-                
+                string entryName = ZipEntry.CleanName(locateName);
+
+                ZipEntry newEntry = new ZipEntry(entryName);
+
+                newEntry.Size = (long)fileSystem.Size;
+
+                zipStream.PutNextEntry(newEntry);
+
+                MemoryStream inputMemoryStream = new MemoryStream(fileBytes);
+
+                byte[] buffer = new byte[4096];
+
+                StreamUtils.Copy(inputMemoryStream, zipStream, buffer);
+
+                zipStream.CloseEntry();
             }
+            else
+            {
+                string locateName = entryLocateName;
+                
+                locateName += fileSystem.Name + "/";                
 
+                string entryName = ZipEntry.CleanName(locateName); 
+                ZipEntry newEntry = new ZipEntry(entryName);
+
+                zipStream.PutNextEntry(newEntry);
+                zipStream.CloseEntry();
+
+
+                List<FileSystem> fileSystems = _fileSystemRepository.GetAll(userId, fileSystem.Id).ToList();
+                foreach (var fs in fileSystems)
+                {
+                    await ZipArchivingFileSystemTree(fs, zipStream, userId, locateName);
+                }
+            }       
         }
 
         public void RenameFileSystem(int fileSystemId, string name)
