@@ -9,6 +9,6 @@ namespace MediaPortal.Models
     {
         public string UserID { get; set; }
         public int? ParrentID { get; set; }
-        public IList<HttpPostedFileBase> Files { get; set; }
+        public IList<HttpPostedFileWrapper> Files { get; set; }
     }
 }

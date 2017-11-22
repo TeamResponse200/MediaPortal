@@ -50,7 +50,7 @@ namespace MediaPortal.Data.DataAccess
             }
         }
 
-        public async Task<string> UploadFileInBlocksAsync(HttpPostedFileBase file)
+        public async Task<string> UploadFileInBlocksAsync(HttpPostedFileWrapper file)
         {
             CloudBlobContainer cloudBlobContainer = GetContainerReference();
             var fileExtension = Path.GetExtension(file.FileName);
@@ -59,8 +59,14 @@ namespace MediaPortal.Data.DataAccess
             CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(blobName);
 
             blob.DeleteIfExists();
-            await blob.UploadFromStreamAsync(file.InputStream).ConfigureAwait(false);
-           
+
+            BlobRequestOptions requestOptions = new BlobRequestOptions {
+                SingleBlobUploadThresholdInBytes = 10 * 1024 * 1024,
+                ParallelOperationThreadCount = 2,
+                DisableContentMD5Validation = true
+            };
+            //blob.StreamWriteSizeInBytes = 50 * 1024 * 2024;
+            await blob.UploadFromStreamAsync(file.InputStream, null, options: requestOptions, operationContext:null).ConfigureAwait(false);
             return blob.Uri.ToString();
         }
 

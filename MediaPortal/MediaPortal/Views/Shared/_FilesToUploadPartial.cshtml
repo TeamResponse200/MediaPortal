@@ -21,9 +21,7 @@
                     @Html.HiddenFor(m => m.UserID)
                     @Html.HiddenFor(m => m.ParrentID)
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.Files, new { type = "file", accept = "image/x-png, image/jpeg, video/avi, video/quicktime, video/x-matroska" })
-                        @Html.TextBoxFor(m => m.Files, new { type = "file", accept = "image/x-png, image/jpeg, video/avi, video/quicktime, video/x-matroska" })
-                        @Html.TextBoxFor(m => m.Files, new { type = "file", accept = "image/x-png, image/jpeg, video/avi, video/quicktime, video/x-matroska" })
+                        @Html.TextBoxFor(m => m.Files, new { type = "file", enctype = "multipart/form-data", multiple = "multiple", accept = "image/x-png, image/jpeg, video/mp4" })
                     </div>
                     <div class="form-group">
                         <div class="col-md-10 col-md-offset-1">
