@@ -57,8 +57,8 @@ namespace ThumbnailCreatorWebJob.Listeners
                 Console.WriteLine(message.AsString);
                 var thumbnailLink = CreateThumbnailAsync(fileIdBlob.BlobLink).Result;
                 Queue.DeleteMessage(message);
-                
-                
+
+
                 UpdateFileSystem(fileIdBlob.FileId, thumbnailLink);
                 // some operation here is performed
             }
@@ -150,7 +150,5 @@ namespace ThumbnailCreatorWebJob.Listeners
 
             return queue;
         }
-
-
     }
 }

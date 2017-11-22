@@ -20,9 +20,19 @@ namespace MediaPortal.BL.Interface
 
         Task<bool> DeleteFileSystem(int[] fileSystemsId);
 
+        Task<byte[]> DownloadProcessZIP(string fileSystemName);
+
         Task<Tuple<byte[], string>> DownloadFileSystem(int fileSystemId);
 
-        Task<Tuple<byte[], string>> DownloadFileSystemZIP(List<int> fileSystemsId, string userId);
+        string DownloadFileSystemZIP(List<int> fileSystemsId, string userId);
+
+        FileSystemDTO Get(int fileSystemId);
+
+        Task<byte[]> DownloadFile(string blobLink);
+
+        IEnumerable<FileSystemDTO> GetAll(string userId, int fileSystemId);
+
+        Task UploadFileInBlocksAsync(byte[] file, string guidName);
 
         void RenameFileSystem(int fileSystemId, string name);
 

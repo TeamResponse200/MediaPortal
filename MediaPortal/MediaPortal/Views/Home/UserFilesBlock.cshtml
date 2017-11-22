@@ -96,7 +96,7 @@ else
     <ul class="rmenu-ul">
         <li class="rmenu-li" id="rename">Переименовать</li>
         <li class="rmenu-li" id="add-tag" data-toggle="modal" data-target="#ModalTag">Добавить тег</li>
-        <li class="rmenu-li" id="zip-download">Скачать ZIP-архив</li>
+        <li class="rmenu-li" id="zip-download" onclick="DownloadFileSystem()">Скачать ZIP-архив</li>
         <li class="rmenu-li" id="folder-delete" data-toggle="modal" data-target="#ModalDelete">Удалить папку</li>
     </ul>
 </div>
@@ -105,7 +105,7 @@ else
     <ul class="rmenu-ul">
         <li class="rmenu-li" id="rename">Переименовать</li>
         <li class="rmenu-li" id="add-tag" data-toggle="modal" data-target="#ModalTag">Добавить тег</li>
-        <li class="rmenu-li" id="file-download">Скачать файл</li>
+        <li class="rmenu-li" id="file-download" onclick="DownloadFileSystem()">Скачать файл</li>
         <li class="rmenu-li" id="file-delete" data-toggle="modal" data-target="#ModalDelete">Удалить файл</li>
     </ul>
 </div>
@@ -167,7 +167,6 @@ else
             var link = "/Home/UserFiles/" + folderId + "/" + folderName;
 
             window.location.href = link;
-
         });
 
         $(".fileSystem-list-item").click(function () {
@@ -189,7 +188,6 @@ else
                     if (!$(this).is(".fileSystem-list-item-active")) {
                         $(this).toggleClass("fileSystem-list-item-active");
                     }
-
 
                     var file = 0;
                     var folder = 0;
@@ -219,7 +217,6 @@ else
                         document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
                         document.getElementById("folder-delete").innerHTML = "Удалить обьекты";
                     }
-
 
                     $("#rmenu-folder").toggleClass("hide");
                     $("#rmenu-folder").css({
@@ -330,6 +327,55 @@ else
             }
             });
 
+        }
+
+</script>
+
+
+<script>
+
+        function DownloadFileSystem() {
+
+            var fileSystemId = [];
+            var fileSystemName = [];
+
+            $(".context-menu-folder").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-active")) {
+                    fileSystemId.push($(this).data("name"));
+                    fileSystemName.push($(this).data("folder-name"));
+                };
+            });
+
+            $(".context-menu-file").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-file-active")) {
+                    fileSystemId.push($(this).data("name"));
+                    fileSystemName.push($(this).data("file-name"));
+                };
+            });
+
+            if (fileSystemId.length == 1) {
+
+                var link = "/Home/DownloadFileSystem/" + fileSystemId[0] + "/" + fileSystemName[0];
+                var win = window.open(link, '_blank');
+                win.focus();
+            }
+            else
+            {
+                $.ajax({
+                url: '@Url.Action("DownloadFileSystemZIP", "Home")',
+                type: 'POST',
+                dataType: 'json',
+                traditional: true,
+
+                data: {
+                    fileSystemsId: fileSystemId
+                },
+
+                success: function (data) {
+
+                }
+                });
+            }
         }
 
 </script>

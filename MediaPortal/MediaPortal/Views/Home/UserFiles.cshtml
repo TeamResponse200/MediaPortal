@@ -179,7 +179,6 @@ else
                         $(this).toggleClass("fileSystem-list-item-folder-active");
                     }
 
-
                     var file = 0;
                     var folder = 0;
 
@@ -381,6 +380,8 @@ else
             }
             else
             {
+                debugger;
+
                 $.ajax({
                 url: '@Url.Action("DownloadFileSystemZIP", "Home")',
                 type: 'POST',
@@ -391,8 +392,11 @@ else
                     fileSystemsId: fileSystemId
                 },
 
-                success: function (data) {
+                success: function (data) {                    
                     
+                    var link = "/Home/DownloadProcess/" + data;
+                    var win = window.open(link, '_blank');
+                    win.focus();  
                 }
                 });
             }

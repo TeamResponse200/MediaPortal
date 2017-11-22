@@ -41,19 +41,19 @@ namespace MediaPortal.BL.Services
 
 
         // add blob 
-        public void InsertFile(FileSystemDTO model, byte[] file, string fileName)
-        {
-            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystem>());
-            var fileSystem = Mapper.Map<FileSystem>(model);
+        //public void InsertFile(FileSystemDTO model, byte[] file, string fileName)
+        //{
+        //    Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystem>());
+        //    var fileSystem = Mapper.Map<FileSystem>(model);
 
-            _storageDataAccess.Upload(file, fileName);
+        //    _storageDataAccess.Upload(file, fileName);
 
-            if (fileSystem != null)
-            {
-                _fileSystemRepository.InsertObject(fileSystem);
-            }
+        //    if (fileSystem != null)
+        //    {
+        //        _fileSystemRepository.InsertObject(fileSystem);
+        //    }
 
-        }
+        //}
 
         public IEnumerable<FileSystemDTO> GetAllUserFileSystem(string userId)
         {
@@ -198,6 +198,26 @@ namespace MediaPortal.BL.Services
             }
         }
 
+        public async Task<byte[]> DownloadProcessZIP(string fileSystemName)
+        {
+            byte[] fileBytes;
+
+            try
+            {
+                string containerName = ConfigurationManager.AppSettings.Get("containerNameAzureStorageBlob");
+                var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + containerName + fileSystemName + ".zip";
+
+                fileBytes = await _storageDataAccess.DownloadFile(blobLink);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.InnerException.Message);
+                throw;
+            }
+
+            return fileBytes;
+        }
+
         public async Task<Tuple<byte[], string>> DownloadFileSystem(int fileSystemId)
         {
             byte[] fileBytes;
@@ -222,33 +242,13 @@ namespace MediaPortal.BL.Services
             return new Tuple<byte[], string>(fileBytes, fileType);
         }
 
-        public async Task<Tuple<byte[], string>> DownloadFileSystemZIP(List<int> fileSystemsId, string userId)
+        public string DownloadFileSystemZIP(List<int> fileSystemsId, string userId)
         {
             string ZIParchiveId = Guid.NewGuid().ToString();
-            string ZIParchiveName = ZIParchiveId + ".zip";
-
-            MemoryStream outputMemStream;
-
+            
             try
             {
-                outputMemStream = new MemoryStream();
-                ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
-
-                zipStream.SetLevel(3);
-
-                string entryLocateName = "";
-
-                foreach (var fileSystemId in fileSystemsId)
-                {
-                    var fileSystem = _fileSystemRepository.Get(fileSystemId);
-
-                    await ZipArchivingFileSystemTree(fileSystem, zipStream, userId, entryLocateName);
-                }                                    
-
-                zipStream.IsStreamOwner = false;
-                zipStream.Close();
-
-                outputMemStream.Position = 0;
+                _storageDataAccess.PutMessageRequestForZIPArchivator(ZIParchiveId, fileSystemsId, userId);                
             }
             catch (Exception ex)
             {
@@ -256,7 +256,60 @@ namespace MediaPortal.BL.Services
                 throw;
             }            
 
-            return new Tuple<byte[], string>(outputMemStream.ToArray(), ZIParchiveName);
+            return ZIParchiveId;
+        }
+
+        public FileSystemDTO Get(int fileSystemId)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>()
+                .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagDTO { Id = o.Id, Name = o.Name }).ToList())));
+            
+            FileSystem fileSystem = null;
+            try
+            {
+                fileSystem = _fileSystemRepository.Get(fileSystemId);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);                
+            }
+
+            return Mapper.Map<FileSystem, FileSystemDTO>(fileSystem);
+        }
+
+        public async Task<byte[]> DownloadFile(string blobLink)
+        {
+            byte[] fileBytes = null;
+
+            try
+            {
+                fileBytes = await _storageDataAccess.DownloadFile(blobLink);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+            }
+
+            return fileBytes;
+        }
+
+        public IEnumerable<FileSystemDTO> GetAll(string userId, int fileSystemId)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>()
+                .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagDTO { Id = o.Id, Name = o.Name }).ToList())));
+
+            IEnumerable<FileSystem> fileSystem = null;
+
+            try
+            {
+                fileSystem = _fileSystemRepository.GetAll(userId, fileSystemId);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+            }
+
+            return Mapper.Map<IEnumerable<FileSystem>, IEnumerable<FileSystemDTO>>(fileSystem);
         }
 
         public async Task ZipArchivingFileSystemTree(FileSystem fileSystem, ZipOutputStream zipStream, string userId, string entryLocateName)
@@ -272,21 +325,21 @@ namespace MediaPortal.BL.Services
                 {
                     locateName += fileSystem.Name + fileSystem.Type;
                 }
-
+                
                 string entryName = ZipEntry.CleanName(locateName);
 
                 ZipEntry newEntry = new ZipEntry(entryName);
-
                 newEntry.Size = (long)fileSystem.Size;
+                newEntry.IsUnicodeText = true;
 
                 zipStream.PutNextEntry(newEntry);
 
-                MemoryStream inputMemoryStream = new MemoryStream(fileBytes);
-
-                byte[] buffer = new byte[4096];
-
-                StreamUtils.Copy(inputMemoryStream, zipStream, buffer);
-
+                using (MemoryStream inputMemoryStream = new MemoryStream(fileBytes))
+                {
+                    byte[] buffer = new byte[4096];
+                    StreamUtils.Copy(inputMemoryStream, zipStream, buffer);
+                }
+                    
                 zipStream.CloseEntry();
             }
             else
@@ -297,10 +350,10 @@ namespace MediaPortal.BL.Services
 
                 string entryName = ZipEntry.CleanName(locateName); 
                 ZipEntry newEntry = new ZipEntry(entryName);
+                newEntry.IsUnicodeText = true;
 
                 zipStream.PutNextEntry(newEntry);
                 zipStream.CloseEntry();
-
 
                 List<FileSystem> fileSystems = _fileSystemRepository.GetAll(userId, fileSystem.Id).ToList();
                 foreach (var fs in fileSystems)
@@ -340,6 +393,18 @@ namespace MediaPortal.BL.Services
 
             return null;
 
+        }
+
+        public async Task UploadFileInBlocksAsync(byte[] file, string guidName)
+        {
+            try
+            {
+               await _storageDataAccess.UploadFileInBlocksAsync(file, guidName);
+            }
+            catch
+            {
+
+            }
         }
 
         public void UploadAndInsertFiles(FilesToUploadDTO filesToUpload)

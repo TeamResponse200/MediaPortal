@@ -111,6 +111,7 @@
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="DataAccess\MediaPortalDbContext.cs" />
     <Compile Include="Interface\ITagRepository.cs" />
+    <Compile Include="Models\ArchiveModel.cs" />
     <Compile Include="Models\FileDeleteModel.cs" />
     <Compile Include="Models\FileIdBlobModel.cs" />
     <Compile Include="Repositories\AspNetRoleRepositories.cs" />

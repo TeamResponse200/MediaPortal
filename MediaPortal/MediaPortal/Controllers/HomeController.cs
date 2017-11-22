@@ -279,31 +279,49 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         //[HttpPost]
-        public async Task<FileResult> DownloadFileSystemZIP(List<int> fileSystemsId)
-        {
-            fileSystemsId[0] = 114;
-            fileSystemsId.Add(118);
-
-            byte[] fileBytes = null;
-            string fileSystemName = null;
-
+        public JsonResult DownloadFileSystemZIP(List<int> fileSystemsId)
+        {        
             string userId = User.Identity.GetUserId();
+            string ZIParchiveName = null;
 
             try
             {
-                var tupleFileBytes = await _fileSystemService.DownloadFileSystemZIP(fileSystemsId, userId);
-                fileBytes = tupleFileBytes.Item1;
-                fileSystemName += tupleFileBytes.Item2;
+                ZIParchiveName = _fileSystemService.DownloadFileSystemZIP(fileSystemsId, userId);                
             }
             catch (DataException)
             {
                 // some logic for user
                 return null;
+            }            
+
+            return Json(ZIParchiveName);
+        }
+
+        [Authorize]
+        //[HttpPost]
+        public async Task<ActionResult> DownloadProcess(string fileSystemName)
+        {
+            byte[] ZIPFileBytes;
+
+            try
+            {
+                ZIPFileBytes = await _fileSystemService.DownloadProcessZIP(fileSystemName);               
+            }
+            catch (Exception ex)
+            {
+                // some logic for user
+                return View("Error");
             }
 
-            string file_type = "application/zip";
+            if(ZIPFileBytes == null)
+            {
+                return View("DownloadProcess");
+            }
+            else
+            {
+                return File(ZIPFileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName + ".zip");
 
-            return File(fileBytes, file_type, fileSystemName);
+            }            
         }
 
         [Authorize]

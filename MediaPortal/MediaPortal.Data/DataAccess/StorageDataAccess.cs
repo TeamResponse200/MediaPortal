@@ -33,6 +33,23 @@ namespace MediaPortal.Data.DataAccess
             UploadFileInBlocks(file, fileName);
         }
 
+        public async Task UploadFileInBlocksAsync(byte[] file, string guid)
+        {
+            CloudBlobContainer cloudBlobContainer = GetContainerReference();
+            //var fileExtension = Path.GetExtension(file.FileName);
+            var guidName = guid;
+            //var blobName = guidName + fileExtension;
+            CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(guidName);
+
+            blob.DeleteIfExists();
+            //await blob.UploadFromStreamAsync(file.InputStream).ConfigureAwait(false);
+
+            using (var stream = new MemoryStream(file, writable: false))
+            {
+                await blob.UploadFromStreamAsync(stream);
+            }
+        }
+
         public async Task<string> UploadFileInBlocksAsync(HttpPostedFileBase file)
         {
             CloudBlobContainer cloudBlobContainer = GetContainerReference();
@@ -122,15 +139,20 @@ namespace MediaPortal.Data.DataAccess
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
+            
+            if (blob.Exists())
+            {
+                blob.FetchAttributes();
+                long fileSize = blob.Properties.Length;
 
-            blob.FetchAttributes();
-            long fileSize = blob.Properties.Length;
+                var blobContents = new byte[fileSize];
 
-            var blobContents = new byte[fileSize];
+                await blob.DownloadToByteArrayAsync(blobContents, 0);
 
-            await blob.DownloadToByteArrayAsync(blobContents, 0);
+                return blobContents;
+            }
 
-            return blobContents;
+            return null;
         }
 
 
@@ -157,14 +179,14 @@ namespace MediaPortal.Data.DataAccess
             return container;
         }
 
-        public CloudQueue GetQueueReference()
+        public CloudQueue GetQueueReference(string queueName)
         {
             string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
 
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-            CloudQueue queue = queueClient.GetQueueReference("filesthumbnailsqueue");
+            CloudQueue queue = queueClient.GetQueueReference(queueName);
             queue.CreateIfNotExists();
 
             return queue;
@@ -172,10 +194,26 @@ namespace MediaPortal.Data.DataAccess
 
         public void PutMessageRequestForThumbnail(int id, string blobUri)
         {
-            var queue = GetQueueReference();
+            var queueName = "filesthumbnailsqueue";
+            var queue = GetQueueReference(queueName);
+
             FileIdBlobModel file = new FileIdBlobModel() { FileId = id, BlobLink = blobUri };
             
             string fileJson = JsonConvert.SerializeObject(file, Formatting.Indented);
+            CloudQueueMessage messageBlobFile = new CloudQueueMessage(fileJson);
+
+            queue.AddMessage(messageBlobFile);
+        }
+
+        public void PutMessageRequestForZIPArchivator(string ZIPId, List<int> fileSystemsId, string userId)
+        {
+            var queueName = "ziparchivequeue";
+            var queue = GetQueueReference(queueName);
+
+            var file = new ArchiveModel() { Id = ZIPId, UserId = userId, FileSystemsId = fileSystemsId };
+
+            string fileJson = JsonConvert.SerializeObject(file, Formatting.Indented);
+
             CloudQueueMessage messageBlobFile = new CloudQueueMessage(fileJson);
 
             queue.AddMessage(messageBlobFile);
