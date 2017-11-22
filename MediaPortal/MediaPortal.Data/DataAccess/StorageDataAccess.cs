@@ -155,8 +155,18 @@ namespace MediaPortal.Data.DataAccess
             return null;
         }
 
+        public bool IsExistArchive(string blobLink)
+        {
+            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
 
-        public async Task<bool> DeleteFileSystem(string blobLink)
+            CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
+
+            return blob.Exists();
+        }
+
+
+            public async Task<bool> DeleteFileSystem(string blobLink)
         {
             string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);

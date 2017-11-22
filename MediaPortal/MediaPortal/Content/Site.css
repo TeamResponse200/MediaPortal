@@ -627,3 +627,46 @@ background-color:white;
     height: 50px;
     width: 160px;
 }
+
+.ZIPdownload-ModalHide {
+    visibility: hidden
+}
+
+.ZIPdownload-ModalShow {
+    visibility: visible
+}
+
+.ZIPdownload-modalCast {
+    position: fixed;
+    display: block;
+    bottom: 1%;
+    right: 1%;
+    z-index: 1000;
+    padding: 0;
+    background: red;
+    height: 80px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: -2px 2px 6px -2px #969696;
+}
+
+.zip-process-titleCast {
+    color: white;
+    background-color: rgb(100, 100, 100);
+    padding-top: 3%;
+    padding-left: 10%;
+    padding-bottom: 3%;
+}
+
+.zip-process-textCast {
+    padding-top: 4%;
+    padding-bottom: 3%;
+    padding-left: 10%;
+    padding-right: 0;
+}
+
+.zip-process-text1Cast {
+    color: rgb(100, 100, 100);
+    padding-left: 0;
+    padding-right: 0;
+}

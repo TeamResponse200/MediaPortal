@@ -218,6 +218,26 @@ namespace MediaPortal.BL.Services
             return fileBytes;
         }
 
+        public bool IsExistArchive(string fileSystemName)
+        {
+            bool existArchive = false;
+
+            try
+            {
+                string containerName = ConfigurationManager.AppSettings.Get("containerNameAzureStorageBlob");
+                var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + containerName + fileSystemName + ".zip";
+
+                existArchive = _storageDataAccess.IsExistArchive(blobLink);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.InnerException.Message);
+                throw;
+            }
+
+            return existArchive;
+        }
+
         public async Task<Tuple<byte[], string>> DownloadFileSystem(int fileSystemId)
         {
             byte[] fileBytes;

@@ -149,6 +149,22 @@ else
         </div>
     </div>
 </div>
+
+<div class="col-md-2 col-md-offset-3 ZIPdownload-modalCast ZIPdownload-ModalHide" id="ZIPdownload">
+    <div class="col-md-12 zip-process-titleCast">
+        Подготовка
+    </div>
+    <div class="col-md-12 zip-process-textCast">
+        <div class="col-md-10 zip-process-text1Cast">
+            Создание архива..
+        </div>
+        <div class="col-md-2 zip-process-text1Cast">
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>	
+
 @section scripts {
     <script>
         $(".fileSystem-list-item-folder").dblclick(function () {
@@ -354,7 +370,7 @@ else
 <script>
 
         function DownloadFileSystem() {
-            
+
             var fileSystemId = [];
             var fileSystemName = [];
 
@@ -373,34 +389,57 @@ else
             });
 
             if (fileSystemId.length == 1) {
-                
+
                 var link = "/Home/DownloadFileSystem/" + fileSystemId[0] + "/" + fileSystemName[0];
                 var win = window.open(link, '_blank');
-                win.focus();                
+                win.focus();
             }
-            else
-            {
-                debugger;
-
+            else {
                 $.ajax({
-                url: '@Url.Action("DownloadFileSystemZIP", "Home")',
-                type: 'POST',
-                dataType: 'json',
-                traditional: true,
+                    url: '@Url.Action("DownloadFileSystemZIP", "Home")',
+                    type: 'POST',
+                    dataType: 'json',
+                    traditional: true,
 
-                data: {
-                    fileSystemsId: fileSystemId
-                },
+                    data: {
+                        fileSystemsId: fileSystemId
+                    },
 
-                success: function (data) {                    
+                    success: function (data) {                    
+
+                        $('#ZIPdownload').addClass("ZIPdownload-ModalShow");
+                        $('#ZIPdownload').removeClass("ZIPdownload-ModalHide");
+
+                        var isExist = 0;                   
                     
-                    var link = "/Home/DownloadProcess/" + data;
-                    var win = window.open(link, '_blank');
-                    win.focus();  
-                }
+                        $.ajax({
+                            url: '@Url.Action("ZIPisReady", "Home")',
+                            type: 'POST',
+                            dataType: 'json',
+                            traditional: true,
+
+                            data: {
+                                fileSystemName: data
+                            },
+
+                            success: function (data2) {
+                                
+                                $('#ZIPdownload').removeClass("ZIPdownload-ModalShow");
+                                $('#ZIPdownload').addClass("ZIPdownload-ModalHide");
+
+                                var link = "/Home/DownloadProcess/" + data;
+                                var win = window.open(link, '_blank');
+                                win.focus();
+                                
+                            }
+                        });
+
+                    }
                 });
+
             }
         }
+
 
 </script>
 }

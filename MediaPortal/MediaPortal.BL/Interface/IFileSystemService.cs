@@ -22,6 +22,8 @@ namespace MediaPortal.BL.Interface
 
         Task<byte[]> DownloadProcessZIP(string fileSystemName);
 
+        bool IsExistArchive(string fileSystemName);
+
         Task<Tuple<byte[], string>> DownloadFileSystem(int fileSystemId);
 
         string DownloadFileSystemZIP(List<int> fileSystemsId, string userId);

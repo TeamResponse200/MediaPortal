@@ -235,7 +235,6 @@ namespace MediaPortal.Controllers
                 return View("Error");
             }
 
-
             return RedirectToAction("UserFiles", new { folderID = model.ParrentID });
         }
 
@@ -295,6 +294,20 @@ namespace MediaPortal.Controllers
             }            
 
             return Json(ZIParchiveName);
+        }        
+
+        [Authorize]
+        //[HttpPost]
+        public JsonResult ZIPisReady(string fileSystemName)
+        {
+            bool blobIsExist = false;
+
+            while(!blobIsExist)
+            {
+                blobIsExist = _fileSystemService.IsExistArchive(fileSystemName);
+            }            
+
+            return Json(blobIsExist);
         }
 
         [Authorize]
@@ -315,12 +328,11 @@ namespace MediaPortal.Controllers
 
             if(ZIPFileBytes == null)
             {
-                return View("DownloadProcess");
+                return View("Error");
             }
             else
             {
-                return File(ZIPFileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName + ".zip");
-
+                return File(ZIPFileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName + ".zip");                
             }            
         }
 
