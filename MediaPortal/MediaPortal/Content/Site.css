@@ -686,3 +686,62 @@ background-color:white;
     height: 35px;
     width: 35px;
 }
+
+/* ViewFile */
+#view-form {
+    margin-top:120px;
+    background-color:white;
+    border-radius:5px;
+    border-bottom:1px solid gray;
+}
+
+#top-objects {
+    margin-top:15px;
+    padding:0px;
+    float:left;
+}
+
+#file-title {
+    font-family:"Raleway";
+    font-weight:400;
+    font-size:20px;
+    padding:0px;
+}
+
+#buttonDownload {
+    margin-top:10px;
+}
+
+#file-size {
+    font-family: "Raleway";
+    font-weight: 400;
+    font-size: 14px;
+    padding: 0px;
+}
+
+#thumbnail {
+    margin-top: 20px;
+    display: inline-block;
+}
+
+    #thumbnail img {
+        width:100%;
+    }
+
+#playButton {
+    content: url(http://trackingboard1.wpengine.netdna-cdn.com/wp-content/uploads/2016/03/PlayButton-png.png);
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    margin-left:120px;
+    margin-top:-205px;
+}
+
+#tags {
+    padding-top: 10px;
+    padding-left:0px;
+    font-size: 16px;
+    color: grey;
+    font-family: "Raleway";
+    margin-bottom:15px;
+}

@@ -4,7 +4,7 @@
 <div class="col-sm-6 col-md-3 fileSystem-list-item-file context-menu-file" data-name="@Model.Id" data-file-name="@Model.Name">
         <div class="thumbnail file-block-item">
             @*<img src="@Model.BlobLink" alt="blobLink">*@
-            <img src='@Url.Action("GetImage", new { fileSystemId = Model.Id })' />
+            <img src='@Url.Action("GetThumbnailImage", new { fileSystemId = Model.Id })' />
             <div class="caption">
                 <span id="iconFile"></span>
                 <span class="file-name ">@Model.Name</span>

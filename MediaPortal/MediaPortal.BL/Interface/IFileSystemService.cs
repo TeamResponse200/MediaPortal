@@ -32,6 +32,8 @@ namespace MediaPortal.BL.Interface
 
         FileSystemDTO Get(int fileSystemId);
 
+        FileSystemDTO Get(string userID,int? fileSystemId);
+
         Task<byte[]> DownloadFile(string blobLink);
 
         IEnumerable<FileSystemDTO> GetAll(string userId, int fileSystemId);
@@ -44,8 +46,12 @@ namespace MediaPortal.BL.Interface
 
         void UploadAndInsertFiles(FilesToUploadDTO filesToUpload);
 
-        Task<Stream> GetFileSystemThumbnailAsync(int fileSystemId);
+        Task<Stream> GetFileSystemThumbnailAsync(string userId,int fileSystemId);
+
+        Task<Stream> GetFileSystemStreamAsync(string userId, int fileSystemId);
 
         void UpdateThumbnail(int id, string thumbnailUri);
+
+        string SetFileReadPermission(string blobLink, int timeToExpire);
     }
 }

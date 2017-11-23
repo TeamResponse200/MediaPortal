@@ -14,7 +14,7 @@
             @Model.Name
             @*@Html.ActionLink("linkText","UserFiles","Home", routeValues: new { folderID = Model.Id, folderName = Model.Name },htmlAttributes: null)*@
         </div>
-        @if (Model.Tags == null || Model.Tags.Count == 0)
+        @if (Model.Tags == null || !Model.Tags.Any())
         {
             <div class="col-md-3" id="fileTagListItem"> Теги отсутствуют</div>
         }
@@ -41,7 +41,7 @@ else
             @Model.Name
             @*@Html.ActionLink("download", "DownloadFileSystemZIP", "Home", routeValues: new { fileSystemsId = Model.Id }, htmlAttributes: null)*@
         </div>
-        @if (Model.Tags == null || Model.Tags.Count == 0)
+        @if (Model.Tags == null || !Model.Tags.Any())
         {
             <div class="col-md-3" id="fileTagListItem"> Теги отсутствуют</div>
         }

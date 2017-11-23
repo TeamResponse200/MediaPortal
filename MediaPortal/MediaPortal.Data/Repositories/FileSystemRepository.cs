@@ -22,6 +22,16 @@ namespace MediaPortal.Data.Repositories
             _connectionString = connectionString;
         }
 
+        public FileSystem Get(string userId,int? fileSystemId)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                return dbContext.FileSystems.Where(x => x.UserId == userId && x.Id == fileSystemId )
+                                            .Include(x => x.Tags)
+                                            .ToList().FirstOrDefault();
+            }
+        }
+
         public FileSystem Get(int fileSystemId)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))

@@ -196,8 +196,15 @@ else
         $(".fileSystem-list-item-folder").dblclick(function () {
 
             var folderId = $(this).data("name");
-            var folderName = $(this).data("folder-name");
-            var link = "/Home/UserFiles/" + folderId + "/" + folderName;
+            var link = "/Home/UserFiles/" + folderId;
+
+            window.location.href = link;
+        });
+
+        $(".fileSystem-list-item").dblclick(function () {
+
+            var fileSystemId = $(this).data("name");
+            var link = "/Home/ViewFile/" + fileSystemId;
 
             window.location.href = link;
         });

@@ -25,6 +25,6 @@ namespace MediaPortal.Models
 
         public DateTime UploadDate { get; set; }
 
-        public virtual ICollection<TagModels> Tags { get; set; }
+        public virtual IEnumerable<TagModels> Tags { get; set; }
     }
 }

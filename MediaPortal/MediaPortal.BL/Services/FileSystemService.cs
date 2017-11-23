@@ -295,7 +295,7 @@ namespace MediaPortal.BL.Services
             return ZIParchiveId;
         }
 
-        public FileSystemDTO Get(int fileSystemId)
+        public FileSystemDTO Get(string userId,int? fileSystemId)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>()
                 .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagDTO { Id = o.Id, Name = o.Name }).ToList())));
@@ -303,11 +303,29 @@ namespace MediaPortal.BL.Services
             FileSystem fileSystem = null;
             try
             {
-                fileSystem = _fileSystemRepository.Get(fileSystemId);
+                fileSystem = _fileSystemRepository.Get(userId,fileSystemId);
             }
             catch (Exception ex)
             {
                 Trace.TraceError(ex.Message);                
+            }
+
+            return Mapper.Map<FileSystem, FileSystemDTO>(fileSystem);
+        }
+
+        public FileSystemDTO Get(int fileSystemId)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>()
+                .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagDTO { Id = o.Id, Name = o.Name }).ToList())));
+
+            FileSystem fileSystem = null;
+            try
+            {
+                fileSystem = _fileSystemRepository.Get(fileSystemId);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
             }
 
             return Mapper.Map<FileSystem, FileSystemDTO>(fileSystem);
@@ -412,14 +430,33 @@ namespace MediaPortal.BL.Services
             }
         }
 
-        public async Task<Stream> GetFileSystemThumbnailAsync(int fileSystemId)
+        public async Task<Stream> GetFileSystemThumbnailAsync(string userID,int fileSystemId)
         {
-            var fileSystem = _fileSystemRepository.Get(fileSystemId);
+            var fileSystem = _fileSystemRepository.Get(userID,fileSystemId);
             var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobThumbnail;
             Stream fileStream;
             try
             {
-                fileStream = await _storageDataAccess.GetImageThumbnail(blobLink);
+                fileStream = await _storageDataAccess.GetFileStream(blobLink);
+                return fileStream;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.InnerException.Message);
+            }
+
+            return null;
+
+        }
+
+        public async Task<Stream> GetFileSystemStreamAsync(string userID, int fileSystemId)
+        {
+            var fileSystem = _fileSystemRepository.Get(userID, fileSystemId);
+            var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
+            Stream fileStream;
+            try
+            {
+                fileStream = await _storageDataAccess.GetFileStream(blobLink);
                 return fileStream;
             }
             catch (Exception ex)
@@ -519,5 +556,9 @@ namespace MediaPortal.BL.Services
             _fileSystemRepository.FileSystemAddThumbnailLink(id, thumbnailUri);
         }
 
+        public string SetFileReadPermission(string blobLink, int timeToExpire)
+        {
+            return _storageDataAccess.SetFileReadPermission(ConfigurationManager.AppSettings.Get("azureStorageBlobLink")+blobLink, timeToExpire);
+        }
     }
 }

@@ -66,15 +66,15 @@ namespace MediaPortal.Data.DataAccess
                 DisableContentMD5Validation = true
             };
             //blob.StreamWriteSizeInBytes = 50 * 1024 * 2024;
-            await blob.UploadFromStreamAsync(file.InputStream, null, options: requestOptions, operationContext:null).ConfigureAwait(false);
+            await blob.UploadFromStreamAsync(file.InputStream, null, options: requestOptions, operationContext: null).ConfigureAwait(false);
             return blob.Uri.ToString();
         }
 
-        public async Task<Stream> GetImageThumbnail(string blobLink)
+        public async Task<Stream> GetFileStream(string blobLink)
         {
             string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            
+
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
             var file = await blob.OpenReadAsync();
             return file;
@@ -145,7 +145,7 @@ namespace MediaPortal.Data.DataAccess
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
-            
+
             if (blob.Exists())
             {
                 blob.FetchAttributes();
@@ -168,7 +168,7 @@ namespace MediaPortal.Data.DataAccess
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
 
-            return blob.Exists(); 
+            return blob.Exists();
         }
 
         public async Task DeleteFileSystemByName(string blobLink)
@@ -190,6 +190,24 @@ namespace MediaPortal.Data.DataAccess
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
 
             return await blob.DeleteIfExistsAsync();
+        }
+
+        public string SetFileReadPermission(string blobLink, int timeToExpire)
+        {
+            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
+
+            var sharedAccessSignature = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy()
+            {
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes((double)timeToExpire)
+            });
+
+            var urlToBePlayed = string.Format("{0}{1}", blob.Uri, sharedAccessSignature);
+
+            return urlToBePlayed;
         }
 
         public CloudBlobContainer GetContainerReference()

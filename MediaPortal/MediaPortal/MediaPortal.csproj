@@ -375,6 +375,9 @@
     <Content Include="Views\Shared\FileSystemFolderBlockView.cshtml" />
     <Content Include="Views\Shared\_FilesToUploadPartial.cshtml" />
     <Content Include="Views\Home\DownloadProcess.cshtml" />
+    <Content Include="Views\Home\ViewFile.cshtml" />
+    <Content Include="Views\Shared\_viewImageFilePartial.cshtml" />
+    <Content Include="Views\Shared\_VideoPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

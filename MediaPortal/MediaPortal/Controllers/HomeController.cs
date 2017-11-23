@@ -93,6 +93,35 @@ namespace MediaPortal.Controllers
         }
 
         [Authorize]
+        public ActionResult ViewFile(int? fileSystemId)
+        {
+            var userId = User.Identity.GetUserId();
+            FileSystemModels fileSystem;
+            FileSystemDTO fileSystemDTO;
+
+            if (fileSystemId == null)
+            {
+                return View("Error");
+            }
+            try
+            {
+                fileSystemDTO = _fileSystemService.Get(userId, fileSystemId);
+            }
+            catch (Exception ex)
+            {
+                // some logic for user
+                return View("Error");
+            }
+
+            Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>()
+                .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagModels { Id = o.Id, Name = o.Name }).ToList())));
+
+            fileSystem = Mapper.Map<FileSystemModels>(fileSystemDTO);
+
+            return View(fileSystem);
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult SearchFiles(string searchValue)
         {
@@ -242,6 +271,7 @@ namespace MediaPortal.Controllers
         [HttpPost]
         public async Task<ActionResult> DeleteFileSystem(int[] fileSystemsId)
         {
+
             try
             {
                 await _fileSystemService.DeleteFileSystem(fileSystemsId);
@@ -379,11 +409,40 @@ namespace MediaPortal.Controllers
             return View("Error");
         }
 
-        public async Task<ActionResult> GetImage(int fileSystemId)
+        public async Task<ActionResult> GetThumbnailImage(int fileSystemId)
         {
-            var fileImageStream = await _fileSystemService.GetFileSystemThumbnailAsync(fileSystemId);
+            string userId = User.Identity.GetUserId();
+            var fileImageStream = await _fileSystemService.GetFileSystemThumbnailAsync(userId,fileSystemId);
 
             return File(fileImageStream, "image/png");
+        }
+
+        public async Task<ActionResult> GetImage(int fileSystemId)
+        {
+            string userId = User.Identity.GetUserId();
+            var fileImageStream = await _fileSystemService.GetFileSystemStreamAsync(userId, fileSystemId);
+
+            return File(fileImageStream, "image/png");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult GetVideo(int fileSystemID)
+        {
+            string userId = User.Identity.GetUserId();
+            string urlBlob = string.Empty;
+            try
+            {
+                var fileSystemDTO = _fileSystemService.Get(userId, fileSystemID);
+                urlBlob = _fileSystemService.SetFileReadPermission(fileSystemDTO.BlobLink, timeToExpire:60);
+            }
+            catch (Exception ex)
+            {
+                // some logic for user
+                return View("Error");
+            }
+            ViewData["VideoUrl"] = urlBlob;
+            return PartialView("_VideoPartial");
         }
     }
 }

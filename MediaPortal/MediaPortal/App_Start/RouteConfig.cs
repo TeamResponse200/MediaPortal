@@ -14,6 +14,12 @@ namespace MediaPortal
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "View",
+                url: "Home/ViewFile/{fileSystemId}",
+                defaults: new { controller = "Home", action = "ViewFile", fileSystemId = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Download",
                 url: "Home/DownloadFileSystem/{fileSystemId}/{fileSystemName}",
                 defaults: new { controller = "Home", action = "DownloadFileSystem", fileSystemId = UrlParameter.Optional, fileSystemName = UrlParameter.Optional }
