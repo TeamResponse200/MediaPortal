@@ -252,6 +252,11 @@ namespace MediaPortal.Controllers
         [HttpPost]
         public ActionResult UploadFiles(FilesToUploadModels model)
         {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_FilesToUploadPartial",model);
+            }
+
             Response.Cookies["registered"].Expires = DateTime.Now.AddDays(-1);
             Mapper.Initialize(cfg => cfg.CreateMap<FilesToUploadModels, FilesToUploadDTO>());
             var filesToUpload = Mapper.Map<FilesToUploadDTO>(model);
@@ -264,7 +269,8 @@ namespace MediaPortal.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("UserFiles", new { folderID = model.ParrentID });
+            return Content("Files has been uploaded");
+            //return RedirectToAction("UserFiles", new { folderID = model.ParrentID });
         }
 
         [Authorize]

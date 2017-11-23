@@ -10,7 +10,10 @@
         <input class="col-md-12 file-upload" type="file">
     </label>
 </div>*@
-@Html.Partial("_FilesToUploadPartial", new FilesToUploadModels() { UserID = User.Identity.GetUserId(), ParrentID = Model.ParentId, Files = new List<HttpPostedFileWrapper>() })
+<div  id="partial-replace">
+    @Html.Partial("_FilesToUploadPartial", new FilesToUploadModels() { UserID = User.Identity.GetUserId(), ParrentID = Model.ParentId, Files = new List<HttpPostedFileWrapper>() })
+</div>
+
 
 <div class="col-md-12  btn" id="folderCreateButton" data-toggle="modal" data-target="#folderModal">Создать папку</div>
 

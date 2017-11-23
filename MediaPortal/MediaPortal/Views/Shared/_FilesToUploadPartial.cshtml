@@ -15,24 +15,27 @@
 
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("UploadFiles", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("UploadFiles", "Home", FormMethod.Post, new { @id ="upload-form",@class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.UserID)
                     @Html.HiddenFor(m => m.ParrentID)
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.Files, new { type = "file", enctype = "multipart/form-data", multiple = "multiple", accept = "image/x-png, image/jpeg, video/mp4" })
+                        @Html.ValidationMessageFor(x => x.Files, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <div class="col-md-10 col-md-offset-1">
-                            <button type="submit" class="btn col-md-12" id="registerButton">Загрузить файлы</button>
+                            <button type="submit" class="btn col-md-12" id="uploadfiles">Загрузить файлы</button>
                         </div>
                     </div>
                 }
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-default" data-dismiss="modal">Отменить</a>
+                <a href="#" class="btn btn-default" data-dismiss="modal" id="close-modal-upload">Отменить</a>
             </div>
         </div>
     </div>
 </div>
+
+
