@@ -60,49 +60,53 @@ namespace ZIPArchivatorWebJob.Listener
             return container;
         }
 
-        public async void Listen()
+        public async Task Listen()
         {
             Console.WriteLine("Archive listener started listen:");
             while (true)
             {
-                CloudQueueMessage message = Queue.GetMessage(new TimeSpan(0, 0, 10));
-                
-                if (message == null)
+                var messages = Queue.GetMessages(32);
+
+                Parallel.ForEach(messages, async message =>
                 {
-                    continue;
-                }                                
 
-                ArchiveModel archiveModel = JsonConvert.DeserializeObject<ArchiveModel>(message.AsString);
-                Console.WriteLine(message.AsString);
+                    ArchiveModel archiveModel = JsonConvert.DeserializeObject<ArchiveModel>(message.AsString);
+                    Console.WriteLine(message.AsString);
 
-                byte[] outputZIP;
+                    byte[] outputZIP;
 
-                using (MemoryStream outputMemStream = new MemoryStream())
-                {
-                    using (ZipOutputStream zipStream = new ZipOutputStream(outputMemStream))
+                    using (MemoryStream outputMemStream = new MemoryStream())
                     {
-                        zipStream.SetLevel(3);
-
-                        string entryLocateName = "";
-
-                        foreach (var fileSystemId in archiveModel.FileSystemsId)
+                        using (ZipOutputStream zipStream = new ZipOutputStream(outputMemStream))
                         {
-                            FileSystemDTO fileSystem = _fileSystemService.Get(fileSystemId);
-                            await ZipArchivingFileSystemTree(fileSystem, zipStream, archiveModel.UserId, entryLocateName);
+                            zipStream.SetLevel(3);
+
+                            string entryLocateName = "";
+
+                            foreach (var fileSystemId in archiveModel.FileSystemsId)
+                            {
+                                FileSystemDTO fileSystem = _fileSystemService.Get(fileSystemId);
+                                if(fileSystem != null)
+                                {
+                                    await ZipArchivingFileSystemTree(fileSystem, zipStream, archiveModel.UserId, entryLocateName);
+                                }                                
+                            }
+
+                            zipStream.IsStreamOwner = false;
+                            zipStream.Close();
+
+                            outputMemStream.Position = 0;
+
+                            outputZIP = outputMemStream.ToArray();
                         }
-
-                        zipStream.IsStreamOwner = false;
-                        zipStream.Close();
-
-                        outputMemStream.Position = 0;
-
-                        outputZIP = outputMemStream.ToArray();
                     }
-                }
 
-                var archivelLink = UploadFileInBlocksAsync(outputZIP, archiveModel.Id).Result;
+                    var archivelLink = await UploadFileInBlocksAsync(outputZIP, archiveModel.Id);
 
-                Queue.DeleteMessage(message);                
+                    Queue.DeleteMessage(message);
+
+                });
+                              
             }
         }
 
@@ -111,7 +115,7 @@ namespace ZIPArchivatorWebJob.Listener
             if (fileSystem.BlobLink != null)
             {
                 string blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
-                byte[] fileBytes = DownloadFile(blobLink).Result;
+                byte[] fileBytes = await DownloadFile(blobLink);
 
                 string locateName = entryLocateName;
 

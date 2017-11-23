@@ -238,6 +238,22 @@ namespace MediaPortal.BL.Services
             return existArchive;
         }
 
+        public async Task DeleteFileSystemByName(string fileSystemName)
+        {
+            try
+            {
+                string containerName = ConfigurationManager.AppSettings.Get("containerNameAzureStorageBlob");
+                var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + containerName + fileSystemName + ".zip";
+
+                await _storageDataAccess.DeleteFileSystemByName(blobLink);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.InnerException.Message);
+                throw;
+            }            
+        }
+
         public async Task<Tuple<byte[], string>> DownloadFileSystem(int fileSystemId)
         {
             byte[] fileBytes;

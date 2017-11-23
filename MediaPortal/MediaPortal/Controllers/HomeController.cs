@@ -39,7 +39,7 @@ namespace MediaPortal.Controllers
         }
 
         [Authorize]
-        public ActionResult UserFiles(int? folderID, string folderName)
+        public ActionResult UserFiles(int? folderID)
         {
             string viewType = string.Empty;
             if (Request.Cookies["viewType"] != null)
@@ -318,7 +318,9 @@ namespace MediaPortal.Controllers
 
             try
             {
-                ZIPFileBytes = await _fileSystemService.DownloadProcessZIP(fileSystemName);               
+                ZIPFileBytes = await _fileSystemService.DownloadProcessZIP(fileSystemName);
+
+                await _fileSystemService.DeleteFileSystemByName(fileSystemName);
             }
             catch (Exception ex)
             {
@@ -338,11 +340,11 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult RenameFileSystem(FileSystemModels model, string returnUrl)
+        public ActionResult RenameFileSystem(int fileSystemId, string textName)
         {
             try
             {
-                _fileSystemService.RenameFileSystem(model.Id, model.Name);
+                _fileSystemService.RenameFileSystem(fileSystemId, textName);
             }
             catch (DataException)
             {
@@ -350,7 +352,7 @@ namespace MediaPortal.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("UserFiles", new { folderID = model.ParentId, folderName = model.Name });
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [Authorize]

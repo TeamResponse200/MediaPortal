@@ -34,7 +34,7 @@ namespace ZIPArchivatorWebJob
 
             IFileSystemService fileSystemService = bootstrapper.Kernel.Get<IFileSystemService>();
             var listener = new ArchiveListener(fileSystemService);
-            listener.Listen();
+            listener.Listen().Wait();
         }
 
         /// <summary>

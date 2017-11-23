@@ -628,6 +628,7 @@ background-color:white;
     width: 160px;
 }
 
+
 .ZIPdownload-ModalHide {
     visibility: hidden
 }
@@ -659,14 +660,29 @@ background-color:white;
 }
 
 .zip-process-textCast {
-    padding-top: 4%;
-    padding-bottom: 3%;
+    padding-top: 0;
+    padding-bottom: 0;
     padding-left: 10%;
     padding-right: 0;
 }
 
 .zip-process-text1Cast {
     color: rgb(100, 100, 100);
+    padding-top: 6%;
+    padding-bottom: 3%;
     padding-left: 0;
     padding-right: 0;
+}
+
+.zip-process-text2Cast {
+    color: rgb(100, 100, 100);
+    padding-top: 2%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#loadingIcon {
+    content: url(/Content/icons/processing.gif);
+    height: 35px;
+    width: 35px;
 }

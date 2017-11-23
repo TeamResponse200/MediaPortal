@@ -20,6 +20,8 @@ namespace MediaPortal.BL.Interface
 
         Task<bool> DeleteFileSystem(int[] fileSystemsId);
 
+        Task DeleteFileSystemByName(string fileSystemName);
+
         Task<byte[]> DownloadProcessZIP(string fileSystemName);
 
         bool IsExistArchive(string fileSystemName);

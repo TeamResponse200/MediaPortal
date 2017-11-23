@@ -74,7 +74,7 @@ namespace MediaPortal.Data.DataAccess
         {
             string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-
+            
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
             var file = await blob.OpenReadAsync();
             return file;
@@ -168,11 +168,21 @@ namespace MediaPortal.Data.DataAccess
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
 
-            return blob.Exists();
+            return blob.Exists(); 
+        }
+
+        public async Task DeleteFileSystemByName(string blobLink)
+        {
+            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
+
+            await blob.DeleteIfExistsAsync();
         }
 
 
-            public async Task<bool> DeleteFileSystem(string blobLink)
+        public async Task<bool> DeleteFileSystem(string blobLink)
         {
             string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
