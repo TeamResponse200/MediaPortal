@@ -18,7 +18,7 @@ namespace MediaPortal.Controllers
     public class HomeController : Controller
     {
         private IFileSystemService _fileSystemService;
-       
+
         public HomeController(IFileSystemService fileSystemService)
         {
             _fileSystemService = fileSystemService;
@@ -27,7 +27,7 @@ namespace MediaPortal.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return RedirectToAction("UserFiles","Home");
+            return RedirectToAction("UserFiles", "Home");
         }
 
         [Authorize]
@@ -174,7 +174,7 @@ namespace MediaPortal.Controllers
 
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
-            var viewModel = new UserFilesViewModels() { Files = files,FolderIDs = new List<int?>(),FolderNames = new List<string>()};
+            var viewModel = new UserFilesViewModels() { Files = files, FolderIDs = new List<int?>(), FolderNames = new List<string>() };
 
             if (viewType.Equals("BlockView"))
             {
@@ -309,22 +309,22 @@ namespace MediaPortal.Controllers
         [Authorize]
         //[HttpPost]
         public JsonResult DownloadFileSystemZIP(List<int> fileSystemsId)
-        {        
+        {
             string userId = User.Identity.GetUserId();
             string ZIParchiveName = null;
 
             try
             {
-                ZIParchiveName = _fileSystemService.DownloadFileSystemZIP(fileSystemsId, userId);                
+                ZIParchiveName = _fileSystemService.DownloadFileSystemZIP(fileSystemsId, userId);
             }
             catch (DataException)
             {
                 // some logic for user
                 return null;
-            }            
+            }
 
             return Json(ZIParchiveName);
-        }        
+        }
 
         [Authorize]
         //[HttpPost]
@@ -332,10 +332,10 @@ namespace MediaPortal.Controllers
         {
             bool blobIsExist = false;
 
-            while(!blobIsExist)
+            while (!blobIsExist)
             {
                 blobIsExist = _fileSystemService.IsExistArchive(fileSystemName);
-            }            
+            }
 
             return Json(blobIsExist);
         }
@@ -358,14 +358,14 @@ namespace MediaPortal.Controllers
                 return View("Error");
             }
 
-            if(ZIPFileBytes == null)
+            if (ZIPFileBytes == null)
             {
                 return View("Error");
             }
             else
             {
-                return File(ZIPFileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName + ".zip");                
-            }            
+                return File(ZIPFileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileSystemName + ".zip");
+            }
         }
 
         [Authorize]
@@ -402,6 +402,25 @@ namespace MediaPortal.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId)
+        {
+            string userId = User.Identity.GetUserId();
+
+            try
+            {
+                _fileSystemService.MoveFileSystem(fileSystemsId, fileSystemParentId, userId);
+            }
+            catch (DataException)
+            {
+                // some logic for user
+                return View("Error");
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -412,7 +431,7 @@ namespace MediaPortal.Controllers
         public async Task<ActionResult> GetThumbnailImage(int fileSystemId)
         {
             string userId = User.Identity.GetUserId();
-            var fileImageStream = await _fileSystemService.GetFileSystemThumbnailAsync(userId,fileSystemId);
+            var fileImageStream = await _fileSystemService.GetFileSystemThumbnailAsync(userId, fileSystemId);
 
             return File(fileImageStream, "image/png");
         }
@@ -434,7 +453,7 @@ namespace MediaPortal.Controllers
             try
             {
                 var fileSystemDTO = _fileSystemService.Get(userId, fileSystemID);
-                urlBlob = _fileSystemService.SetFileReadPermission(fileSystemDTO.BlobLink, timeToExpire:60);
+                urlBlob = _fileSystemService.SetFileReadPermission(fileSystemDTO.BlobLink, timeToExpire: 60);
             }
             catch (Exception ex)
             {

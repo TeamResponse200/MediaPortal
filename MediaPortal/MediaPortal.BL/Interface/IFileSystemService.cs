@@ -44,6 +44,8 @@ namespace MediaPortal.BL.Interface
 
         void AddTag(int[] fileSystemId, string tagValue);
 
+        void MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId, string userId);
+
         void UploadAndInsertFiles(FilesToUploadDTO filesToUpload);
 
         Task<Stream> GetFileSystemThumbnailAsync(string userId,int fileSystemId);

@@ -551,6 +551,22 @@ namespace MediaPortal.BL.Services
 
         }
 
+        public void MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId, string userId)
+        {
+            try
+            {
+                Parallel.ForEach(fileSystemsId, fileSystemId =>
+                {
+                    _fileSystemRepository.ChangeFileSystemParentId(fileSystemId, fileSystemParentId, userId);
+                });
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+                throw;
+            }
+        }
+
         public void UpdateThumbnail(int id, string thumbnailUri)
         {
             _fileSystemRepository.FileSystemAddThumbnailLink(id, thumbnailUri);

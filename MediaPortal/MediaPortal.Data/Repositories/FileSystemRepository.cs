@@ -120,6 +120,23 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
+        public void ChangeFileSystemParentId(int fileSystemId, int? fileSystemParentId, string userId)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                var fileSystem = dbContext.FileSystems.Where(x => x.UserId == userId && x.Id == fileSystemId).FirstOrDefault();
+
+                if (fileSystem != null)
+                {
+                    if (fileSystem.Id != fileSystemParentId)
+                    {
+                        fileSystem.ParentId = fileSystemParentId;
+                        dbContext.SaveChanges();
+                    }
+                }
+            }
+        }
+
         public void FileSystemAddThumbnailLink(int fileSystemId, string link)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))

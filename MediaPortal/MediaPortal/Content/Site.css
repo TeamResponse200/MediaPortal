@@ -687,6 +687,46 @@ background-color:white;
     width: 35px;
 }
 
+
+#moveButton {
+    font-size: 14px;
+    font-family: "Raleway";
+    color: black;
+    padding: 0;
+    border-width: 2px;
+    border-color: #514bc8;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+#moveCancelButton {
+    font-size: 14px;
+    font-family: "Raleway";
+    color: rgb(255, 255, 255);
+    padding: 0;
+    background-color: #514bc8;
+    margin-top: 2px;
+}
+
+.move-file-system {
+    margin-top: 45px;
+    padding: 0;
+    border-radius: 10px;
+    visibility: visible;
+}
+
+.move-file-system-hidden {
+    visibility: hidden;
+}
+
+.move-padding {
+    padding: 5px;
+}
+
+.move-file-system-count {
+    margin-top: 9px;
+}
+
 /* ViewFile */
 #view-form {
     margin-top:120px;
