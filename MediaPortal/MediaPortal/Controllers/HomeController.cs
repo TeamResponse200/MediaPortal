@@ -82,6 +82,11 @@ namespace MediaPortal.Controllers
 
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
+            if (!files.Any())
+            {
+                return View("SearchZeroResult");
+            }
+
             var folderIDs = new List<int?>();
             var folderNames = new List<string>();
 

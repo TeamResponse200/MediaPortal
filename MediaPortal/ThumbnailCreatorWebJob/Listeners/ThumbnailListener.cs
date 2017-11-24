@@ -52,10 +52,17 @@ namespace ThumbnailCreatorWebJob.Listeners
                     FileIdBlobModel fileIdBlob = JsonConvert.DeserializeObject<FileIdBlobModel>(message.AsString);
 
                     Console.WriteLine(message.AsString);
+                    try 
+                    {
                     var thumbnailLink = CreateThumbnailAsync(fileIdBlob.BlobLink).Result;
                     Queue.DeleteMessage(message);
 
                     UpdateFileSystem(fileIdBlob.FileId, thumbnailLink);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    
                     // some operation here is performed
                 });
 

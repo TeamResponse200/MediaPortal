@@ -131,19 +131,23 @@
 
 .IconSearch {
     content: url(/Content/icons/search.svg);
-    height: 16px;
-    width: 16px;
-    margin-right: 10px;
+    height: 18px;
+    width: 18px;
+    margin-right: 5px;
+    padding-left:5px;
 }
 .IconSearch:hover {
-    content: url(/Content/)
+    /*content: url(/Content/)*/
 }
 
 #iconSearchFilter {
     content: url(/Content/icons/next.svg);
     height: 16px;
     width: 16px;
-    margin-right: 10px;
+    padding:0px;
+    margin-right:5px;
+    /*margin-right: 10px;*/
+    /*padding-left:20px;*/
     -webkit-transform: rotate(90deg); /* Chrome y Safari */
     -moz-transform: rotate(90deg); /* Firefox */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
@@ -261,6 +265,8 @@ button.dropDownButton {
     background-color: #514bc8;
     margin-top: 25px;
     padding: 0;
+    padding-top:7px;
+    height:35px;
 }
 
 .file-upload {
@@ -380,6 +386,15 @@ button.dropDownButton {
     padding-top: 5px;
     margin-left: 10px;
 }
+
+#iconVideo {
+    content: url(/Content/icons/video-player.svg);
+    height: 25px;
+    width: 25px;
+    padding-top: 5px;
+    margin-left: 10px;
+}
+
 .file-name-list-item {
     padding-top:5px;
     font-family:"Raleway";
@@ -769,12 +784,20 @@ background-color:white;
     }
 
 #playButton {
-    content: url(http://trackingboard1.wpengine.netdna-cdn.com/wp-content/uploads/2016/03/PlayButton-png.png);
-    height: 100px;
-    width: 100px;
-    position: absolute;
-    margin-left:120px;
-    margin-top:-205px;
+    content: url(/Content/icons/icon-play.svg);
+    height: 80px;
+    width: 80px;
+    position: fixed;
+    display: block;
+    z-index: 1000;
+    padding: 0;
+    /*/*position: absolute;*/
+    z-index: 1000;
+    margin-left: 120px;
+    margin-top: -205px;
+    /*position: absolute;
+    
+    */*/
 }
 
 #tags {

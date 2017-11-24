@@ -35,7 +35,14 @@ else
 {
     <div class="col-md-12 fileSystem-list-item context-menu-file" data-name="@Model.Id" data-file-name="@Model.Name" >
         <div class="col-md-1">
-                <span id="iconFile"></span>
+         @if (Model.Type.ToLower().Equals(".mp4"))
+         {
+            <span id="iconVideo"></span>
+         }
+         else
+         {
+            <span id="iconFile"></span>
+         }
         </div>
         <div class="col-md-8 file-name-list-item">
             @Model.Name

@@ -6,8 +6,15 @@
             @*<img src="@Model.BlobLink" alt="blobLink">*@
             <img src='@Url.Action("GetThumbnailImage", new { fileSystemId = Model.Id })' />
             <div class="caption">
-                <span id="iconFile"></span>
-                <span class="file-name ">@Model.Name</span>
+                @if (Model.Type.ToLower().Equals(".mp4"))
+                {
+                    <span id="iconVideo"></span>
+                }
+                else
+                {
+                    <span id="iconFile"></span>
+                }
+                <span class="file-name">@Model.Name</span>
             </div>
         </div>
 </div>

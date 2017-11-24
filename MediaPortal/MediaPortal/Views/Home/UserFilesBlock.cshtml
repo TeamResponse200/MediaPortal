@@ -201,11 +201,39 @@ else
 @section scripts {
 
 <script>
+        $("#uploadfiles").click(function (e) {
+            e.preventDefault();
+            var formdata = new FormData($('#upload-form').get(0));
+            $("#close-modal-upload").click();
+            $.ajax({
+                url: '@Url.Action("UploadFiles")',
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (data1) {
+                    $("#partial-replace").replaceWith(data1);
+                    $("#GlobalBackground > div.modal-backdrop.fade.in").hide();
+                    document.getElementById("uploadButton").click();
+                }
+            })
+        });
+</script>
+
+<script>
     $(".fileSystem-list-item").dblclick(function () {
 
         var folderId = $(this).data("name");
         var folderName = $(this).data("folder-name");
         var link = "/Home/UserFiles/" + folderId + "/" + folderName;
+
+        window.location.href = link;
+    });
+
+    $(".fileSystem-list-item-file").dblclick(function () {
+
+        var fileSystemId = $(this).data("name");
+        var link = "/Home/ViewFile/" + fileSystemId;
 
         window.location.href = link;
     });

@@ -21,8 +21,9 @@
 <body>
     <div class="container">
         <div class="row">
+            <span id="close-view"></span>
             <div class="col-md-4 col-md-offset-4" id="view-form">
-                <div class="col-md-12" id="top-objects">
+                <div class="col-md-12" id="top-objects" data-name="@Model.ParentId">
                     <div class="col-md-7">
                         <div class="col-md-12" id="file-title" >@Model.Name</div>
                         <div class="col-md-12" id="file-size"> @formatedSize MB</div>
@@ -57,6 +58,21 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    <script>
+        $('img.mustLoad').on('error', function () {
+            $("#playButton").click();
+        });
+    </script>
+    <script>
+        $("#close-view").click(function () {
+            var folderId = $("#top-objects").data("name");
+            var link = "/Home/UserFiles/" + folderId;
+            window.location.href = link;
+
+
+        });
+    </script>
     <script>
         $("#playButton").click(function () {
             debugger;
