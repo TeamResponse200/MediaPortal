@@ -51,6 +51,16 @@ namespace MediaPortal.Controllers
                 Response.Cookies["viewType"].Value = "List";
             }
 
+            string sortType = string.Empty;
+            if (Request.Cookies["sortType"] != null)
+            {
+                sortType = Request.Cookies["sortType"].Value.ToString();
+            }
+            else
+            {
+                Response.Cookies["sortType"].Value = "SortByAdditionDate";
+            }
+
             string userId = User.Identity.GetUserId();
             List<FileSystemModels> files = null;
             IEnumerable<FileSystemDTO> fileSystemDtos;
@@ -80,6 +90,21 @@ namespace MediaPortal.Controllers
                 var tupleIdName = _fileSystemService.GetFoldersIdNamePair(folderID, userId);
                 folderIDs = tupleIdName.Item1;
                 folderNames = tupleIdName.Item2;
+            }
+
+            switch (sortType)
+            {
+                case "sortByUploadDate":
+                    files = files.OrderBy(elem => elem.UploadDate).ToList();
+                    break;
+                case "sortByCreationDate":
+                    files = files.OrderBy(elem => elem.CreationDate).ToList();
+                    break;
+                case "sortBySize":
+                    files = files.OrderBy(elem => elem.Size).ToList();
+                    break;
+                default:
+                    break;
             }
 
             var viewModel = new UserFilesViewModels() { Files = files, FolderIDs = folderIDs, FolderNames = folderNames };
@@ -182,39 +207,7 @@ namespace MediaPortal.Controllers
             }
 
             return View("UserFiles", viewModel);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult SortFiles(UserFilesViewModels model)
-        {
-            string sortType = string.Empty;
-            if (Request.Cookies["sortType"] != null)
-            {
-                sortType = Request.Cookies["sortType"].Value.ToString();
-            }
-            else
-            {
-                Response.Cookies["sortType"].Value = "SortByAdditionDate";
-            }
-
-            switch (sortType)
-            {
-                case "SortByUploadDate":
-                    model.Files.OrderBy(elem => elem.UploadDate);
-                    break;
-                case "SortByCreationDate":
-                    model.Files.OrderBy(elem => elem.CreationDate);
-                    break;
-                case "SortBySize":
-                    model.Files.OrderBy(elem => elem.Size);
-                    break;
-                default:
-                    break;
-            }
-
-            return View("UserFiles", model);
-        }
+        }        
 
         [Authorize]
         [HttpPost]
@@ -468,6 +461,26 @@ namespace MediaPortal.Controllers
             }
             ViewData["VideoUrl"] = urlBlob;
             return PartialView("_VideoPartial");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public JsonResult GiveAccessLink(int fileSystemId)
+        {
+            string userId = User.Identity.GetUserId();
+            string urlBlob = string.Empty;
+
+            try
+            {
+                var fileSystemDTO = _fileSystemService.Get(userId, fileSystemId);
+                urlBlob = _fileSystemService.SetFileReadPermission(fileSystemDTO.BlobLink, timeToExpire: 60);
+            }
+            catch (Exception ex)
+            {
+                // some logic for user               
+            }
+
+            return Json(urlBlob);
         }
     }
 }

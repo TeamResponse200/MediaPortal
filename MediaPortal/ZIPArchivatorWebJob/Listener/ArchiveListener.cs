@@ -65,7 +65,7 @@ namespace ZIPArchivatorWebJob.Listener
             Console.WriteLine("Archive listener started listen:");
             while (true)
             {
-                var messages = Queue.GetMessages(32);
+                var messages = Queue.GetMessages(32, TimeSpan.FromHours(2) );
 
                 Parallel.ForEach(messages, async message =>
                 {
@@ -101,7 +101,7 @@ namespace ZIPArchivatorWebJob.Listener
                         }
                     }
 
-                    var archivelLink = await UploadFileInBlocksAsync(outputZIP, archiveModel.Id);
+                    var archivelLink = UploadFileInBlocksAsync(outputZIP, archiveModel.Id).Result;
 
                     Queue.DeleteMessage(message);
 
@@ -187,11 +187,23 @@ namespace ZIPArchivatorWebJob.Listener
             CloudBlockBlob blobArchive = BlobContainer.GetBlockBlobReference(blobName);
             blobArchive.DeleteIfExists();
 
-            await blobArchive.UploadFromByteArrayAsync(file, 0, file.Length);
+            using (MemoryStream inputMemoryStream = new MemoryStream(file))
+            {
+                BlobRequestOptions requestOptions = new BlobRequestOptions
+                {
+                    SingleBlobUploadThresholdInBytes = 10 * 1024 * 1024,
+                    ParallelOperationThreadCount = 2,
+                    DisableContentMD5Validation = true
+                };
+
+                await blobArchive.UploadFromStreamAsync(inputMemoryStream, null, options: requestOptions, operationContext: null).ConfigureAwait(false);
+
+            }            
 
             var ur = blobArchive.Uri.ToString();
 
             return ur;
+
         }
     }
 }

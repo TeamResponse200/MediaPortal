@@ -785,3 +785,7 @@ background-color:white;
     font-family: "Raleway";
     margin-bottom:15px;
 }
+
+#accsseseLink {
+    display: none;
+}
