@@ -551,20 +551,38 @@ namespace MediaPortal.BL.Services
 
         }
 
-        public void MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId, string userId)
+        public bool MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId, string userId)
         {
+            bool unique = true;
+
             try
             {
-                Parallel.ForEach(fileSystemsId, fileSystemId =>
+                foreach (var fileSystemId in fileSystemsId)
                 {
-                    _fileSystemRepository.ChangeFileSystemParentId(fileSystemId, fileSystemParentId, userId);
-                });
+                    var current = _fileSystemRepository.Get(fileSystemId);
+                                        
+                    unique = _fileSystemRepository.UniqueName(current.Name, fileSystemParentId, userId);
+                    if (!unique)
+                    {
+                        break;
+                    }   
+                }
+
+                if(unique)
+                {
+                    Parallel.ForEach(fileSystemsId, fileSystemId =>
+                    {
+                        _fileSystemRepository.ChangeFileSystemParentId(fileSystemId, fileSystemParentId, userId);
+                    });
+                }                
             }
             catch (Exception ex)
             {
                 Trace.TraceError(ex.Message);
                 throw;
             }
+
+            return unique;
         }
 
         public void UpdateThumbnail(int id, string thumbnailUri)

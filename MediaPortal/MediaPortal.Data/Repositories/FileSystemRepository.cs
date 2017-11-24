@@ -137,6 +137,23 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
+        public bool UniqueName(string name, int? fileSystemParentId, string userId)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                var fileSystem = dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == fileSystemParentId && x.Name == name).FirstOrDefault();
+
+                if (fileSystem == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public void FileSystemAddThumbnailLink(int fileSystemId, string link)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))

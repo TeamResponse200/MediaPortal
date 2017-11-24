@@ -403,21 +403,21 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId)
+        public JsonResult MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId)
         {
             string userId = User.Identity.GetUserId();
+            bool moved = false;
 
             try
             {
-                _fileSystemService.MoveFileSystem(fileSystemsId, fileSystemParentId, userId);
+                moved = _fileSystemService.MoveFileSystem(fileSystemsId, fileSystemParentId, userId);
             }
             catch (DataException)
             {
                 // some logic for user
-                return View("Error");
             }
-
-            return Redirect(Request.UrlReferrer.ToString());
+            
+            return Json(moved);
         }
 
         public ActionResult Contact()

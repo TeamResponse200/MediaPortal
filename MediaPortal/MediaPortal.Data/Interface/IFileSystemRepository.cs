@@ -26,6 +26,8 @@ namespace MediaPortal.Data.Interface
 
         void ChangeFileSystemParentId(int fileSystemId, int? fileSystemParentId, string userId);
 
+        bool UniqueName(string name, int? fileSystemParentId, string userId);
+
         void FileSystemAddThumbnailLink(int fileSystemId, string link);
 
         void AddTag(int fileSystem, int tag);

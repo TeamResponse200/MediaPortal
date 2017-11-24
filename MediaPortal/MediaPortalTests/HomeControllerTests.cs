@@ -23,31 +23,31 @@ namespace MediaPortalTests
             _controller = new HomeController(_fileSystemService);
         }
         
-        public void UserFiles_Correct()
-        {
-            int? folderId = null;
-            string folderName = "name";
-            string userId = "id";
+        //public void UserFiles_Correct()
+        //{
+        //    int? folderId = null;
+        //    string folderName = "name";
+        //    string userId = "id";
 
-            var usersFolders = new List<FileSystemDTO>
-            {
-                new FileSystemDTO
-                {
-                    Id = 1,
-                    Name = "n",
-                    Type = "Folder"
-                },
-                new FileSystemDTO
-                {
-                    Id = 2,
-                    Name = "n2",
-                    Type = "Folder"
-                }
-            };
+        //    var usersFolders = new List<FileSystemDTO>
+        //    {
+        //        new FileSystemDTO
+        //        {
+        //            Id = 1,
+        //            Name = "n",
+        //            Type = "Folder"
+        //        },
+        //        new FileSystemDTO
+        //        {
+        //            Id = 2,
+        //            Name = "n2",
+        //            Type = "Folder"
+        //        }
+        //    };
 
-            _fileSystemService.GetUserFileSystem(userId, folderId).Returns(usersFolders);
+        //    _fileSystemService.GetUserFileSystem(userId, folderId).Returns(usersFolders);
 
-            var result = _controller.UserFiles(folderId, folderName);
-        }
+        //    var result = _controller.UserFiles(folderId, folderName);
+        //}
     }
 }

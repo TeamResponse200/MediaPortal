@@ -44,7 +44,7 @@ namespace MediaPortal.BL.Interface
 
         void AddTag(int[] fileSystemId, string tagValue);
 
-        void MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId, string userId);
+        bool MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId, string userId);
 
         void UploadAndInsertFiles(FilesToUploadDTO filesToUpload);
 
