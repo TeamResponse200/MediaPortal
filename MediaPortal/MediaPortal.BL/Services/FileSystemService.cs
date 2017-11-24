@@ -486,27 +486,31 @@ namespace MediaPortal.BL.Services
             {
                 if (file != null)
                 {
-                    var uri = _storageDataAccess.UploadFileInBlocksAsync(file).Result;
-
-                    var cuttedUri = GetFileCuttedUri(uri);
-
-                    var fileSystem = new FileSystem()
+                    if( _fileSystemRepository.Get(filesToUpload.UserID, filesToUpload.ParrentID, Path.GetFileNameWithoutExtension(file.FileName)))
                     {
-                        UserId = filesToUpload.UserID,
-                        ParentId = filesToUpload.ParrentID,
-                        Name = Path.GetFileNameWithoutExtension(file.FileName),
-                        Type = Path.GetExtension(file.FileName),
-                        Size = file.ContentLength,
-                        BlobLink = cuttedUri,
-                        UploadDate = DateTime.Now,
-                        CreationDate = DateTime.Now
-                    };
+                        var uri = _storageDataAccess.UploadFileInBlocksAsync(file).Result;
 
-                    //
+                        var cuttedUri = GetFileCuttedUri(uri);
 
-                    var insertedId = _fileSystemRepository.InsertObject(fileSystem);
+                        var fileSystem = new FileSystem()
+                        {
+                            UserId = filesToUpload.UserID,
+                            ParentId = filesToUpload.ParrentID,
+                            Name = Path.GetFileNameWithoutExtension(file.FileName),
+                            Type = Path.GetExtension(file.FileName),
+                            Size = file.ContentLength,
+                            BlobLink = cuttedUri,
+                            UploadDate = DateTime.Now,
+                            CreationDate = DateTime.Now
+                        };
 
-                    _storageDataAccess.PutMessageRequestForThumbnail(insertedId, uri);
+                        //
+
+                        var insertedId = _fileSystemRepository.InsertObject(fileSystem);
+
+                        _storageDataAccess.PutMessageRequestForThumbnail(insertedId, uri);
+                    }
+                    
                 }
             });
         }

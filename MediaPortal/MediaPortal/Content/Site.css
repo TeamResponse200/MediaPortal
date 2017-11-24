@@ -812,3 +812,12 @@ background-color:white;
 #accsseseLink {
     display: none;
 }
+
+#close-view {
+    content: url(/Content/icons/cancel.svg);
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    margin-left: 820px;
+    margin-top: 50px;
+}

@@ -67,3 +67,12 @@ D:\SoftThemeProject\231117(ver3)\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug
 D:\SoftThemeProject\231117(ver3)\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql
 D:\SoftThemeProject\231117(ver3)\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
 D:\SoftThemeProject\231117(ver3)\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
+E:\work\Internship\MediaPortalApplication\MediaPortal2\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dacpac
+E:\work\Internship\MediaPortalApplication\MediaPortal2\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal2\MediaPortal\MediaPortal\MediaPortalDB\bin\Debug\MediaPortalDB.pdb
+E:\work\Internship\MediaPortalApplication\MediaPortal2\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.dll
+E:\work\Internship\MediaPortalApplication\MediaPortal2\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\MediaPortalDB.pdb
+E:\work\Internship\MediaPortalApplication\MediaPortal2\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\Model.xml
+E:\work\Internship\MediaPortalApplication\MediaPortal2\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\refactor.xml
+E:\work\Internship\MediaPortalApplication\MediaPortal2\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\postdeploy.sql
+E:\work\Internship\MediaPortalApplication\MediaPortal2\MediaPortal\MediaPortal\MediaPortalDB\obj\Debug\predeploy.sql

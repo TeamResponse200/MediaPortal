@@ -12,7 +12,7 @@
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([ParentId]) REFERENCES [dbo].[FileSystem] ([Id]),
     FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE,
-    UNIQUE NONCLUSTERED ([ParentId] ASC, [Name] ASC)
+    UNIQUE NONCLUSTERED ([UserId] ASC, [ParentId] ASC, [Name] ASC)
 );
 
 

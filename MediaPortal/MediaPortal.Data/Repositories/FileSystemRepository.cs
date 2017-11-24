@@ -42,6 +42,24 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
+        public bool Get(string userId, int? parentId, string name)
+        {
+            using (var dbContext = new MediaPortalDbContext(_connectionString))
+            {
+                var file =  dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == parentId && x.Name == name)
+                                            .Include(x => x.Tags)
+                                            .ToList().FirstOrDefault();
+                if (file == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public IEnumerable<FileSystem> GetAll()
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))

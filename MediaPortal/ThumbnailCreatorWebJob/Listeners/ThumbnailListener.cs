@@ -150,7 +150,7 @@ namespace ThumbnailCreatorWebJob.Listeners
 
         private MemoryStream GetVideoFrame(Stream videoStream, string filename)
         {
-            var tempPathToFile = @"..\..\TemporaryFiles\" + filename;
+            var tempPathToFile = @"..\..\" + filename;
             using (FileStream output = new FileStream(tempPathToFile, FileMode.Create))
             {
                 videoStream.CopyTo(output);

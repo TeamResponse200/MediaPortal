@@ -14,6 +14,8 @@ namespace MediaPortal.Data.Interface
 
         FileSystem Get(string userId, int? id);
 
+        bool Get(string userId, int? parentId, string name);
+
         IEnumerable<T> GetAll(string userId, int? fileSystemParentId);
 
         int InsertObject(T t);

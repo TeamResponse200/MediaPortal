@@ -82,10 +82,7 @@ namespace MediaPortal.Controllers
 
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
-            if (!files.Any())
-            {
-                return View("SearchZeroResult");
-            }
+            
 
             var folderIDs = new List<int?>();
             var folderNames = new List<string>();
@@ -182,6 +179,12 @@ namespace MediaPortal.Controllers
             try
             {
                 allFileSystemDtos = _fileSystemService.GetAllUserFileSystem(userId);
+
+                if (!allFileSystemDtos.Any())
+                {
+                    return View("SearchZeroResult");
+                }
+
                 if (searchType.Equals("SearchByName"))
                 {
                     fileSystemDtos = allFileSystemDtos.Where(file => file.Name.ToLower().Contains(searchValue.ToLower()));

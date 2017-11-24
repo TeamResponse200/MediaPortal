@@ -3,6 +3,21 @@
   "WebJobs": [
     {
       "filePath": "../ThumbnailCreatorWebJob/ThumbnailCreatorWebJob.csproj"
+    },
+    {
+      "filePath": "../ThumbnailCreatorWebJob/ThumbnailCreatorWebJob.csproj"
+    },
+    {
+      "filePath": "../ZIPArchivatorWebJob/ZIPArchivatorWebJob.csproj"
+    },
+    {
+      "filePath": "../ThumbnailCreatorWebJob/ThumbnailCreatorWebJob.csproj"
+    },
+    {
+      "filePath": "../ZIPArchivatorWebJob/ZIPArchivatorWebJob.csproj"
+    },
+    {
+      "filePath": "../ThumbnailCreatorWebJob/ThumbnailCreatorWebJob.csproj"
     }
   ]
 }
