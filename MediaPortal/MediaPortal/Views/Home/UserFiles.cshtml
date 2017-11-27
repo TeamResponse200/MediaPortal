@@ -112,21 +112,23 @@ else
     </div>
 </div>
 
-    <div class="modal fade " id="ModalDelete" role="dialog">
-        <div class="modal-dialog ">
-            <div class="modal-content col-md-6 col-md-offset-4  ModalDeleteww">
-                <div class="modal-body col-md-12 col-md-offset-1  ModalDeleterr">
-                    <div class="col-md-12 ModalDeleterr1">
-                        Вы уверенны, что хотите удалить этот файл
-                    </div>
-                    <div class="col-md-12 ModalDeleterr ModalDeleterr1">
-                        <div class="btn btn-primary col-md-5 ModalDeletecastomPadBot" data-dismiss="modal">Ой нет!</div>
-                        <div class="btn btn-primary col-md-5 col-md-offset-1  ModalDeletebtn-primary2 ModalDeletecastomPadBot" data-dismiss="modal" onclick="DeleteFileSystem();">Да, удалить!</div>
+<div class="modal fade " id="ModalDelete" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content col-md-offset-2 col-md-8  ModalDeleteww">
+            <div class="modal-body col-md-12 col-md-offset-1  ModalDeleterr">
+                <h4 class="col-md-12 ModalDeleterr1">
+                    Вы уверенны, что хотите <br>удалить этот файл?
+                </h4>
+                <div class="col-md-12 ">
+                    <div class="row ModalDeleterr ModalDeleterr1">
+                        <div class="btn col-md-5 ModalDelete-btn-no" data-dismiss="modal">Ой нет!</div>
+                        <div class="btn col-md-5 col-md-offset-1 ModalDelete-btn-del" data-dismiss="modal" onclick="DeleteFileSystem();">Да, удалить!</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     <div class="modal fade" id="ModalTag" role="dialog">
         <div class="modal-dialog">
@@ -157,11 +159,11 @@ else
 
     <div class="modal fade" id="ModalRename" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content col-md-offset-2 col-md-10 modal-content-tag">
+            <div class="modal-content col-md-offset-2 col-md-8 modal-content-tag">
                 <div class="row">
                     <div class="col-md-12 row-tag">
                         <div class="modal-header modal-header-tag">
-                            <h3 class="modal-title modal-title-tag"><strong>Переименовать</strong></h3>
+                            <h4 class="modal-title modal-title-tag"><strong>Переименовать</strong></h4>
                         </div>
                         <div class="modal-body modal-body-tag">
                             <textarea class="form-control form-control-tag" id="text-rename" maxlength="50"></textarea>

@@ -537,16 +537,39 @@ background-color:white;
 
 .ModalDeleterr {
     margin: 0;
-    padding: 0;
+    text-align: center;
 }
 
 .ModalDeleterr1 {
-    margin-bottom: 15px;
     margin-top: 15px;
+    color: #898989;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align:center;
 }
 
 .ModalDeleteww {
     padding-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 35%;
+}
+
+.ModalDelete-btn-del {
+    font-size: 14px;
+    font-family: "Raleway";
+    color: black;
+    border-width: 2px;
+    border-color: #514bc8;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.ModalDelete-btn-no {
+    font-size: 14px;
+    font-family: "Raleway";
+    color: rgb(255, 255, 255);
+    background-color: #514bc8;
 }
 
 .hide {
@@ -636,9 +659,7 @@ background-color:white;
 }
 
 .btn-tag {
-    padding: 0px;
     letter-spacing: 1px;
-    font-size: 16px;
     height: 40px;
     width: 130px;
     font-size: 14px;
@@ -646,9 +667,9 @@ background-color:white;
     background-color: #514bc8
 }
 
-    .btn-tag:hover {
-        color: rgb(255, 255, 255);
-    }
+.btn-tag:hover {
+    color: rgb(255, 255, 255);
+}
 
 .ZIPdownload-ModalHide {
     visibility: hidden
