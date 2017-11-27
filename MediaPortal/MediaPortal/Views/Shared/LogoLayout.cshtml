@@ -97,24 +97,26 @@
                             <input type="text" class="form-control accssese-textAreaCast" maxlength="200">
                         </div>
                         <div class="col-md-5 accssesecastomPadBot ">
-                            <div class="btn btn-primary accssese-btn-primary">
+                            <div class="btn accssese-btn-primary">
                                 Добавить
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer col-md-12 accsseseCastomPad accssese-urlTopCast">
-                    <div class="col-md-7 accssese-urlCast" id="accsseseLinkName">
-                        Доступ по ссылке
-                    </div>
-                    <div class="col-md-7">
-                        <input type="text" class="form-control accssese-textAreaCast" id="accsseseLink">
-                    </div>                   
-                    <div class="col-md-5 accssesecastomPadBot ">
-                        <div class="btn btn-primary accssese-btn-primary" onclick="OpenLinkAccess()" id="OpenLinkAccess">
-                            Включить
+                    
+                        <div class="col-md-7 accssese-urlCast" id="accsseseLinkName">
+                            Доступ по ссылке
                         </div>
-                    </div>
+                        <div class="col-md-7" id="acc-link">
+                            <input type="text" class="form-control accssese-textAreaCast" id="accsseseLink">
+                        </div>
+                        <div class="col-md-5 accssesecastomPadBot ">
+                            <div class="btn accssese-btn-primary" onclick="OpenLinkAccess()" id="OpenLinkAccess">
+                                Включить
+                            </div>
+                        </div>
+                                      
                 </div>
             </div>
         </div>
@@ -252,8 +254,10 @@
                 },
 
                 success: function (data) {
-
+                                        
                     document.getElementById("accsseseLinkName").style.display = "none";
+
+                    document.getElementById("acc-link").style.display = "block";
                     document.getElementById("accsseseLink").style.display = "block";
                     document.getElementById("accsseseLink").value = data;
                 }

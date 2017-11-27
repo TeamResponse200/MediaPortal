@@ -64,7 +64,6 @@
 }
 
 #registerInput {
-    border-width: 2px;
     border-color: rgb(153, 153, 153);
     border-style: solid;
     border-radius: 5px;
@@ -82,9 +81,8 @@
     color: #fefefe;
     background-color: #4640c8;
     font-weight: 600;
-    margin-top: 30px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     /*margin-left: 18px;
     margin-top: 15px;*/
     /*width: 260px;*/
@@ -471,6 +469,17 @@ background-color:white;
 .accssese-btn-primary {
     background-color: #4640c8;
     border-color: #4640c8;
+    color: white;
+}
+
+.accssese-btn-primary:hover {
+    color: white;
+}
+
+#acc-link {
+    display: none;
+    padding-left: 7%;
+    padding-right: 0%;
 }
 
 .accssese-textAreaCast {
@@ -544,7 +553,6 @@ background-color:white;
     margin-top: 15px;
     color: #898989;
     padding-left: 10px;
-    padding-right: 10px;
     text-align:center;
 }
 
@@ -661,7 +669,6 @@ background-color:white;
 .btn-tag {
     letter-spacing: 1px;
     height: 40px;
-    width: 130px;
     font-size: 14px;
     color: rgb(255, 255, 255);
     background-color: #514bc8
@@ -847,4 +854,9 @@ background-color:white;
     position: absolute;
     margin-left: 820px;
     margin-top: 50px;
+}
+
+.modal-create-folder{
+    margin: 0;
+    padding: 0;
 }

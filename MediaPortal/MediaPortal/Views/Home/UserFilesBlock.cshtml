@@ -93,50 +93,56 @@ else
     </div>
 }
 
-<div class="col-md-1 hide rmenu" id="rmenu-folder">
-    <ul class="rmenu-ul">
-        <li class="rmenu-li" id="rename-folder" data-toggle="modal" data-target="#ModalRename">Переименовать</li>
-        <li class="rmenu-li" id="add-tag" data-toggle="modal" data-target="#ModalTag">Добавить тег</li>
-        <li class="rmenu-li" id="zip-download" onclick="DownloadFileSystem()">Скачать ZIP-архив</li>
-        <li class="rmenu-li" id="folder-move" onclick="MoveFileSystem()">Переместить</li>
-        <li class="rmenu-li" id="folder-delete" data-toggle="modal" data-target="#ModalDelete">Удалить папку</li>
-    </ul>
+<div class="col-md-2 hide" id="rmenu-folder-case">
+    <div class="col-md-9 rmenu" id="rmenu-folder">
+        <ul class="rmenu-ul">
+            <li class="rmenu-li" id="rename-folder" data-toggle="modal" data-target="#ModalRename">Переименовать</li>
+            <li class="rmenu-li" id="add-tag" data-toggle="modal" data-target="#ModalTag">Добавить тег</li>
+            <li class="rmenu-li" id="zip-download" onclick="DownloadFileSystem()">Скачать ZIP-архив</li>
+            <li class="rmenu-li" id="folder-move" onclick="MoveFileSystem()">Переместить</li>
+            <li class="rmenu-li" id="folder-delete" data-toggle="modal" data-target="#ModalDelete">Удалить папку</li>
+        </ul>
+    </div>
 </div>
 
-<div class="col-md-1 hide rmenu" id="rmenu-file">
-    <ul class="rmenu-ul">
-        <li class="rmenu-li" id="rename-file" data-toggle="modal" data-target="#ModalRename">Переименовать</li>
-        <li class="rmenu-li" id="add-tag" data-toggle="modal" data-target="#ModalTag">Добавить тег</li>
-        <li class="rmenu-li" id="file-download" onclick="DownloadFileSystem()">Скачать файл</li>
-        <li class="rmenu-li" id="folder-move" onclick="MoveFileSystem()">Переместить</li>
-        <li class="rmenu-li" id="file-delete" data-toggle="modal" data-target="#ModalDelete">Удалить файл</li>
-    </ul>
+<div class="col-md-2 hide" id="rmenu-file-case">
+    <div class="col-md-9 rmenu" id="rmenu-file">
+        <ul class="rmenu-ul">
+            <li class="rmenu-li" id="rename-file" data-toggle="modal" data-target="#ModalRename">Переименовать</li>
+            <li class="rmenu-li" id="add-tag" data-toggle="modal" data-target="#ModalTag">Добавить тег</li>
+            <li class="rmenu-li" id="file-download" onclick="DownloadFileSystem()">Скачать файл</li>
+            <li class="rmenu-li" id="folder-move" onclick="MoveFileSystem()">Переместить</li>
+            <li class="rmenu-li" id="file-delete" data-toggle="modal" data-target="#ModalDelete">Удалить файл</li>
+        </ul>
+    </div>
 </div>
+
 
 <div class="modal fade " id="ModalDelete" role="dialog">
     <div class="modal-dialog ">
-        <div class="modal-content col-md-6 col-md-offset-4  ModalDeleteww">
+        <div class="modal-content col-md-offset-2 col-md-8  ModalDeleteww">
             <div class="modal-body col-md-12 col-md-offset-1  ModalDeleterr">
-                <div class="col-md-12 ModalDeleterr1">
-                    Вы уверенны, что хотите удалить этот файл
-                </div>
-                <div class="col-md-12 ModalDeleterr ModalDeleterr1">
-                    <div class="btn btn-primary col-md-5 ModalDeletecastomPadBot" data-dismiss="modal">Ой нет!</div>
-                    <div class="btn btn-primary col-md-5 col-md-offset-1  ModalDeletebtn-primary2 ModalDeletecastomPadBot" data-dismiss="modal" onclick="DeleteFileSystem();">Да, удалить!</div>
+                <h4 class="col-md-12 ModalDeleterr1">
+                    Вы уверенны, что хотите <br>удалить этот файл?
+                </h4>
+                <div class="col-md-12 ">
+                    <div class="row ModalDeleterr ModalDeleterr1">
+                        <div class="btn col-md-5 ModalDelete-btn-no" data-dismiss="modal">Ой нет!</div>
+                        <div class="btn col-md-5 col-md-offset-1 ModalDelete-btn-del" data-dismiss="modal" onclick="DeleteFileSystem();">Да, удалить!</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <div class="modal fade" id="ModalTag" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content col-md-offset-2 col-md-10 modal-content-tag">
+        <div class="modal-content col-md-offset-2 col-md-8 modal-content-tag">
             <div class="row">
                 <div class="col-md-12 row-tag">
                     <div class="modal-header modal-header-tag">
-                        <h3 class="modal-title modal-title-tag"><strong>Добавить тег</strong></h3>
+                        <h4 class="modal-title modal-title-tag"><strong>Добавить тег</strong></h4>
                     </div>
                     <div class="modal-body modal-body-tag">
                         <textarea class="form-control form-control-tag" id="text-tag" maxlength="200"></textarea>
@@ -144,10 +150,10 @@ else
                     <div class="modal-footer modal-footer-tag">
                         <div class="row">
                             <div class="col-md-6 row-tag2">
-                                <div>Максимальное</div><div class="tag-count">количество тегов - 200</div>
+                                <div>Максимальная</div><div class="tag-count">длина тегов - 200</div>
                             </div>
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-primary btn-tag" data-dismiss="modal" onclick="AddTag()">Добавить</button>
+                                <button type="button" class="btn btn-tag" data-dismiss="modal" onclick="AddTag()">Добавить</button>
                             </div>
                         </div>
                     </div>
@@ -159,11 +165,11 @@ else
 
 <div class="modal fade" id="ModalRename" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content col-md-offset-2 col-md-10 modal-content-tag">
+        <div class="modal-content col-md-offset-2 col-md-8 modal-content-tag">
             <div class="row">
                 <div class="col-md-12 row-tag">
                     <div class="modal-header modal-header-tag">
-                        <h3 class="modal-title modal-title-tag"><strong>Переименовать</strong></h3>
+                        <h4 class="modal-title modal-title-tag"><strong>Переименовать</strong></h4>
                     </div>
                     <div class="modal-body modal-body-tag">
                         <textarea class="form-control form-control-tag" id="text-rename" maxlength="50"></textarea>
@@ -174,7 +180,7 @@ else
                                 <div>Максимальная</div><div class="tag-count">длина имени - 50</div>
                             </div>
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-primary btn-tag" data-dismiss="modal" onclick="Rename()">Переименовать</button>
+                                <button type="button" class="btn btn-tag" data-dismiss="modal" onclick="Rename()">Переименовать</button>
                             </div>
                         </div>
                     </div>
@@ -183,6 +189,7 @@ else
         </div>
     </div>
 </div>
+
 
 <div class="col-md-2 col-md-offset-3 ZIPdownload-modalCast ZIPdownload-ModalHide" id="ZIPdownload">
     <div class="col-md-12 zip-process-titleCast">
@@ -198,9 +205,9 @@ else
     </div>
 </div>
 
-@section scripts {
+        @section scripts {
 
-<script>
+            <script>
         $("#uploadfiles").click(function (e) {
             e.preventDefault();
             var formdata = new FormData($('#upload-form').get(0));
@@ -218,156 +225,162 @@ else
                 }
             })
         });
-</script>
+            </script>
 
-<script>
-    $(".fileSystem-list-item").dblclick(function () {
+            <script>
+                $(".fileSystem-list-item").dblclick(function () {
 
-        var folderId = $(this).data("name");
-        var folderName = $(this).data("folder-name");
-        var link = "/Home/UserFiles/" + folderId + "/" + folderName;
+                    var folderId = $(this).data("name");
+                    var folderName = $(this).data("folder-name");
+                    var link = "/Home/UserFiles/" + folderId + "/" + folderName;
 
-        window.location.href = link;
-    });
+                    window.location.href = link;
+                });
 
-    $(".fileSystem-list-item-file").dblclick(function () {
+                $(".fileSystem-list-item-file").dblclick(function () {
 
-        var fileSystemId = $(this).data("name");
-        var link = "/Home/ViewFile/" + fileSystemId;
+                    var fileSystemId = $(this).data("name");
+                    var link = "/Home/ViewFile/" + fileSystemId;
 
-        window.location.href = link;
-    });
+                    window.location.href = link;
+                });
 
-    $(".fileSystem-list-item").click(function () {
-        $(this).toggleClass("fileSystem-list-item-active");
-    });
-
-    $(".fileSystem-list-item-file").click(function () {
-        $(this).toggleClass("fileSystem-list-item-file-active");
-    });
-
-</script>
-
-<script>
-    var els = $('.context-menu-folder');
-    for (var i = 0; i < els.length; i++) {
-        if (els[i].addEventListener) {
-            els[i].addEventListener('contextmenu', function (e) {
-
-                if (!$(this).is(".fileSystem-list-item-active")) {
+                $(".fileSystem-list-item").click(function () {
                     $(this).toggleClass("fileSystem-list-item-active");
-                }
-
-                var file = 0;
-                var folder = 0;
-
-                $(".context-menu-folder").each(function (index, element) {
-                    if ($(this).is(".fileSystem-list-item-active")) {
-                        folder += 1;
-                        document.getElementById("text-rename").value = $(this).data("folder-name");
-                    };
                 });
 
-                $(".context-menu-file").each(function (index, element) {
-                    if ($(this).is(".fileSystem-list-item-file-active")) {
-                        file += 1;
-                    };
-                });
-
-                if (folder == 1 && file < 1) {
-                    document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
-                    document.getElementById("folder-delete").innerHTML = "Удалить папку";
-                    document.getElementById("rename-folder").style.display = "list-item";
-                }
-                else if (folder > 1 && file < 1) {
-                    document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
-                    document.getElementById("folder-delete").innerHTML = "Удалить папки";
-                    document.getElementById("rename-folder").style.display = "none";
-                }
-                else {
-                    document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
-                    document.getElementById("folder-delete").innerHTML = "Удалить обьекты";
-                    document.getElementById("rename-folder").style.display = "none";
-                }
-
-                $("#rmenu-folder").toggleClass("hide");
-                $("#rmenu-folder").css({
-                    position: "absolute",
-                    top: e.pageY,
-                    left: e.pageX
-                }
-                );
-                e.preventDefault();
-            }, false);
-        }
-    }
-</script>
-
-<script>
-
-    var els = $('.context-menu-file');
-    for (var i = 0; i < els.length; i++) {
-        if (els[i].addEventListener) {
-            els[i].addEventListener('contextmenu', function (e) {
-
-                if (!$(this).is(".fileSystem-list-item-file-active")) {
+                $(".fileSystem-list-item-file").click(function () {
                     $(this).toggleClass("fileSystem-list-item-file-active");
-                };
-
-                var file = 0;
-                var folder = 0;
-
-                $(".context-menu-folder").each(function (index, element) {
-                    if ($(this).is(".fileSystem-list-item-active")) {
-                        folder += 1;
-                    };
                 });
 
-                $(".context-menu-file").each(function (index, element) {
-                    if ($(this).is(".fileSystem-list-item-file-active")) {
-                        file += 1;
-                        document.getElementById("text-rename").value = $(this).data("file-name");
-                    };
+            </script>
+
+            <script>
+                var els = $('.context-menu-folder');
+                for (var i = 0; i < els.length; i++) {
+                    if (els[i].addEventListener) {
+                        els[i].addEventListener('contextmenu', function (e) {
+
+                            if (!$(this).is(".fileSystem-list-item-active")) {
+                                $(this).toggleClass("fileSystem-list-item-active");
+                            }
+
+                            document.getElementById("rmenu-folder-case").className = "col-md-2 hide";
+                            document.getElementById("rmenu-file-case").className = "col-md-2 hide";
+
+                            var file = 0;
+                            var folder = 0;
+
+                            $(".context-menu-folder").each(function (index, element) {
+                                if ($(this).is(".fileSystem-list-item-active")) {
+                                    folder += 1;
+                                    document.getElementById("text-rename").value = $(this).data("folder-name");
+                                };
+                            });
+
+                            $(".context-menu-file").each(function (index, element) {
+                                if ($(this).is(".fileSystem-list-item-file-active")) {
+                                    file += 1;
+                                };
+                            });
+
+                            if (folder == 1 && file < 1) {
+                                document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
+                                document.getElementById("folder-delete").innerHTML = "Удалить папку";
+                                document.getElementById("rename-folder").style.display = "list-item";
+                            }
+                            else if (folder > 1 && file < 1) {
+                                document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
+                                document.getElementById("folder-delete").innerHTML = "Удалить папки";
+                                document.getElementById("rename-folder").style.display = "none";
+                            }
+                            else {
+                                document.getElementById("zip-download").innerHTML = "Скачать ZIP-архив";
+                                document.getElementById("folder-delete").innerHTML = "Удалить обьекты";
+                                document.getElementById("rename-folder").style.display = "none";
+                            }
+
+                            $("#rmenu-folder-case").toggleClass("hide");
+                            $("#rmenu-folder-case").css({
+                                position: "absolute",
+                                top: e.pageY,
+                                left: e.pageX
+                            }
+                            );
+                            e.preventDefault();
+                        }, false);
+                    }
+                }
+            </script>
+
+            <script>
+
+                var els = $('.context-menu-file');
+                for (var i = 0; i < els.length; i++) {
+                    if (els[i].addEventListener) {
+                        els[i].addEventListener('contextmenu', function (e) {
+
+                            if (!$(this).is(".fileSystem-list-item-file-active")) {
+                                $(this).toggleClass("fileSystem-list-item-file-active");
+                            };
+
+                            document.getElementById("rmenu-folder-case").className = "col-md-2 hide";
+                            document.getElementById("rmenu-file-case").className = "col-md-2 hide";
+
+                            var file = 0;
+                            var folder = 0;
+
+                            $(".context-menu-folder").each(function (index, element) {
+                                if ($(this).is(".fileSystem-list-item-active")) {
+                                    folder += 1;
+                                };
+                            });
+
+                            $(".context-menu-file").each(function (index, element) {
+                                if ($(this).is(".fileSystem-list-item-file-active")) {
+                                    file += 1;
+                                    document.getElementById("text-rename").value = $(this).data("file-name");
+                                };
+                            });
+
+                            if (folder < 1 && file == 1) {
+                                document.getElementById("file-download").innerHTML = "Скачать файл";
+                                document.getElementById("file-delete").innerHTML = "Удалить файл";
+                                document.getElementById("rename-file").style.display = "list-item";
+                            }
+                            else if (folder < 1 && file > 1) {
+                                document.getElementById("file-download").innerHTML = "Скачать ZIP-архив";
+                                document.getElementById("file-delete").innerHTML = "Удалить файлы";
+                                document.getElementById("rename-file").style.display = "none";
+                            }
+                            else {
+                                document.getElementById("file-download").innerHTML = "Скачать ZIP-архив";
+                                document.getElementById("file-delete").innerHTML = "Удалить обьекты";
+                                document.getElementById("rename-file").style.display = "none";
+                            }
+
+                            $("#rmenu-file-case").toggleClass("hide");
+                            $("#rmenu-file-case").css({
+                                position: "absolute",
+                                top: e.pageY,
+                                left: e.pageX
+                            }
+                            );
+                            e.preventDefault();
+                        }, false);
+                    }
+                }
+            </script>
+
+            <script>
+                $(document).bind("click", function (event) {
+                    document.getElementById("rmenu-folder-case").className = "col-md-2 hide";
+                    document.getElementById("rmenu-file-case").className = "col-md-2 hide";
+                    //$(this).toggleClass("fileSystem-list-item-active");
                 });
+            </script>
 
-                if (folder < 1 && file == 1) {
-                    document.getElementById("file-download").innerHTML = "Скачать файл";
-                    document.getElementById("file-delete").innerHTML = "Удалить файл";
-                    document.getElementById("rename-file").style.display = "list-item";
-                }
-                else if (folder < 1 && file > 1) {
-                    document.getElementById("file-download").innerHTML = "Скачать ZIP-архив";
-                    document.getElementById("file-delete").innerHTML = "Удалить файлы";
-                    document.getElementById("rename-file").style.display = "none";
-                }
-                else {
-                    document.getElementById("file-download").innerHTML = "Скачать ZIP-архив";
-                    document.getElementById("file-delete").innerHTML = "Удалить обьекты";
-                    document.getElementById("rename-file").style.display = "none";
-                }
-
-                $("#rmenu-file").toggleClass("hide");
-                $("#rmenu-file").css({
-                    position: "absolute",
-                    top: e.pageY,
-                    left: e.pageX
-                }
-                );
-                e.preventDefault();
-            }, false);
-        }
-    }
-</script>
-
-<script>
-    $(document).bind("click", function (event) {
-        document.getElementById("rmenu-folder").className = "col-md-1 hide rmenu";
-        document.getElementById("rmenu-file").className = "col-md-1 hide rmenu";
-        //$(this).toggleClass("fileSystem-list-item-active");
-    });
-</script>
-
-<script>
+            <script>
 
     function Rename() {
 
@@ -401,53 +414,53 @@ else
         location.reload();
     }
 
-</script>
+            </script>
 
 
-<script>
+            <script>
 
-    function MoveFileSystem() {
+                function MoveFileSystem() {
 
-        var parentId = $('#move').data("parent-id");
-        var fileSystemIdList = [];
+                    var parentId = $('#move').data("parent-id");
+                    var fileSystemIdList = [];
 
-        $(".context-menu-folder").each(function (index, element) {
-            if ($(this).is(".fileSystem-list-item-active")) {
-                fileSystemIdList.push($(this).data("name"));
-            };
-        });
+                    $(".context-menu-folder").each(function (index, element) {
+                        if ($(this).is(".fileSystem-list-item-active")) {
+                            fileSystemIdList.push($(this).data("name"));
+                        };
+                    });
 
-        $(".context-menu-file").each(function (index, element) {
-            if ($(this).is(".fileSystem-list-item-file-active")) {
-                fileSystemIdList.push($(this).data("name"));
-            };
-        });
+                    $(".context-menu-file").each(function (index, element) {
+                        if ($(this).is(".fileSystem-list-item-file-active")) {
+                            fileSystemIdList.push($(this).data("name"));
+                        };
+                    });
 
-        document.cookie = "fileSystemIdListForMove=" + encodeURIComponent(fileSystemIdList) + "; " + "domain=;path=/";
-        document.cookie = "fileSystemParentIdForMove=" + encodeURIComponent(parentId) + "; " + "domain=;path=/";
-        location.reload();
-    }
+                    document.cookie = "fileSystemIdListForMove=" + encodeURIComponent(fileSystemIdList) + "; " + "domain=;path=/";
+                    document.cookie = "fileSystemParentIdForMove=" + encodeURIComponent(parentId) + "; " + "domain=;path=/";
+                    location.reload();
+                }
 
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
+                function getCookie(cname) {
+                    var name = cname + "=";
+                    var decodedCookie = decodeURIComponent(document.cookie);
+                    var ca = decodedCookie.split(';');
+                    for (var i = 0; i < ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                            c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                            return c.substring(name.length, c.length);
+                        }
+                    }
+                    return "";
+                }
 
-</script>
+            </script>
 
 
-<script>
+            <script>
 
     function AddTag() {
 
@@ -481,9 +494,9 @@ else
         location.reload();
     }
 
-</script>
+            </script>
 
-<script>
+            <script>
 
     function DeleteFileSystem() {
 
@@ -513,9 +526,9 @@ else
         });
         }
 
-</script>
+            </script>
 
-<script>
+            <script>
 
     function DownloadFileSystem() {
 
@@ -589,35 +602,35 @@ else
 
         }
     }
-</script>
+            </script>
 
-<script>
-    var decodedCookie = getCookie("fileSystemIdListForMove");
-    var res = decodedCookie.split(",");
+            <script>
+                var decodedCookie = getCookie("fileSystemIdListForMove");
+                var res = decodedCookie.split(",");
 
-    if (res[0] != "") {
-        $('#move').removeClass("move-file-system-hidden");
-        document.getElementById('move-count').innerHTML = res.length;
-    }
-    else {
-        $('#move').addClass("move-file-system-hidden");
-    }
-</script>
+                if (res[0] != "") {
+                    $('#move').removeClass("move-file-system-hidden");
+                    document.getElementById('move-count').innerHTML = res.length;
+                }
+                else {
+                    $('#move').addClass("move-file-system-hidden");
+                }
+            </script>
 
-<script>
-    $("#moveCancelButton").click(function () {
+            <script>
+                $("#moveCancelButton").click(function () {
 
-        deleteCookie("fileSystemIdListForMove");
-        location.reload();
-    });
+                    deleteCookie("fileSystemIdListForMove");
+                    location.reload();
+                });
 
-    var deleteCookie = function (name) {
-        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    };
-</script>
+                var deleteCookie = function (name) {
+                    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                };
+            </script>
 
 
-<script>
+            <script>
     $("#moveButton").click(function () {
         debugger;
         var fileSystemId = getCookie("fileSystemIdListForMove");
@@ -661,6 +674,6 @@ else
     var deleteCookie = function (name) {
         document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     };
-</script>
+            </script>
 
-}
+        }
