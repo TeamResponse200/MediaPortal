@@ -298,6 +298,7 @@
     <Content Include="Content\icons\next.svg" />
     <Content Include="Content\icons\picture-purp.svg" />
     <Content Include="Content\icons\picture.svg" />
+    <Content Include="Content\icons\processing.gif" />
     <Content Include="Content\icons\search.svg" />
     <Content Include="Content\icons\success.svg" />
     <Content Include="Content\icons\tile.svg" />
