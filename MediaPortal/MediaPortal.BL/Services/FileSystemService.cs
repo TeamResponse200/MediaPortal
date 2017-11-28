@@ -97,7 +97,12 @@ namespace MediaPortal.BL.Services
 
             try
             {
-                _fileSystemRepository.InsertObject(fileSystem);
+                var folderExist = _fileSystemRepository.Get(fileSystem.UserId, fileSystem.ParentId, fileSystem.Name);
+
+                if(folderExist)
+                {
+                    _fileSystemRepository.InsertObject(fileSystem);
+                }                
             }
             catch (DataException ex)
             {

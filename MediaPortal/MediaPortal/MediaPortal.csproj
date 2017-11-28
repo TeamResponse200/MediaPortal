@@ -290,12 +290,14 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\icons\cancel.svg" />
     <Content Include="Content\icons\facebook.svg" />
+    <Content Include="Content\icons\failed.png" />
     <Content Include="Content\icons\folder-purp.svg" />
     <Content Include="Content\icons\folder.svg" />
     <Content Include="Content\icons\icon-play.svg" />
     <Content Include="Content\icons\list.svg" />
     <Content Include="Content\icons\minus.svg" />
     <Content Include="Content\icons\next.svg" />
+    <Content Include="Content\icons\ok.png" />
     <Content Include="Content\icons\picture-purp.svg" />
     <Content Include="Content\icons\picture.svg" />
     <Content Include="Content\icons\processing.gif" />

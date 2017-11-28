@@ -276,20 +276,18 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult> DeleteFileSystem(int[] fileSystemsId)
+        public async Task<JsonResult> DeleteFileSystem(int[] fileSystemsId)
         {
-
             try
             {
                 await _fileSystemService.DeleteFileSystem(fileSystemsId);
             }
             catch (DataException)
             {
-                // some logic for user
-                return View("Error");
+                return Json("false");
             }
 
-            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.T‌​oString());
+            return Json("true");
         }
 
         [Authorize]
@@ -377,7 +375,7 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult RenameFileSystem(int fileSystemId, string textName)
+        public JsonResult RenameFileSystem(int fileSystemId, string textName)
         {
             try
             {
@@ -386,15 +384,14 @@ namespace MediaPortal.Controllers
             catch (DataException)
             {
                 // some logic for user
-                return View("Error");
             }
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return Json("true");
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddTag(int[] fileSystemId, string tagValue)
+        public JsonResult AddTag(int[] fileSystemId, string tagValue)
         {
             try
             {
@@ -403,10 +400,9 @@ namespace MediaPortal.Controllers
             catch (DataException)
             {
                 // some logic for user
-                return View("Error");
             }
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return Json("true");
         }
 
         [Authorize]

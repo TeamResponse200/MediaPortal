@@ -539,9 +539,12 @@ background-color:white;
     width: 100%;
 }
 
+#rmenu-folder-case {
+    z-index: 1000;
+}
 
-.file-block-item {
-
+#rmenu-file-case {
+    z-index: 1000;
 }
 
 .ModalDeleterr {
@@ -609,9 +612,9 @@ background-color:white;
     cursor: pointer;
 }
 
-    .rmenu-li:hover {
-        background-color: #eeeeee;
-    }
+.rmenu-li:hover {
+    background-color: #eeeeee;
+}
 
 
 .modal-content-tag {
@@ -678,6 +681,13 @@ background-color:white;
     color: rgb(255, 255, 255);
 }
 
+#delete-lock {
+    position: absolute;
+    display: block;
+    z-index: 999;
+    height: 100%;
+}
+
 .ZIPdownload-ModalHide {
     visibility: hidden
 }
@@ -736,6 +746,19 @@ background-color:white;
     width: 35px;
 }
 
+#okIcon {
+    content: url(/Content/icons/ok.png);
+    height: 35px;
+    width: 35px;
+    display: none;
+}
+
+#failIcon {
+    content: url(/Content/icons/failed.png);
+    height: 35px;
+    width: 35px;
+    display: none;
+}
 
 #moveButton {
     font-size: 14px;

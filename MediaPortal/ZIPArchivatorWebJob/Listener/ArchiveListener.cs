@@ -9,9 +9,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using ZIPArchivatorWebJob.Model;
 
 namespace ZIPArchivatorWebJob.Listener
@@ -24,6 +26,10 @@ namespace ZIPArchivatorWebJob.Listener
 
         private IFileSystemService _fileSystemService;
 
+        private const int CountMessages = 32;
+
+        private const int InvisibleTime = 2;
+
         public ArchiveListener(IFileSystemService fileSystemService)
         {
             _fileSystemService = fileSystemService;
@@ -33,7 +39,6 @@ namespace ZIPArchivatorWebJob.Listener
 
             Queue = GetQueueReference(azureConnectionString);
             BlobContainer = GetContainerReference(azureConnectionString);
-
         }
 
         private CloudQueue GetQueueReference(string azureConnectionString)
@@ -63,59 +68,66 @@ namespace ZIPArchivatorWebJob.Listener
         public async Task Listen()
         {
             Console.WriteLine("Archive listener started listen:");
+            Trace.TraceError("Archive listener started listen");
+
             while (true)
             {
-                var messages = Queue.GetMessages(32, TimeSpan.FromHours(2) );
-
+                var messages = Queue.GetMessages(CountMessages, TimeSpan.FromHours(InvisibleTime));
+                
                 Parallel.ForEach(messages, async message =>
                 {
-
-                    ArchiveModel archiveModel = JsonConvert.DeserializeObject<ArchiveModel>(message.AsString);
-                    Console.WriteLine(message.AsString);
-
-                    byte[] outputZIP;
-
-                    using (MemoryStream outputMemStream = new MemoryStream())
+                    try
                     {
-                        using (ZipOutputStream zipStream = new ZipOutputStream(outputMemStream))
+                        ArchiveModel archiveModel = JsonConvert.DeserializeObject<ArchiveModel>(message.AsString);
+                        Console.WriteLine(message.AsString);
+
+                        byte[] outputZIP;
+
+                        using (MemoryStream outputMemStream = new MemoryStream())
                         {
-                            zipStream.SetLevel(3);
-
-                            string entryLocateName = "";
-
-                            foreach (var fileSystemId in archiveModel.FileSystemsId)
+                            using (ZipOutputStream zipStream = new ZipOutputStream(outputMemStream))
                             {
-                                FileSystemDTO fileSystem = _fileSystemService.Get(fileSystemId);
-                                if(fileSystem != null)
+                                zipStream.SetLevel(3);
+
+                                string entryLocateName = "";
+
+                                foreach (var fileSystemId in archiveModel.FileSystemsId)
                                 {
-                                    await ZipArchivingFileSystemTree(fileSystem, zipStream, archiveModel.UserId, entryLocateName);
-                                }                                
+                                    FileSystemDTO fileSystem = _fileSystemService.Get(fileSystemId);
+                                    if (fileSystem != null)
+                                    {
+                                        await ZipArchivingFileSystemTreeAsync(fileSystem, zipStream, archiveModel.UserId, entryLocateName);
+                                    }
+                                }
+
+                                zipStream.IsStreamOwner = false;
+                                zipStream.Close();
+
+                                outputMemStream.Position = 0;
+
+                                outputZIP = outputMemStream.ToArray();
                             }
-
-                            zipStream.IsStreamOwner = false;
-                            zipStream.Close();
-
-                            outputMemStream.Position = 0;
-
-                            outputZIP = outputMemStream.ToArray();
                         }
+
+                        await UploadFileInBlocksAsync(outputZIP, archiveModel.Id);
+
+                        Queue.DeleteMessage(message);
                     }
-
-                    var archivelLink = UploadFileInBlocksAsync(outputZIP, archiveModel.Id).Result;
-
-                    Queue.DeleteMessage(message);
+                    catch (Exception ex)
+                    {
+                        Trace.TraceError(ex.InnerException.Message);
+                    }                    
 
                 });
-                              
             }
         }
 
-        public async Task ZipArchivingFileSystemTree(FileSystemDTO fileSystem, ZipOutputStream zipStream, string userId, string entryLocateName)
+        public async Task ZipArchivingFileSystemTreeAsync(FileSystemDTO fileSystem, ZipOutputStream zipStream, string userId, string entryLocateName)
         {
             if (fileSystem.BlobLink != null)
             {
                 string blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
-                byte[] fileBytes = await DownloadFile(blobLink);
+                byte[] fileBytes = await DownloadFileAsync(blobLink);
 
                 string locateName = entryLocateName;
 
@@ -157,17 +169,17 @@ namespace ZIPArchivatorWebJob.Listener
 
                 foreach (var fs in fileSystems)
                 {
-                    await ZipArchivingFileSystemTree(fs, zipStream, userId, locateName);
+                    await ZipArchivingFileSystemTreeAsync(fs, zipStream, userId, locateName);
                 }
             }
         }
 
-        public async Task<byte[]> DownloadFile(string blobLink)
+        public async Task<byte[]> DownloadFileAsync(string blobLink)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["azureConnection"].ConnectionString;
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
 
-            CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);            
+            CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
 
             blob.FetchAttributes();
             long fileSize = blob.Properties.Length;
@@ -180,7 +192,9 @@ namespace ZIPArchivatorWebJob.Listener
         }
 
         public async Task<string> UploadFileInBlocksAsync(byte[] file, string guid)
-        {  
+        {
+            Trace.TraceError("Upload archive " + guid);
+
             var guidName = guid;
             var blobName = guidName + ".zip";
 
@@ -196,14 +210,10 @@ namespace ZIPArchivatorWebJob.Listener
                     DisableContentMD5Validation = true
                 };
 
-                await blobArchive.UploadFromStreamAsync(inputMemoryStream, null, options: requestOptions, operationContext: null).ConfigureAwait(false);
-
+                await blobArchive.UploadFromStreamAsync(inputMemoryStream, null, options: requestOptions, operationContext: null);
             }            
 
-            var ur = blobArchive.Uri.ToString();
-
-            return ur;
-
+            return blobArchive.Uri.ToString();
         }
     }
 }
