@@ -29,31 +29,15 @@ namespace MediaPortal.BL.Services
 
         private readonly ITagRepository<Tag> _tagRepository;
 
-        private readonly StorageDataAccess _storageDataAccess;
+        private readonly IStorageRepository _storageRepository;
 
-        public FileSystemService(IFileSystemRepository<FileSystem> fileSyatemRepository, ITagRepository<Tag> tagRepository)
+        public FileSystemService(IFileSystemRepository<FileSystem> fileSyatemRepository, ITagRepository<Tag> tagRepository, IStorageRepository storageRepository)
         {
             _fileSystemRepository = fileSyatemRepository;
             _tagRepository = tagRepository;
 
-            _storageDataAccess = new StorageDataAccess();
-        }
-
-
-        // add blob 
-        //public void InsertFile(FileSystemDTO model, byte[] file, string fileName)
-        //{
-        //    Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystem>());
-        //    var fileSystem = Mapper.Map<FileSystem>(model);
-
-        //    _storageDataAccess.Upload(file, fileName);
-
-        //    if (fileSystem != null)
-        //    {
-        //        _fileSystemRepository.InsertObject(fileSystem);
-        //    }
-
-        //}
+            _storageRepository = storageRepository;
+        }        
 
         public IEnumerable<FileSystemDTO> GetAllUserFileSystem(string userId)
         {
@@ -67,12 +51,6 @@ namespace MediaPortal.BL.Services
 
         public IEnumerable<FileSystemDTO> GetUserFileSystem(string userId, int? fileSystemParentId = null)
         {
-            //Mapper.Initialize(cfg =>
-            //{
-            //    cfg.CreateMap<FileSystem, FileSystemDTO>();
-            //    cfg.CreateMap<Tag, TagDTO>();
-            //});
-
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystem, FileSystemDTO>()
                 .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagDTO { Id = o.Id, Name = o.Name }).ToList())));
 
@@ -163,7 +141,7 @@ namespace MediaPortal.BL.Services
             return new Tuple<List<int?>, List<string>>(folderIDs, folderNames);
         }
 
-        public async Task<bool> DeleteFileSystem(int[] fileSystemsId)
+        public async Task DeleteFileSystem(int[] fileSystemsId)
         {
             try
             {
@@ -182,19 +160,17 @@ namespace MediaPortal.BL.Services
                             if (fileSystem.BlobLink != null)
                             {
                                 var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
-                                await _storageDataAccess.DeleteFileSystem(blobLink);
+                                await _storageRepository.DeleteFileSystem(blobLink);
 
                                 if (fileSystem.BlobThumbnail != null)
                                 {
                                     var blobThumbnailLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobThumbnail;
-                                    await _storageDataAccess.DeleteFileSystem(blobThumbnailLink);
+                                    await _storageRepository.DeleteFileSystem(blobThumbnailLink);
                                 }
                             }
                         }
                     }
-                }
-
-                return true;
+                }                
             }
             catch (Exception ex)
             {
@@ -212,7 +188,7 @@ namespace MediaPortal.BL.Services
                 string containerName = ConfigurationManager.AppSettings.Get("containerNameAzureStorageBlob");
                 var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + containerName + fileSystemName + ".zip";
 
-                fileBytes = await _storageDataAccess.DownloadFile(blobLink);
+                fileBytes = await _storageRepository.DownloadFile(blobLink);
             }
             catch (Exception ex)
             {
@@ -232,7 +208,7 @@ namespace MediaPortal.BL.Services
                 string containerName = ConfigurationManager.AppSettings.Get("containerNameAzureStorageBlob");
                 var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + containerName + fileSystemName + ".zip";
 
-                existArchive = _storageDataAccess.IsExistArchive(blobLink);
+                existArchive = _storageRepository.IsExistArchive(blobLink);
             }
             catch (Exception ex)
             {
@@ -250,7 +226,7 @@ namespace MediaPortal.BL.Services
                 string containerName = ConfigurationManager.AppSettings.Get("containerNameAzureStorageBlob");
                 var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + containerName + fileSystemName + ".zip";
 
-                await _storageDataAccess.DeleteFileSystemByName(blobLink);
+                await _storageRepository.DeleteFileSystem(blobLink);
             }
             catch (Exception ex)
             {
@@ -272,7 +248,7 @@ namespace MediaPortal.BL.Services
 
                 var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
 
-                fileBytes = await _storageDataAccess.DownloadFile(blobLink);
+                fileBytes = await _storageRepository.DownloadFile(blobLink);
             }
             catch (Exception ex)
             {
@@ -289,7 +265,7 @@ namespace MediaPortal.BL.Services
             
             try
             {
-                _storageDataAccess.PutMessageRequestForZIPArchivator(ZIParchiveId, fileSystemsId, userId);                
+                _storageRepository.PutMessageRequestForZIPArchivator(ZIParchiveId, fileSystemsId, userId);                
             }
             catch (Exception ex)
             {
@@ -336,13 +312,13 @@ namespace MediaPortal.BL.Services
             return Mapper.Map<FileSystem, FileSystemDTO>(fileSystem);
         }
 
-        public async Task<byte[]> DownloadFile(string blobLink)
+        private async Task<byte[]> DownloadFile(string blobLink)
         {
             byte[] fileBytes = null;
 
             try
             {
-                fileBytes = await _storageDataAccess.DownloadFile(blobLink);
+                fileBytes = await _storageRepository.DownloadFile(blobLink);
             }
             catch (Exception ex)
             {
@@ -369,58 +345,7 @@ namespace MediaPortal.BL.Services
             }
 
             return Mapper.Map<IEnumerable<FileSystem>, IEnumerable<FileSystemDTO>>(fileSystem);
-        }
-
-        public async Task ZipArchivingFileSystemTree(FileSystem fileSystem, ZipOutputStream zipStream, string userId, string entryLocateName)
-        {  
-            if (fileSystem.BlobLink != null)
-            {
-                var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobLink;
-                byte[] fileBytes = await _storageDataAccess.DownloadFile(blobLink);
-
-                string locateName = entryLocateName;
-
-                if (entryLocateName != null)
-                {
-                    locateName += fileSystem.Name + fileSystem.Type;
-                }
-                
-                string entryName = ZipEntry.CleanName(locateName);
-
-                ZipEntry newEntry = new ZipEntry(entryName);
-                newEntry.Size = (long)fileSystem.Size;
-                newEntry.IsUnicodeText = true;
-
-                zipStream.PutNextEntry(newEntry);
-
-                using (MemoryStream inputMemoryStream = new MemoryStream(fileBytes))
-                {
-                    byte[] buffer = new byte[4096];
-                    StreamUtils.Copy(inputMemoryStream, zipStream, buffer);
-                }
-                    
-                zipStream.CloseEntry();
-            }
-            else
-            {
-                string locateName = entryLocateName;
-                
-                locateName += fileSystem.Name + "/";                
-
-                string entryName = ZipEntry.CleanName(locateName); 
-                ZipEntry newEntry = new ZipEntry(entryName);
-                newEntry.IsUnicodeText = true;
-
-                zipStream.PutNextEntry(newEntry);
-                zipStream.CloseEntry();
-
-                List<FileSystem> fileSystems = _fileSystemRepository.GetAll(userId, fileSystem.Id).ToList();
-                foreach (var fs in fileSystems)
-                {
-                    await ZipArchivingFileSystemTree(fs, zipStream, userId, locateName);
-                }
-            }       
-        }
+        }               
 
         public void RenameFileSystem(int fileSystemId, string name)
         {
@@ -442,7 +367,7 @@ namespace MediaPortal.BL.Services
             Stream fileStream;
             try
             {
-                fileStream = await _storageDataAccess.GetFileStream(blobLink);
+                fileStream = await _storageRepository.GetFileStream(blobLink);
                 return fileStream;
             }
             catch (Exception ex)
@@ -461,7 +386,7 @@ namespace MediaPortal.BL.Services
             Stream fileStream;
             try
             {
-                fileStream = await _storageDataAccess.GetFileStream(blobLink);
+                fileStream = await _storageRepository.GetFileStream(blobLink);
                 return fileStream;
             }
             catch (Exception ex)
@@ -471,19 +396,7 @@ namespace MediaPortal.BL.Services
 
             return null;
 
-        }
-
-        public async Task UploadFileInBlocksAsync(byte[] file, string guidName)
-        {
-            try
-            {
-               await _storageDataAccess.UploadFileInBlocksAsync(file, guidName);
-            }
-            catch
-            {
-
-            }
-        }
+        }        
 
         public void UploadAndInsertFiles(FilesToUploadDTO filesToUpload)
         {
@@ -493,7 +406,7 @@ namespace MediaPortal.BL.Services
                 {
                     if( _fileSystemRepository.Get(filesToUpload.UserID, filesToUpload.ParrentID, Path.GetFileNameWithoutExtension(file.FileName)))
                     {
-                        var uri = _storageDataAccess.UploadFileInBlocksAsync(file).Result;
+                        var uri = _storageRepository.UploadFileInBlocksAsync(file).Result;
 
                         var cuttedUri = GetFileCuttedUri(uri);
 
@@ -507,13 +420,11 @@ namespace MediaPortal.BL.Services
                             BlobLink = cuttedUri,
                             UploadDate = DateTime.Now,
                             CreationDate = DateTime.Now
-                        };
-
-                        //
+                        };                        
 
                         var insertedId = _fileSystemRepository.InsertObject(fileSystem);
 
-                        _storageDataAccess.PutMessageRequestForThumbnail(insertedId, uri);
+                        _storageRepository.PutMessageRequestForThumbnail(insertedId, uri);
                     }
                     
                 }
@@ -526,7 +437,7 @@ namespace MediaPortal.BL.Services
             return cuttedLink;
         }
 
-        public void AddTag(int[] fileSystemId, string tagValue)
+        public async Task AddTagAsync(int[] fileSystemId, string tagValue)
         {
             for (int i = 0; i < fileSystemId.Length; i++)
             {
@@ -549,15 +460,14 @@ namespace MediaPortal.BL.Services
 
                         var currentTag = _tagRepository.Get(tagId);
 
-                        _fileSystemRepository.AddTag(fileSystemId[i], currentTag.Id);
+                        await _fileSystemRepository.AddTagAsync(fileSystemId[i], currentTag.Id);
                     }
                     else
                     {
-                        _fileSystemRepository.AddTag(fileSystemId[i], tag.Id);
+                        await _fileSystemRepository.AddTagAsync(fileSystemId[i], tag.Id);
                     }
                 }
             }
-
         }
 
         public bool MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId, string userId)
@@ -601,7 +511,7 @@ namespace MediaPortal.BL.Services
 
         public string SetFileReadPermission(string blobLink, int timeToExpire)
         {
-            return _storageDataAccess.SetFileReadPermission(ConfigurationManager.AppSettings.Get("azureStorageBlobLink")+blobLink, timeToExpire);
+            return _storageRepository.SetFileReadPermission(ConfigurationManager.AppSettings.Get("azureStorageBlobLink")+blobLink, timeToExpire);
         }
     }
 }

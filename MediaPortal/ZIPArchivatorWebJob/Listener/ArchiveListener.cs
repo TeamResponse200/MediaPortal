@@ -13,7 +13,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Timers;
 using ZIPArchivatorWebJob.Model;
 
 namespace ZIPArchivatorWebJob.Listener
@@ -25,6 +24,10 @@ namespace ZIPArchivatorWebJob.Listener
         public CloudBlobContainer BlobContainer { get; set; }
 
         private IFileSystemService _fileSystemService;
+
+        private const string StorageName = "filesystem";
+
+        private const string QueueNameForArchiving = "ziparchivequeue";
 
         private const int CountMessages = 32;
 
@@ -46,7 +49,7 @@ namespace ZIPArchivatorWebJob.Listener
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(azureConnectionString);
 
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-            CloudQueue queue = queueClient.GetQueueReference("ziparchivequeue");
+            CloudQueue queue = queueClient.GetQueueReference(QueueNameForArchiving);
             queue.CreateIfNotExists();
 
             return queue;
@@ -54,11 +57,9 @@ namespace ZIPArchivatorWebJob.Listener
 
         private CloudBlobContainer GetContainerReference(string azureConnectionString)
         {
-            string ContainerName = "filesystem";
-
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(azureConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference(ContainerName);
+            CloudBlobContainer container = blobClient.GetContainerReference(StorageName);
 
             container.CreateIfNotExists();
 
@@ -73,7 +74,7 @@ namespace ZIPArchivatorWebJob.Listener
             while (true)
             {
                 var messages = Queue.GetMessages(CountMessages, TimeSpan.FromHours(InvisibleTime));
-                
+
                 Parallel.ForEach(messages, async message =>
                 {
                     try
@@ -116,7 +117,7 @@ namespace ZIPArchivatorWebJob.Listener
                     catch (Exception ex)
                     {
                         Trace.TraceError(ex.InnerException.Message);
-                    }                    
+                    }
 
                 });
             }
@@ -211,7 +212,7 @@ namespace ZIPArchivatorWebJob.Listener
                 };
 
                 await blobArchive.UploadFromStreamAsync(inputMemoryStream, null, options: requestOptions, operationContext: null);
-            }            
+            }
 
             return blobArchive.Uri.ToString();
         }

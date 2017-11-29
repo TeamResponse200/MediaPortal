@@ -266,6 +266,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="CustomValidation\FileExtensionValidation.cs" />
@@ -345,7 +346,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -379,11 +379,12 @@
     <Content Include="Views\Shared\FileSystemBlockView.cshtml" />
     <Content Include="Views\Shared\FileSystemFolderBlockView.cshtml" />
     <Content Include="Views\Shared\_FilesToUploadPartial.cshtml" />
-    <Content Include="Views\Home\DownloadProcess.cshtml" />
     <Content Include="Views\Home\ViewFile.cshtml" />
     <Content Include="Views\Shared\_viewImageFilePartial.cshtml" />
     <Content Include="Views\Shared\_VideoPartial.cshtml" />
     <Content Include="Views\Shared\SearchZeroResult.cshtml" />
+    <Content Include="Views\Error\NotFound404.cshtml" />
+    <Content Include="Views\Error\InternalServerError500.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

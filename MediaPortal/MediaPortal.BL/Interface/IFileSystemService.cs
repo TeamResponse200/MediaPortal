@@ -18,7 +18,7 @@ namespace MediaPortal.BL.Interface
 
         void InsertFileSystem(FileSystemDTO model);
 
-        Task<bool> DeleteFileSystem(int[] fileSystemsId);
+        Task DeleteFileSystem(int[] fileSystemsId);
 
         Task DeleteFileSystemByName(string fileSystemName);
 
@@ -32,17 +32,13 @@ namespace MediaPortal.BL.Interface
 
         FileSystemDTO Get(int fileSystemId);
 
-        FileSystemDTO Get(string userID,int? fileSystemId);
+        FileSystemDTO Get(string userID,int? fileSystemId);        
 
-        Task<byte[]> DownloadFile(string blobLink);
-
-        IEnumerable<FileSystemDTO> GetAll(string userId, int fileSystemId);
-
-        Task UploadFileInBlocksAsync(byte[] file, string guidName);
+        IEnumerable<FileSystemDTO> GetAll(string userId, int fileSystemId);                
 
         void RenameFileSystem(int fileSystemId, string name);
 
-        void AddTag(int[] fileSystemId, string tagValue);
+        Task AddTagAsync(int[] fileSystemId, string tagValue);
 
         bool MoveFileSystem(List<int> fileSystemsId, int? fileSystemParentId, string userId);
 

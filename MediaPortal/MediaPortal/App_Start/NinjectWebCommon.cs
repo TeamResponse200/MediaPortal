@@ -2,9 +2,11 @@
 using MediaPortal.BL.Infrastructure;
 using MediaPortal.BL.Interface;
 using MediaPortal.BL.Services;
+using MediaPortal.Data.DataAccess;
 using MediaPortal.Data.EntitiesModel;
 using MediaPortal.Data.Interface;
 using MediaPortal.Data.Repositories;
+using Microsoft.Azure;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Modules;
@@ -77,6 +79,7 @@ namespace MediaPortal.App_Start
             //System.Web.Mvc.DependencyResolver.SetResolver(new MediaPortal.Util.NinjectDependencyResolver(kernel));
 
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string storageConnectionString = CloudConfigurationManager.GetSetting("teamresponse200_AzureStorageConnectionString");
 
             kernel.Bind<IFileSystemService>().To<FileSystemService>();
 
@@ -85,6 +88,9 @@ namespace MediaPortal.App_Start
 
             kernel.Bind<ITagRepository<Tag>>().To<TagRepository>()
                 .WithConstructorArgument("connectionString", connectionString);
+
+            kernel.Bind<IStorageRepository>().To<StorageDataAccess>()
+                .WithConstructorArgument("storageConnectionString", storageConnectionString);
         }
     }
 }

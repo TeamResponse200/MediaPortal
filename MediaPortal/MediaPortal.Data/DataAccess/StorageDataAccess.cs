@@ -18,17 +18,28 @@ using System.Configuration;
 using MediaPortal.Data.Models;
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
+using MediaPortal.Data.Interface;
 
 namespace MediaPortal.Data.DataAccess
 {
-    public class StorageDataAccess
+    public class StorageDataAccess: IStorageRepository
     {
-        private const string ConnectionStringSettingName = "teamresponse200_AzureStorageConnectionString";
         private const string ContainerName = "filesystem";
+
+        private const string QueueNameForArchiving = "ziparchivequeue";
+
+        private const string QueueNameForThumbnails = "filesthumbnailsqueue";
+
+        private string _azureStorageConnectionString;
+
+        public StorageDataAccess(string storageConnectionString)
+        {
+            _azureStorageConnectionString = storageConnectionString;
+        }
 
         #region Upload
 
-        public void Upload(byte[] file, string fileName)
+        private void Upload(byte[] file, string fileName)
         {
             UploadFileInBlocks(file, fileName);
         }
@@ -72,15 +83,14 @@ namespace MediaPortal.Data.DataAccess
 
         public async Task<Stream> GetFileStream(string blobLink)
         {
-            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureStorageConnectionString);
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
             var file = await blob.OpenReadAsync();
             return file;
         }
 
-        public void UploadFileInBlocks(byte[] file, string fileName)
+        private void UploadFileInBlocks(byte[] file, string fileName)
         {
             CloudBlobContainer cloudBlobContainer = GetContainerReference();
             CloudBlockBlob blob = cloudBlobContainer.GetBlockBlobReference(Path.GetFileName(fileName));
@@ -141,8 +151,7 @@ namespace MediaPortal.Data.DataAccess
 
         public async Task<byte[]> DownloadFile(string blobLink)
         {
-            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureStorageConnectionString);
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
 
@@ -163,39 +172,25 @@ namespace MediaPortal.Data.DataAccess
 
         public bool IsExistArchive(string blobLink)
         {
-            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureStorageConnectionString);
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
 
             return blob.Exists();
         }
 
-        public async Task DeleteFileSystemByName(string blobLink)
+        public async Task DeleteFileSystem(string blobLink)
         {
-            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureStorageConnectionString);
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
 
             await blob.DeleteIfExistsAsync();
         }
 
-
-        public async Task<bool> DeleteFileSystem(string blobLink)
-        {
-            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-
-            CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
-
-            return await blob.DeleteIfExistsAsync();
-        }
-
         public string SetFileReadPermission(string blobLink, int timeToExpire)
         {
-            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureStorageConnectionString);
 
             CloudBlockBlob blob = new CloudBlockBlob(new Uri(blobLink), storageAccount.Credentials);
 
@@ -210,11 +205,9 @@ namespace MediaPortal.Data.DataAccess
             return urlToBePlayed;
         }
 
-        public CloudBlobContainer GetContainerReference()
+        private CloudBlobContainer GetContainerReference()
         {
-            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
-
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureStorageConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference(ContainerName);
 
@@ -223,11 +216,9 @@ namespace MediaPortal.Data.DataAccess
             return container;
         }
 
-        public CloudQueue GetQueueReference(string queueName)
+        private CloudQueue GetQueueReference(string queueName)
         {
-            string connectionString = CloudConfigurationManager.GetSetting(ConnectionStringSettingName);
-
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_azureStorageConnectionString);
 
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
             CloudQueue queue = queueClient.GetQueueReference(queueName);
@@ -238,8 +229,7 @@ namespace MediaPortal.Data.DataAccess
 
         public void PutMessageRequestForThumbnail(int id, string blobUri)
         {
-            var queueName = "filesthumbnailsqueue";
-            var queue = GetQueueReference(queueName);
+            var queue = GetQueueReference(QueueNameForThumbnails);
 
             FileIdBlobModel file = new FileIdBlobModel() { FileId = id, BlobLink = blobUri };
             
@@ -251,8 +241,7 @@ namespace MediaPortal.Data.DataAccess
 
         public void PutMessageRequestForZIPArchivator(string ZIPId, List<int> fileSystemsId, string userId)
         {
-            var queueName = "ziparchivequeue";
-            var queue = GetQueueReference(queueName);
+            var queue = GetQueueReference(QueueNameForArchiving);
 
             var file = new ArchiveModel() { Id = ZIPId, UserId = userId, FileSystemsId = fileSystemsId };
 

@@ -82,7 +82,7 @@ namespace MediaPortal.Controllers
 
             files = Mapper.Map<IEnumerable<FileSystemDTO>, List<FileSystemModels>>(fileSystemDtos);
 
-            
+
 
             var folderIDs = new List<int?>();
             var folderNames = new List<string>();
@@ -215,7 +215,7 @@ namespace MediaPortal.Controllers
             }
 
             return View("UserFiles", viewModel);
-        }        
+        }
 
         [Authorize]
         [HttpPost]
@@ -255,7 +255,7 @@ namespace MediaPortal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return PartialView("_FilesToUploadPartial",model);
+                return PartialView("_FilesToUploadPartial", model);
             }
 
             Response.Cookies["registered"].Expires = DateTime.Now.AddDays(-1);
@@ -391,11 +391,11 @@ namespace MediaPortal.Controllers
 
         [Authorize]
         [HttpPost]
-        public JsonResult AddTag(int[] fileSystemId, string tagValue)
+        public async Task<JsonResult> AddTag(int[] fileSystemId, string tagValue)
         {
             try
             {
-                _fileSystemService.AddTag(fileSystemId, tagValue);
+                await _fileSystemService.AddTagAsync(fileSystemId, tagValue);
             }
             catch (DataException)
             {
@@ -420,7 +420,7 @@ namespace MediaPortal.Controllers
             {
                 // some logic for user
             }
-            
+
             return Json(moved);
         }
 

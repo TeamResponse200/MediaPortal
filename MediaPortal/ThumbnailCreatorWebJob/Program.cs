@@ -19,6 +19,7 @@ using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
 using System.Configuration;
 using System.Web;
+using MediaPortal.Data.DataAccess;
 
 namespace ThumbnailCreatorWebJob
 {
@@ -73,6 +74,7 @@ namespace ThumbnailCreatorWebJob
             //System.Web.Mvc.DependencyResolver.SetResolver(new MediaPortal.Util.NinjectDependencyResolver(kernel));
 
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string storageConnectionString = ConfigurationManager.ConnectionStrings["azureConnection"].ConnectionString;
 
             kernel.Bind<IFileSystemService>().To<FileSystemService>();
 
@@ -81,6 +83,9 @@ namespace ThumbnailCreatorWebJob
 
             kernel.Bind<ITagRepository<Tag>>().To<TagRepository>()
                 .WithConstructorArgument("connectionString", connectionString);
+
+            kernel.Bind<IStorageRepository>().To<StorageDataAccess>()
+                .WithConstructorArgument("storageConnectionString", storageConnectionString);
         }
     }
 }

@@ -4002,7 +4002,6 @@ C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortal\obj\Debug\Me
 C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.csproj.CoreCompileInputs.cache
 C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.dll
 C:\Users\1\Desktop\проект\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.pdb
-E:\work\Internship\MediaPortalApplication\MediaPortal\MediaPortal\MediaPortal\MediaPortal\bin\ICSharpCode.SharpZipLib.dll
 D:\SoftThemeProject\221117(ver2)\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.dll
 D:\SoftThemeProject\221117(ver2)\MediaPortal\MediaPortal\MediaPortal\obj\Debug\MediaPortal.pdb
 D:\SoftThemeProject\221117(ver2)\MediaPortal\MediaPortal\MediaPortal\bin\ApplicationInsights.config

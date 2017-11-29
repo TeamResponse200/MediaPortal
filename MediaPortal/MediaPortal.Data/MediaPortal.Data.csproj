@@ -110,6 +110,7 @@
     <Compile Include="Interface\IFileSystemRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="DataAccess\MediaPortalDbContext.cs" />
+    <Compile Include="Interface\IStorageRepository.cs" />
     <Compile Include="Interface\ITagRepository.cs" />
     <Compile Include="Models\ArchiveModel.cs" />
     <Compile Include="Models\FileDeleteModel.cs" />

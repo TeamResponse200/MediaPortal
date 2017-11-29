@@ -159,7 +159,9 @@ namespace MediaPortal.Data.Repositories
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
-                var fileSystem = dbContext.FileSystems.Where(x => x.UserId == userId && x.ParentId == fileSystemParentId && x.Name == name).FirstOrDefault();
+                var fileSystem = dbContext.FileSystems
+                                    .Where(x => x.UserId == userId && x.ParentId == fileSystemParentId && x.Name == name)
+                                    .FirstOrDefault();
 
                 if (fileSystem == null)
                 {
@@ -186,7 +188,7 @@ namespace MediaPortal.Data.Repositories
             }
         }
 
-        public void AddTag(int fileSystem, int tag)
+        public async Task AddTagAsync(int fileSystem, int tag)
         {
             using (var dbContext = new MediaPortalDbContext(_connectionString))
             {
@@ -194,7 +196,7 @@ namespace MediaPortal.Data.Repositories
                 var tags = dbContext.Tags.Where(x => x.Id == tag).FirstOrDefault();
 
                 filesystems.Tags.Add(tags);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
         }
     }

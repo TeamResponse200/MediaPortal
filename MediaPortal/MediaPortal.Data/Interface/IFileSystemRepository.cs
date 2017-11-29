@@ -32,6 +32,6 @@ namespace MediaPortal.Data.Interface
 
         void FileSystemAddThumbnailLink(int fileSystemId, string link);
 
-        void AddTag(int fileSystem, int tag);
+        Task AddTagAsync(int fileSystem, int tag);
     }
 }
