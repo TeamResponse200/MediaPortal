@@ -8,6 +8,7 @@
     margin-bottom: 10px;
     font-size: 50px;
     font-family: "Raleway";
+    letter-spacing: 4px;
     font-weight: 800;
     color: rgb(29, 27, 67);
     text-transform: uppercase;
@@ -19,7 +20,8 @@
     margin-top: 15px;
     margin-bottom: 15px;
     font-size: 25px;
-    font-family: "Raleway";
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     font-weight: 600;
     color: rgb(153, 153, 153);
     font-weight: bold;
@@ -46,8 +48,8 @@
     padding-top: 60px;
     margin-bottom: 10px;
     font-size: 28px;
-    font-family: "Raleway";
-    font-weight: 800;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     color: rgb(97, 97, 97);
     line-height: 1.286;
     text-align: center;
@@ -78,7 +80,8 @@
 
 #registerButton {
     font-size: 16px;
-    font-family: "Raleway";
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     color: #fefefe;
     background-color: #4640c8;
     font-weight: 600;
@@ -91,8 +94,8 @@
 
 #facebookRegisterButton {
     font-size: 16px;
-    font-family: "Raleway";
-    font-weight: 600;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     color: rgb(97, 97, 97);
     border-width: 1px;
     border-color: rgb(97, 97, 97);
@@ -231,7 +234,6 @@ button.dropDownButton {
     padding-left:5px;
 }
 
-
 .btn.buttonList {
     background: url(/Content/icons/list.svg) no-repeat;
     height: 30px;
@@ -255,17 +257,17 @@ button.dropDownButton {
     }
 
 .textUsual {
-    font-family: "Raleway";
-    font-weight: 400;
-    color: rgb(153, 153, 153);
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    color: grey;
     text-align: center;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 #defaultLogo {
     font-size: 40px;
     font-family: "Raleway";
-    font-weight: 800;
+    letter-spacing: 4px;
     color: rgb(29, 27, 67);
     text-transform: uppercase;
     text-align: center;
@@ -281,26 +283,25 @@ button.dropDownButton {
 }
 
 .route-link {
-    font-family: "Raleway";
-    font-weight: 900;
-    font-size: 24px;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    font-size: 18px;
     text-decoration: none;
     color: #3d3d3d;
 }
 
-    .route-link:hover {
-        text-decoration: none;
-        cursor: pointer;
-        color: #3d3d3d;
-    }
+.route-link:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #3d3d3d;
+}
 
 
 #userRoutes {
-    font-family: "Raleway";
-    font-weight: 800;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     font-size: 20px;
-    text-decoration:none;
-
+    text-decoration: none;
 }
 #userRoutes:hover {
     cursor:pointer;
@@ -318,7 +319,8 @@ button.dropDownButton {
 
 #uploadButton {
     font-size: 14px;
-    font-family: "Raleway";
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     color: rgb(255, 255, 255);
     background-color: #514bc8;
     margin-top: 7px;
@@ -348,7 +350,8 @@ button.dropDownButton {
 
 #folderCreateButton {
     font-size: 14px;
-    font-family: "Raleway";
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     color: black;
     border-width: 2px;
     border-color: #514bc8;
@@ -368,9 +371,11 @@ button.dropDownButton {
 /* FileSystemView*/
 .list-view-name-title {
     padding-left:40px;
+    color: gray;
 }
 .list-view-tag-title {
     padding-left: 130px;
+    color: gray;
 }
 
 .list-view-files {
@@ -425,9 +430,7 @@ button.dropDownButton {
     }
 
 .fileSystem-list-item-folder-active {
-    color: blue;
-    border: 1px solid blue;
-    background-color: lightgray;
+
 }
 
 
@@ -439,15 +442,11 @@ button.dropDownButton {
     background-color: lightgray;
 }
 .fileSystem-list-item-active {
-    color:blue;
-    border:1px solid blue;
-    background-color:lightgray;
+
 }
 
 .fileSystem-list-item-file-active {
-    color: blue;
-    border: 1px solid blue;
-    background-color: lightgray;
+
 }
 
 #folderActive {
@@ -459,37 +458,91 @@ button.dropDownButton {
     height: 25px;
     width: 25px;
     padding-top:5px;
-    /*margin-left: 10px;*/
 }
+
+.iconFolder-none {
+    display: none;
+}
+
+.iconFolderActive {
+    content: url(/Content/icons/folder-purp.svg);
+    height: 25px;
+    width: 25px;
+    padding-top: 5px;
+}
+
+.iconFolderActive-none {
+    display: none;
+}
+
 .iconFile {
     content: url(/Content/icons/picture.svg);
     height: 25px;
     width: 25px;
     padding-top: 5px;
     z-index: 1000;
-    /*margin-left: 10px;*/
+}
+
+.iconFile-none {
+    display: none;
+}
+
+.iconFileActive {
+    content: url(/Content/icons/picture-purp.svg);
+    height: 25px;
+    width: 25px;
+    padding-top: 5px;
+    z-index: 1000;
+}
+
+.iconFileActive-none {
+    display: none;
+}
+
+.iconFile-none {
+    display: none;
 }
 
 .iconVideo {
     content: url(/Content/icons/video-player.svg);
     height: 25px;
     width: 25px;
+    padding-top: 5px;  
+}
+
+.iconVideo-none {
+    display: none;
+}
+
+.iconVideoActive {
+    content: url(/Content/icons/video-player-purp.svg);
+    height: 25px;
+    width: 25px;
     padding-top: 5px;
-  
-    /*margin-left: 10px;*/
+}
+
+.iconVideoActive-none {
+    display: none;
 }
 
 .file-name-list-item {
     padding-top: 5px;
-    font-family: "Raleway";
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     font-size: 16px;
     padding-left: 0px;
     color: grey;
 }
+
+.file-name-list-item-active {
+    color: #514bc8;
+}
+
 .file-tag-list-item {
     padding-top: 5px;
-    font-family: "Raleway";
-    font-size: 16px;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    font-size: 14px;
     color: grey;
 }
 
@@ -688,7 +741,8 @@ background-color:white;
 
 .ModalDelete-btn-no {
     font-size: 14px;
-    font-family: "Raleway";
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     color: rgb(255, 255, 255);
     background-color: #514bc8;
 }
@@ -770,7 +824,7 @@ background-color:white;
 .row-tag2 {
     text-align: left;
     color: #898989;
-    letter-spacing: 1px;
+    letter-spacing: 0.7px;
     font-size: 9px;
     line-height: 8px;
 }
@@ -780,7 +834,7 @@ background-color:white;
 }
 
 .btn-tag {
-    letter-spacing: 1px;
+    letter-spacing: 0.7px;
     height: 40px;
     font-size: 14px;
     color: rgb(255, 255, 255);
@@ -872,7 +926,8 @@ background-color:white;
 
 #moveButton {
     font-size: 14px;
-    font-family: "Raleway";
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     color: black;
     padding: 0;
     border-width: 2px;
@@ -924,10 +979,11 @@ background-color:white;
 }
 
 #file-title {
-    font-family:"Raleway";
-    font-weight:400;
-    font-size:20px;
-    padding:0px;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    font-weight: 400;
+    font-size: 20px;
+    padding: 0px;
 }
 
 #buttonDownload {
@@ -935,7 +991,8 @@ background-color:white;
 }
 
 #file-size {
-    font-family: "Raleway";
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
     font-weight: 400;
     font-size: 14px;
     padding: 0px;
@@ -969,11 +1026,12 @@ background-color:white;
 
 #tags {
     padding-top: 10px;
-    padding-left:0px;
+    padding-left: 0px;
     font-size: 16px;
     color: grey;
-    font-family: "Raleway";
-    margin-bottom:15px;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    margin-bottom: 15px;
 }
 
 #accsseseLink {
@@ -992,4 +1050,10 @@ background-color:white;
 .modal-create-folder{
     margin: 0;
     padding: 0;
+}
+
+
+@font-face {
+    font-family: 'Raleway-Medium'; /*a name to be used later*/
+    src: url(/fonts/Raleway-Medium.ttf);
 }

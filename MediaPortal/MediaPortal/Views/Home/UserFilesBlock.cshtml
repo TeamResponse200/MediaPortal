@@ -132,12 +132,37 @@ else
         });
 
         $(".fileSystem-list-item").click(function () {
-            $(this).toggleClass("fileSystem-list-item-active");
+
+            FileSystemFolderActive($(this));
         });
 
         $(".fileSystem-list-item-file").click(function () {
-            $(this).toggleClass("fileSystem-list-item-file-active");
+
+            FileSystemActive($(this));
         });
+
+        function FileSystemActive(fileSystem) {
+
+            fileSystem.toggleClass("fileSystem-list-item-file-active");
+
+            fileSystem.children(".thumbnail").children(".caption").children(".iconVideo").toggleClass("iconVideo-none");
+            fileSystem.children(".thumbnail").children(".caption").children(".iconVideoActive").toggleClass("iconVideoActive-none");
+
+            fileSystem.children(".thumbnail").children(".caption").children(".iconFile").toggleClass("iconFile-none");
+            fileSystem.children(".thumbnail").children(".caption").children(".iconFileActive").toggleClass("iconFileActive-none");
+
+            fileSystem.children(".thumbnail").children(".caption").children(".file-name-list-item").toggleClass("file-name-list-item-active");
+        }   
+
+        function FileSystemFolderActive(fileSystemFolder) {
+
+            fileSystemFolder.toggleClass("fileSystem-list-item-active");
+
+            fileSystemFolder.children(".col-md-4").children(".iconFolder").toggleClass("iconFolder-none");
+            fileSystemFolder.children(".col-md-4").children(".iconFolderActive").toggleClass("iconFolderActive-none");
+
+            fileSystemFolder.children(".file-name-list-item").toggleClass("file-name-list-item-active");
+        }
 
     </script>
 
@@ -148,7 +173,7 @@ else
                 els[i].addEventListener('contextmenu', function (e) {
 
                     if (!$(this).is(".fileSystem-list-item-active")) {
-                        $(this).toggleClass("fileSystem-list-item-active");
+                        FileSystemFolderActive($(this));
                     }
 
                     document.getElementById("rmenu-folder-case").className = "col-md-2 hide";
@@ -207,7 +232,7 @@ else
                 els[i].addEventListener('contextmenu', function (e) {
 
                     if (!$(this).is(".fileSystem-list-item-file-active")) {
-                        $(this).toggleClass("fileSystem-list-item-file-active");
+                        FileSystemActive($(this));
                     };
 
                     document.getElementById("rmenu-folder-case").className = "col-md-2 hide";

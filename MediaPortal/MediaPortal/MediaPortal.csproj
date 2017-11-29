@@ -321,6 +321,24 @@
     </Content>
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
     <Content Include="Connected Services\teamresponse200AzureStorage\ConnectedService.json" />
+    <Content Include="fonts\Raleway-Black.ttf" />
+    <Content Include="fonts\Raleway-BlackItalic.ttf" />
+    <Content Include="fonts\Raleway-Bold.ttf" />
+    <Content Include="fonts\Raleway-BoldItalic.ttf" />
+    <Content Include="fonts\Raleway-ExtraBold.ttf" />
+    <Content Include="fonts\Raleway-ExtraBoldItalic.ttf" />
+    <Content Include="fonts\Raleway-ExtraLight.ttf" />
+    <Content Include="fonts\Raleway-ExtraLightItalic.ttf" />
+    <Content Include="fonts\Raleway-Italic.ttf" />
+    <Content Include="fonts\Raleway-Light.ttf" />
+    <Content Include="fonts\Raleway-LightItalic.ttf" />
+    <Content Include="fonts\Raleway-Medium.ttf" />
+    <Content Include="fonts\Raleway-MediumItalic.ttf" />
+    <Content Include="fonts\Raleway-Regular.ttf" />
+    <Content Include="fonts\Raleway-SemiBold.ttf" />
+    <Content Include="fonts\Raleway-SemiBoldItalic.ttf" />
+    <Content Include="fonts\Raleway-Thin.ttf" />
+    <Content Include="fonts\Raleway-ThinItalic.ttf" />
     <None Include="Properties\PublishProfiles\TeamResponse200KV - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\TeamResponse200MediaPortal - Web Deploy.pubxml" />
     <Content Include="Properties\webjobs-list.json" />
