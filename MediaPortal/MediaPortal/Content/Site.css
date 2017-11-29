@@ -266,7 +266,7 @@ button.dropDownButton {
 
 #defaultLogo {
     font-size: 40px;
-    font-family: "Raleway";
+    font-family: "Raleway-ExtraBold";
     letter-spacing: 4px;
     color: rgb(29, 27, 67);
     text-transform: uppercase;
@@ -313,8 +313,12 @@ button.dropDownButton {
 }
 
 .upload-create-panel {
-    padding-right:0px;
-    padding-left:55px;
+    padding-right: 0px;
+    padding-left: 20px;
+}
+
+.upload-create-panel-margin {
+    margin-top: 20px;
 }
 
 #uploadButton {
@@ -325,8 +329,22 @@ button.dropDownButton {
     background-color: #514bc8;
     margin-top: 7px;
     padding: 0;
-    padding-top: 7px;
-    height: 35px;
+    padding-top: 11px;
+    height: 45px;
+}
+
+#folderCreateButton {
+    font-size: 14px;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    color: black;
+    border-width: 2px;
+    border-color: #514bc8;
+    border-style: solid;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding-top: 11px;
+    height: 45px;
 }
 
 .file-upload {
@@ -348,17 +366,7 @@ button.dropDownButton {
     height: 7px;
 }
 
-#folderCreateButton {
-    font-size: 14px;
-    font-family: "Raleway-Medium";
-    letter-spacing: 0.7px;
-    color: black;
-    border-width: 2px;
-    border-color: #514bc8;
-    border-style: solid;
-    border-radius: 5px;
-    margin-top: 10px;
-}
+
 /* User partial */
 #userImage {
     content: url(/Content/icons/userImage.png);
@@ -383,6 +391,10 @@ button.dropDownButton {
     padding-right:0px;
 }
 
+.list-view-files-margin {
+    margin-right: 95px;
+}
+
 .icon-place {
     padding-right:0px;
     margin-right:-15px;
@@ -390,13 +402,13 @@ button.dropDownButton {
 
 .fileSystem-list-item-folder {
     border-radius: 5px;
-    padding-top: 5px;
+    padding-top: 9px;
     padding-bottom: 3px;
     padding-left: 0px;
     margin-top: 5px;
     margin-bottom: 5px;
     background-color: white;
-    height: 40px;
+    height: 45px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -542,7 +554,7 @@ button.dropDownButton {
     padding-top: 5px;
     font-family: "Raleway-Medium";
     letter-spacing: 0.7px;
-    font-size: 14px;
+    font-size: 13px;
     color: grey;
 }
 
@@ -1054,6 +1066,11 @@ background-color:white;
 
 
 @font-face {
-    font-family: 'Raleway-Medium'; /*a name to be used later*/
+    font-family: 'Raleway-Medium';
     src: url(/fonts/Raleway-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'Raleway-ExtraBold';
+    src: url(/fonts/Raleway-ExtraBold.ttf);
 }

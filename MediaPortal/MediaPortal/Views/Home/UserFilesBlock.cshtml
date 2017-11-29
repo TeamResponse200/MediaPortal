@@ -83,7 +83,7 @@ else
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 upload-create-panel">
+                <div class="col-md-2 upload-create-panel upload-create-panel-margin">
                     @Html.Partial("_UploadCreatePartial", new FileSystemModels() { ParentId = Model.FolderIDs.Count != 0 ? Model.FolderIDs.Last() : null })
                 </div>
             </div>

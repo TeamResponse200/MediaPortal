@@ -62,7 +62,7 @@ else
                     <div class="col-md-3 list-view-name-title">Название</div>
                     <div class="col-md-2 col-md-push-3 list-view-tag-title">Теги</div>
                 </div>
-                <div class="col-md-9 list-view-files">
+                <div class="col-md-9 list-view-files list-view-files-margin">
 
                     @foreach (var item in Model.Files)
                 {
@@ -79,7 +79,7 @@ else
                         }
                     }
                 </div>
-                <div class="col-md-2 col-md-offset-1 ">
+                <div class="col-md-2 upload-create-panel">
                     @Html.Partial("_UploadCreatePartial", new FileSystemModels() { ParentId = Model.FolderIDs.Count != 0 ? Model.FolderIDs.Last() : null })
                 </div>
             </div>
