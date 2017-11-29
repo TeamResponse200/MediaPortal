@@ -10,7 +10,7 @@
     @for (var i = 0; i < Model.FolderIDs.Count; i++)
     {
         <span id="icon-href-delimiter"></span>
-        @Html.ActionLink(Model.FolderNames.ElementAt(i), "UserFiles", "Home", new { folderID = Model.FolderIDs.ElementAt(i) }, htmlAttributes: null)
+        @Html.ActionLink(Model.FolderNames.ElementAt(i), "UserFiles", "Home", new { folderID = Model.FolderIDs.ElementAt(i) }, htmlAttributes: new { @class = "route-link"})
 
     }
 }
@@ -59,10 +59,10 @@ else
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <div class="col-md-3 col-md-offset-1">Название</div>
-                    <div class="col-md-2 col-md-push-3">Теги</div>
+                    <div class="col-md-3 list-view-name-title">Название</div>
+                    <div class="col-md-2 col-md-push-3 list-view-tag-title">Теги</div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9 list-view-files">
 
                     @foreach (var item in Model.Files)
                 {

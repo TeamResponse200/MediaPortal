@@ -1,24 +1,25 @@
 ﻿@model MediaPortal.Models.FileSystemModels
 
-
-<div class="col-md-3 fileSystem-list-item context-menu-folder" data-name="@Model.Id" data-folder-name="@Model.Name">
-    <div class="col-md-4 col-md-pull-2">
-        @if (Model.Type.Equals("Folder"))
-        {
-            <span id="iconFolder"></span>
-        }
-        else
+<div class="col-md-2 file-block-item">
+    <div class="col-md-12 fileSystem-list-item context-menu-folder file-block-item" data-name="@Model.Id" data-folder-name="@Model.Name">
+        <div class="col-md-4">
+            @if (Model.Type.Equals("Folder"))
+            {
+                <span class="iconFolder"></span>
+            }
+            else
         if (Model.Type.ToLower().Equals(".mp4"))
-        {
-            <span id="iconVideo"></span>
-        }
-        else
-        {
-            <span id="iconFile"></span>
-        }
-    </div>
-    <div class="col-md-8 col-md-pull-3 element-name">
-        @Model.Name
-    </div>
+            {
+                <span class="iconVideo"></span>
+            }
+            else
+            {
+                <span class="iconFile"></span>
+            }
+        </div>
+        <div class="col-md-8 element-name file-name-list-item">
+            @Model.Name
+        </div>
 
+    </div>
 </div>

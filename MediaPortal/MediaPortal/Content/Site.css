@@ -1,5 +1,6 @@
 ﻿body {
     background-color: #e8e9ec;
+    overflow-x:hidden;
 }
 
 .logo {
@@ -125,7 +126,23 @@
 
 #customSearch {
     margin-top: 10px;
+    background-color: #e1e1e3;
 }
+
+    #customSearch input[type="text"] {
+        background-color: #e1e1e3;
+    }
+    /*.custom-search {
+    background-color: #e1e1e3;
+    border: 1px solid gray;
+    border-radius: 2px;
+    height: 42px;
+}
+
+    .custom-search input[type="text"] {
+        background-color: #e1e1e3;
+        border: none;
+    }*/
 
 .IconSearch {
     content: url(/Content/icons/search.svg);
@@ -167,6 +184,16 @@
     margin: -15px 0 0;
 }
 
+.user-dropdown {
+    margin-top:7px;
+    background-color:white;
+}
+
+    .user-dropdown:hover {
+        background-color: lightgrey;
+    }
+
+
 #iconSortFilter {
     content: url(/Content/icons/next.svg);
     height: 10px;
@@ -180,6 +207,7 @@
 
 #mainDropDownButton {
     background-color: rgb(255,255,255);
+    margin-left: -10px;
 }
 
     #mainDropDownButton:hover {
@@ -190,9 +218,19 @@ button.dropDownButton {
     background-color: rgb(255,255,255);
 }
 
+#sortByCreationDate:hover, #sortByUploadDate:hover, #sortBySize:hover {
+    width:auto;
+    background-color: lightgray;
+}
+
 .active {
     background-color: black;
 }
+
+.view-style-switches {
+    padding-left:5px;
+}
+
 
 .btn.buttonList {
     background: url(/Content/icons/list.svg) no-repeat;
@@ -221,6 +259,7 @@ button.dropDownButton {
     font-weight: 400;
     color: rgb(153, 153, 153);
     text-align: center;
+    text-decoration:none;
 }
 
 #defaultLogo {
@@ -241,11 +280,27 @@ button.dropDownButton {
     margin-bottom: 60px;
 }
 
+.route-link {
+    font-family: "Raleway";
+    font-weight: 900;
+    font-size: 24px;
+    text-decoration: none;
+    color: #3d3d3d;
+}
+
+    .route-link:hover {
+        text-decoration: none;
+        cursor: pointer;
+        color: #3d3d3d;
+    }
+
+
 #userRoutes {
     font-family: "Raleway";
     font-weight: 800;
     font-size: 20px;
     text-decoration:none;
+
 }
 #userRoutes:hover {
     cursor:pointer;
@@ -256,15 +311,20 @@ button.dropDownButton {
     border-right: 1px solid #e8e9ec;
 }
 
+.upload-create-panel {
+    padding-right:0px;
+    padding-left:55px;
+}
+
 #uploadButton {
     font-size: 14px;
     font-family: "Raleway";
     color: rgb(255, 255, 255);
     background-color: #514bc8;
-    margin-top: 25px;
+    margin-top: 7px;
     padding: 0;
-    padding-top:7px;
-    height:35px;
+    padding-top: 7px;
+    height: 35px;
 }
 
 .file-upload {
@@ -306,10 +366,28 @@ button.dropDownButton {
 
 
 /* FileSystemView*/
+.list-view-name-title {
+    padding-left:40px;
+}
+.list-view-tag-title {
+    padding-left: 130px;
+}
+
+.list-view-files {
+    padding-left:0px;
+    padding-right:0px;
+}
+
+.icon-place {
+    padding-right:0px;
+    margin-right:-15px;
+}
+
 .fileSystem-list-item-folder {
     border-radius: 5px;
     padding-top: 5px;
     padding-bottom: 3px;
+    padding-left: 0px;
     margin-top: 5px;
     margin-bottom: 5px;
     background-color: white;
@@ -319,6 +397,11 @@ button.dropDownButton {
     text-overflow: ellipsis;
     box-shadow: 0px 2px 5px 0px #c4c4c4;
 }
+
+.element-name {
+    padding-left:0px;
+}
+
 .fileSystem-list-item-folder .element-name {
     padding-top:5px;
 }
@@ -326,6 +409,7 @@ button.dropDownButton {
     border-radius: 5px;
     padding-top: 5px;
     padding-bottom: 3px;
+    padding-left: 0px;
     margin-top: 5px;
     margin-bottom: 5px;
     background-color: white;
@@ -370,43 +454,69 @@ button.dropDownButton {
     content: url(/Content/icons/folder-purp.svg);
 }
 
-#iconFolder {
+.iconFolder {
     content: url(/Content/icons/folder.svg);
     height: 25px;
     width: 25px;
     padding-top:5px;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
 }
-#iconFile {
+.iconFile {
     content: url(/Content/icons/picture.svg);
     height: 25px;
     width: 25px;
     padding-top: 5px;
-    margin-left: 10px;
+    z-index: 1000;
+    /*margin-left: 10px;*/
 }
 
-#iconVideo {
+.iconVideo {
     content: url(/Content/icons/video-player.svg);
     height: 25px;
     width: 25px;
     padding-top: 5px;
-    margin-left: 10px;
+  
+    /*margin-left: 10px;*/
 }
 
 .file-name-list-item {
-    padding-top:5px;
-    font-family:"Raleway";
-    font-size:16px;
+    padding-top: 5px;
+    font-family: "Raleway";
+    font-size: 16px;
+    padding-left: 0px;
+    color: grey;
 }
-#fileTagListItem {
-    padding-top:5px;
-    font-family:"Raleway";
-    font-size:16px;
+.file-tag-list-item {
+    padding-top: 5px;
+    font-family: "Raleway";
+    font-size: 16px;
+    color: grey;
 }
 
 #downloadHiddentButton 
 {
     display:none;
+}
+
+.file-block-item {
+    padding-left:0px;
+    padding-right:0px;
+    margin-right:25px;
+}
+
+.caption {
+    overflow:hidden;
+    text-align:justify;
+    word-wrap:normal;
+    white-space:nowrap;
+}
+
+.file-name {
+    display:inline-block;
+}
+
+.image-video-block-item {
+    height: 180px;
 }
 
 #FileSystemBlockItem {
@@ -530,7 +640,7 @@ background-color:white;
     padding: 0px;
     border-radius: 10px;
     box-shadow: 0 4px 2px -2px gray;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 .thumbnail img {
     border-top-left-radius: 10px;

@@ -54,9 +54,9 @@
     <div class="secondHeaderBlock">
         <div class="container">
             <div class="row">
-                <div class="col-md-6" id="userRoutes">@Html.ActionLink("Мои файлы", "UserFiles", "Home", new { folderID = string.Empty }, null) @RenderSection("userRoutes", required: false) </div>
+                 <div class="col-md-6">@Html.ActionLink("Мои файлы", "UserFiles", "Home", new { folderID = string.Empty }, new { @class= "route-link" }) @RenderSection("userRoutes", required: false) </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6 col-md-push-1">
                     <div class="btn col-md-4 textUsual userSettings" data-toggle="modal" data-target="#accessesFolderModal">
                         Настройки доступа
                     </div>
@@ -72,7 +72,7 @@
                             <button class="btn dropdown-item textUsual dropDownButton" id="sortBySize" onclick="SortBySize()">По размеру</button>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 view-style-switches">
                         <div class="btn buttonList"></div>
                         <div class="btn buttonTile"></div>
                     </div>
@@ -283,7 +283,7 @@
         <script type="text/javascript">
 
         $("#mainDropDownButton").click(function () {
-            $(this).toggleClass("active");
+            //$(this).toggleClass("active");
         });
 
         $(".FileSystemListItem").dblclick(function () {
