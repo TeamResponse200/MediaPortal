@@ -180,11 +180,6 @@ namespace MediaPortal.Controllers
             {
                 allFileSystemDtos = _fileSystemService.GetAllUserFileSystem(userId);
 
-                if (!allFileSystemDtos.Any())
-                {
-                    return View("SearchZeroResult");
-                }
-
                 if (searchType.Equals("SearchByName"))
                 {
                     fileSystemDtos = allFileSystemDtos.Where(file => file.Name.ToLower().Contains(searchValue.ToLower()));
@@ -192,6 +187,11 @@ namespace MediaPortal.Controllers
                 else
                 {
                     fileSystemDtos = allFileSystemDtos.Where(file => file.Tags.Any(tag => tag.Name.ToLower().Contains(searchValue.ToLower())));
+                }
+
+                if (!fileSystemDtos.Any())
+                {
+                    return View(viewName: "SearchZeroResult");
                 }
             }
             catch (Exception)

@@ -20,6 +20,7 @@ using System.IO;
 using System.Threading;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Core;
+using System.Text.RegularExpressions;
 
 namespace MediaPortal.BL.Services
 {
@@ -437,7 +438,7 @@ namespace MediaPortal.BL.Services
                             UserId = filesToUpload.UserID,
                             ParentId = filesToUpload.ParrentID,
                             Name = Path.GetFileNameWithoutExtension(file.FileName),
-                            Type = Path.GetExtension(file.FileName),
+                            Type = Path.GetExtension(file.FileName).ToLower(),
                             Size = file.ContentLength,
                             BlobLink = cuttedUri,
                             UploadDate = DateTime.Now,
@@ -466,7 +467,11 @@ namespace MediaPortal.BL.Services
 
                 if (fileSystem != null)
                 {
-                    var tag = _tagRepository.Get(tagValue);
+                    string pattern = " ";
+                    string replacement = "_";
+                    string tagName = Regex.Replace(tagValue, pattern, replacement);
+
+                    var tag = _tagRepository.Get(tagName);
 
                     int tagId;
 
@@ -474,7 +479,7 @@ namespace MediaPortal.BL.Services
                     {
                         var tagObj = new Tag()
                         {
-                            Name = tagValue,
+                            Name = tagName,
                         };
 
                         tagId = _tagRepository.InsertObject(tagObj);
