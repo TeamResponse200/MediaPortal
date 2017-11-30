@@ -23,8 +23,8 @@ namespace MediaPortal.CustomValidation
                 {
                     continue;
                 }
-                var fileExtension = Path.GetExtension(file.FileName).ToLower();
-                if (fileExtension.Equals(".png") || fileExtension.Equals(".jpg") || fileExtension.Equals(".mp4"))
+                var fileExtension = file.ContentType.ToLower();
+                if (fileExtension.Equals("image/jpeg") || fileExtension.Equals("image/png") || fileExtension.Equals("video/mp4"))
                 {
                     return true;
                 }

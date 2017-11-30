@@ -90,24 +90,126 @@ else
 
 
 @section scripts {
-    <script>
-    $("#uploadfiles").click(function (e) {
-        e.preventDefault();
-        var formdata = new FormData($('#upload-form').get(0));
-        $("#close-modal-upload").click();
-        $.ajax({
-            url: '@Url.Action("UploadFiles")',
-            type: "POST",
-            data: formdata,
-            processData: false,
-            contentType: false,
-            success: function (data1) {
-                $("#partial-replace").replaceWith(data1);
-                $("#GlobalBackground > div.modal-backdrop.fade.in").hide();
-                document.getElementById("uploadButton").click();
+ <script type="text/javascript">
+
+        dropContainer.ondragover = dropContainer.ondragenter = function (evt) {
+            evt.preventDefault();
+        };
+
+        dropContainer.ondrop = function (evt) {
+            // pretty simple -- but not for IE :(
+            input.files = evt.dataTransfer.files;
+            evt.preventDefault();
+        };
+</script>
+
+<script type="text/javascript">
+        var inputElement = document.getElementById("input");
+        inputElement.addEventListener("change", handleFiles, false);
+        function handleFiles() {
+            debugger;
+            var fileList = $(this)[0].files; /* now you can work with the file list */
+            var output = document.getElementById('file-list-upload');
+            output.innerHTML = "";
+            for (var i = 0; i < fileList.length; ++i) {
+                var content = '<div class="upload-element col-md-12"><div class"upload-element-body">';
+                var file = fileList[i];
+                if (file.type == "image/jpeg" || file.type == "image/png") {
+                    if (file.size < 2097152) {
+                        content += '<span class="iconSuccess"></span>';
+                    }
+                    else {
+                        content += '<span class="iconMinus"></span>';
+                    }
+                    content += '<span class="iconFile"></span>' + ' ' + file.name + '</div></div>';
+                }
+                else if (file.type == "video/mp4") {
+                    if (file.size < 52428800) {
+                        content += '<span class="iconSuccess"></span>';
+                    }
+                    else {
+                        content += '<span class="iconMinus"></span>';
+                    }
+                    content += '<span class="iconVideo"></span>' + ' ' + file.name + '</div></div>';
+                }
+                else {
+                    content += '<span class="iconMinus"></span>' + '<span class="failIcon"></span>' + ' ' + file.name + '</div></div>';
+                }
+                output.innerHTML += content;
             }
-        })
-    });
+
+        }
+</script>
+
+   <script>
+            $("#uploadfiles").click(function (e) {
+                e.preventDefault();
+             
+                var formdata = new FormData($('#upload-form').get(0));
+                for (var key of formdata.keys()) {
+                    if (key == 'Files')
+                    {
+                        formdata.delete(key);
+                    }
+                }
+                var fileList = $('#input').prop("files")
+                var array = Array.from(fileList);
+                for (var i = 0; i < array.length; i++)
+                {
+                    if (array[i].type != "image/jpeg" && array[i].type != "image/png" && array[i].type != "video/mp4")
+                    {
+                        array.splice(i, 1);
+                    }
+                    else if (array[i].type == "video/mp4" && array[i].size > 52428800) {
+                        array.splice(i, 1);
+                    }
+                    else if ((array[i].type == "image/jpeg" || array[i].type == "image/png") && array[i].size > 2097152) {
+                        array.splice(i, 1);
+                    }
+                }
+                for (var element of array)
+                {
+                    formdata.append('Files', element);
+                }
+                $("#close-modal-upload").click();
+
+                $('#delete-lock').toggleClass("ZIPdownload-ModalHide");
+
+                document.getElementById('info-modal-text').innerHTML = "Загрузка файлов..";
+
+                $('#ZIPdownload').addClass("ZIPdownload-ModalShow");
+                $('#ZIPdownload').removeClass("ZIPdownload-ModalHide");    
+
+                $.ajax({
+                    url: '@Url.Action("UploadFiles")',
+                    type: "POST",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        document.getElementById('info-modal-title').innerHTML = "Информация";
+
+                        if (data == "Files has been uploaded") {
+                            document.getElementById('info-modal-text').innerHTML = "Загрузка успешна";
+                            document.getElementById('loadingIcon').style.display = "none";
+                            document.getElementById('okIcon').style.display = "block";
+                            setTimeout(Done, 1000);
+                        }
+                        else
+                        {
+                            $("#partial-replace").replaceWith(data);
+                            $("#GlobalBackground > div.modal-backdrop.fade.in").hide();
+                            document.getElementById("uploadButton").click();
+
+                            document.getElementById('info-modal-text').innerHTML = "Произошла ошибка";
+                            document.getElementById('loadingIcon').style.display = "none";
+                            document.getElementById('failIcon').style.display = "block";
+                            setTimeout(Done, 2000);
+                        } 
+                        
+                    }
+                })
+            });
     </script>
 
 
