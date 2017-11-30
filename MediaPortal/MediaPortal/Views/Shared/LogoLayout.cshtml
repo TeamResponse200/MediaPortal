@@ -54,7 +54,7 @@
     <div class="secondHeaderBlock">
         <div class="container">
             <div class="row">
-                 <div class="col-md-6">@Html.ActionLink("Мои файлы", "UserFiles", "Home", new { folderID = string.Empty }, new { @class= "route-link" }) @RenderSection("userRoutes", required: false) </div>
+                 <div class="col-md-6 breadcrumb-text">@Html.ActionLink("Мои файлы", "UserFiles", "Home", new { folderID = string.Empty }, new { @class= "route-link" }) @RenderSection("userRoutes", required: false) </div>
 
                 <div class="col-md-6 col-md-push-1">
                     <div class="btn col-md-4 textUsual userSettings" data-toggle="modal" data-target="#accessesFolderModal">
@@ -179,7 +179,7 @@
                         <div class="modal-footer modal-footer-tag">
                             <div class="row">
                                 <div class="col-md-6 row-tag2">
-                                    <div>Максимальная</div><div class="tag-count">длина тегов - 200</div>
+                                    <div>Максимальная</div><div class="tag-count">длина тега - 200</div>
                                 </div>
                                 <div class="col-md-6">
                                     <button type="button" class="btn btn-tag" data-dismiss="modal" onclick="AddTag()">Добавить</button>

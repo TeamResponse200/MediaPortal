@@ -31,12 +31,12 @@
                             @Html.HiddenFor(m => m.ParentId)
                             
                             <div class="col-md-12 col-md-offset-1 modal-create-folder">
-                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "registerInput", @placeholder = "Название папки" })
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "registerInput", @placeholder = "Название папки", @maxlength = "50" })
                                 @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                             </div>
                             
                             <div class="col-md-6 col-md-offset-8">
-                                <button type="submit" class="btn btn-tag" id="registerButton">Создать</button>
+                                <button type="submit" class="btn" id="createFolderButton">Создать</button>
                             </div>
                            
                         }

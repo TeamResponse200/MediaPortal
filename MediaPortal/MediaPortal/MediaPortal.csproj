@@ -296,6 +296,7 @@
     <Content Include="Content\icons\folder.svg" />
     <Content Include="Content\icons\icon-play.svg" />
     <Content Include="Content\icons\list.svg" />
+    <Content Include="Content\icons\loadingImage.jpg" />
     <Content Include="Content\icons\minus.svg" />
     <Content Include="Content\icons\next.svg" />
     <Content Include="Content\icons\ok.png" />

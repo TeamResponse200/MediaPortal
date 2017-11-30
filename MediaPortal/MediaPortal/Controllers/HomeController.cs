@@ -434,9 +434,14 @@ namespace MediaPortal.Controllers
         public async Task<ActionResult> GetThumbnailImage(int fileSystemId)
         {
             string userId = User.Identity.GetUserId();
-            var fileImageStream = await _fileSystemService.GetFileSystemThumbnailAsync(userId, fileSystemId);
+            var fileImageStream = await _fileSystemService.GetFileSystemThumbnailAsync(userId, fileSystemId);            
 
-            return File(fileImageStream, "image/png");
+            if(fileImageStream != null)
+            {
+                return File(fileImageStream, "image/png");
+            }
+
+            return null;
         }
 
         public async Task<ActionResult> GetImage(int fileSystemId)

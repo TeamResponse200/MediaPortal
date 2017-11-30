@@ -78,18 +78,30 @@
   height: 56px;*/
 }
 
-#registerButton {
+#registerButton {  
     font-size: 16px;
     font-family: "Raleway-Medium";
     letter-spacing: 0.7px;
     color: #fefefe;
     background-color: #4640c8;
     font-weight: 600;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     /*margin-left: 18px;
     margin-top: 15px;*/
     /*width: 260px;*/
+}
+
+#createFolderButton {
+    font-size: 14px;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    color: #fefefe;
+    background-color: #4640c8;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 93px;
 }
 
 #facebookRegisterButton {
@@ -174,7 +186,7 @@
 
 #icon-href-delimiter {
     content: url(/Content/icons/next.svg);
-    height: 15px;
+    height: 11px;
     width: 15px;
     /*margin-right: 10px;*/
     /*-webkit-transform: rotate(90deg); /* Chrome y Safari */
@@ -213,9 +225,7 @@
     margin-left: -10px;
 }
 
-    #mainDropDownButton:hover {
-        background-color: lightgray;
-    }
+
 
 button.dropDownButton {
     background-color: rgb(255,255,255);
@@ -279,11 +289,11 @@ button.dropDownButton {
     margin-top: 2px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 .route-link {
-    font-family: "Raleway-Medium";
+    font-family: "Raleway-Bold";
     letter-spacing: 0.7px;
     font-size: 18px;
     text-decoration: none;
@@ -424,13 +434,13 @@ button.dropDownButton {
 }
 .fileSystem-list-item {
     border-radius: 5px;
-    padding-top: 5px;
+    padding-top: 7px;
     padding-bottom: 3px;
     padding-left: 0px;
     margin-top: 5px;
     margin-bottom: 5px;
     background-color: white;
-    height: 40px;
+    height: 45px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -541,13 +551,17 @@ button.dropDownButton {
     padding-top: 5px;
     font-family: "Raleway-Medium";
     letter-spacing: 0.7px;
-    font-size: 16px;
+    font-size: 13px;
     padding-left: 0px;
     color: grey;
 }
 
 .file-name-list-item-active {
     color: #514bc8;
+}
+
+.file-title-margin {
+    margin-top: 20px;
 }
 
 .file-tag-list-item {
@@ -564,9 +578,10 @@ button.dropDownButton {
 }
 
 .file-block-item {
-    padding-left:0px;
-    padding-right:0px;
-    margin-right:25px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-right: 25px;
+    margin-top: 4px;
 }
 
 .caption {
@@ -846,6 +861,7 @@ background-color:white;
 }
 
 .btn-tag {
+    font-family: "Raleway-Medium";
     letter-spacing: 0.7px;
     height: 40px;
     font-size: 14px;
@@ -1064,6 +1080,19 @@ background-color:white;
     padding: 0;
 }
 
+.file-block-item-margin {
+    margin-bottom: 30px;
+}
+
+.title-grey {
+    color: grey;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+}
+
+.breadcrumb-text {
+    padding-top: 5px;
+}
 
 @font-face {
     font-family: 'Raleway-Medium';
@@ -1073,4 +1102,9 @@ background-color:white;
 @font-face {
     font-family: 'Raleway-ExtraBold';
     src: url(/fonts/Raleway-ExtraBold.ttf);
+}
+
+@font-face {
+    font-family: 'Raleway-Bold';
+    src: url(/fonts/Raleway-Bold.ttf);
 }

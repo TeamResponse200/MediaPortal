@@ -16,12 +16,13 @@ namespace MediaPortalTests.BL
         private IFileSystemRepository<FileSystem> _fileSystemRepository;
         private IFileSystemService _fileSystemService;
         private ITagRepository<Tag> _tagRepository;
+        private IStorageRepository _storageRepository;
 
         [SetUp]
         public void SetUp()
         {
             _fileSystemRepository = Substitute.For<IFileSystemRepository<FileSystem>>();
-            _fileSystemService = new FileSystemService(_fileSystemRepository, _tagRepository);
+            _fileSystemService = new FileSystemService(_fileSystemRepository, _tagRepository, _storageRepository);
         }
 
         [Test]

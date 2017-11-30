@@ -363,20 +363,42 @@ namespace MediaPortal.BL.Services
         public async Task<Stream> GetFileSystemThumbnailAsync(string userID,int fileSystemId)
         {
             var fileSystem = _fileSystemRepository.Get(userID,fileSystemId);
-            var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobThumbnail;
-            Stream fileStream;
-            try
-            {
-                fileStream = await _storageRepository.GetFileStream(blobLink);
-                return fileStream;
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.InnerException.Message);
-            }
 
-            return null;
+            if(fileSystem.BlobThumbnail != null)
+            {
+                var blobLink = ConfigurationManager.AppSettings.Get("azureStorageBlobLink") + fileSystem.BlobThumbnail;
 
+                Stream fileStream = null;
+
+                try
+                {
+                    fileStream = await _storageRepository.GetFileStream(blobLink);
+                    return fileStream;
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError(ex.InnerException.Message);
+                }
+
+                return null;
+            }     
+            else
+            {
+                var tempPathToFile = HttpContext.Current.Server.MapPath("~/Content/icons/loadingImage.jpg");
+
+                Stream standartImageStream = null;
+
+                try
+                {
+                    standartImageStream = File.Open(tempPathToFile, FileMode.Open);  
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError(ex.InnerException.Message);
+                }
+
+                return standartImageStream;
+            }            
         }
 
         public async Task<Stream> GetFileSystemStreamAsync(string userID, int fileSystemId)
@@ -425,8 +447,7 @@ namespace MediaPortal.BL.Services
                         var insertedId = _fileSystemRepository.InsertObject(fileSystem);
 
                         _storageRepository.PutMessageRequestForThumbnail(insertedId, uri);
-                    }
-                    
+                    }                    
                 }
             });
         }
