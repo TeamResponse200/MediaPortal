@@ -15,8 +15,8 @@ namespace MediaPortal
 
             routes.MapRoute(
                 name: "View",
-                url: "Home/ViewFile/{fileSystemId}",
-                defaults: new { controller = "Home", action = "ViewFile", fileSystemId = UrlParameter.Optional }
+                url: "Home/ViewFile/{fileSystemId}/{left}/{right}",
+                defaults: new { controller = "Home", action = "ViewFile", fileSystemId = UrlParameter.Optional, left = UrlParameter.Optional, right = UrlParameter.Optional }
             );
 
             routes.MapRoute(

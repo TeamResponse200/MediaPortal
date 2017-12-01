@@ -21,6 +21,8 @@ using System.Threading;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Core;
 using System.Text.RegularExpressions;
+using System.Collections.Concurrent;
+using System.Globalization;
 
 namespace MediaPortal.BL.Services
 {
@@ -423,25 +425,48 @@ namespace MediaPortal.BL.Services
 
         public void UploadAndInsertFiles(FilesToUploadDTO filesToUpload)
         {
-            Parallel.ForEach(filesToUpload.Files, file =>
+            var objectForParallelUpload = new ConcurrentBag<FileForParallelUpload>();
+            for (var i = 0; i < filesToUpload.Files.Count; i++)
             {
-                if (file != null)
+                var file = new FileForParallelUpload
                 {
-                    if( _fileSystemRepository.Get(filesToUpload.UserID, filesToUpload.ParrentID, Path.GetFileNameWithoutExtension(file.FileName)))
+                    UserID = filesToUpload.UserID,
+                    ParrentID = filesToUpload.ParrentID,
+                    File = filesToUpload.Files[i],
+                    ModifiedDate = filesToUpload.ModifiedDates[i]
+                };
+                objectForParallelUpload.Add(file);
+            }
+            Parallel.ForEach(objectForParallelUpload, obj =>
+            {
+                if (obj != null)
+                {
+                    if( _fileSystemRepository.Get(filesToUpload.UserID, filesToUpload.ParrentID, Path.GetFileNameWithoutExtension(obj.File.FileName)))
                     {
-                        var uri = _storageRepository.UploadFileInBlocksAsync(file).Result;
+                        var uri = _storageRepository.UploadFileInBlocksAsync(obj.File).Result;
 
                         var cuttedUri = GetFileCuttedUri(uri);
 
+                        DateTime modifiedDate;
+                        double amountOfMiliseconds;
+                        if (!double.TryParse(obj.ModifiedDate, out amountOfMiliseconds))
+                        {
+                            modifiedDate = DateTime.Now;
+                        }
+                        else
+                        {
+                            modifiedDate = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddMilliseconds(amountOfMiliseconds);
+                        }
+
                         var fileSystem = new FileSystem()
                         {
-                            UserId = filesToUpload.UserID,
-                            ParentId = filesToUpload.ParrentID,
-                            Name = Path.GetFileNameWithoutExtension(file.FileName),
-                            Type = Path.GetExtension(file.FileName).ToLower(),
-                            Size = file.ContentLength,
+                            UserId = obj.UserID,
+                            ParentId = obj.ParrentID,
+                            Name = Path.GetFileNameWithoutExtension(obj.File.FileName),
+                            Type = Path.GetExtension(obj.File.FileName).ToLower(),
+                            Size = obj.File.ContentLength,
                             BlobLink = cuttedUri,
-                            UploadDate = DateTime.Now,
+                            UploadDate = modifiedDate,
                             CreationDate = DateTime.Now
                         };                        
 

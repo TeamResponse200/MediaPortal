@@ -67,7 +67,16 @@ namespace MediaPortal.Controllers
 
             try
             {
-                fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, folderID);
+                var folder = _fileSystemService.Get(userId, folderID);
+                if (folder == null || folder.Type.ToLower().Equals("folder"))
+                {
+                    fileSystemDtos = _fileSystemService.GetUserFileSystem(userId, folderID);
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -99,11 +108,20 @@ namespace MediaPortal.Controllers
                 case "sortByUploadDate":
                     files = files.OrderBy(elem => elem.UploadDate).ToList();
                     break;
+                case "sortByUploadDateDescending":
+                    files = files.OrderByDescending(elem => elem.UploadDate).ToList();
+                    break;
                 case "sortByCreationDate":
                     files = files.OrderBy(elem => elem.CreationDate).ToList();
                     break;
+                case "sortByCreationDateDescending":
+                    files = files.OrderByDescending(elem => elem.CreationDate).ToList();
+                    break;
                 case "sortBySize":
                     files = files.OrderBy(elem => elem.Size).ToList();
+                    break;
+                case "sortBySizeDescending":
+                    files = files.OrderByDescending(elem => elem.Size).ToList();
                     break;
                 default:
                     break;
@@ -120,19 +138,56 @@ namespace MediaPortal.Controllers
         }
 
         [Authorize]
-        public ActionResult ViewFile(int? fileSystemId)
+        public ActionResult ViewFile(int? fileSystemId, bool left = false, bool right = false)
         {
-            var userId = User.Identity.GetUserId();
-            FileSystemModels fileSystem;
-            FileSystemDTO fileSystemDTO;
-
             if (fileSystemId == null)
             {
                 return View("Error");
             }
+
+            var userId = User.Identity.GetUserId();
+            FileSystemModels fileSystem;
+            FileSystemDTO fileSystemDTO;
+
+            
             try
             {
-                fileSystemDTO = _fileSystemService.Get(userId, fileSystemId);
+                if (left)
+                {
+                    fileSystemDTO = _fileSystemService.Get(userId, fileSystemId);
+                    var filesSystemDTO = _fileSystemService.GetUserFileSystem(userId, fileSystemDTO.ParentId).Select(element=>element)
+                                                           .Where(element=>!element.Type.Equals("Folder"))
+                                                           .ToList();
+                    var index = filesSystemDTO.TakeWhile(element => !element.Id.Equals(fileSystemDTO.Id)).Count();
+                    if (index - 1 < 0)
+                    {
+                        fileSystemDTO = filesSystemDTO.Last();
+                    }
+                    else
+                    {
+                        fileSystemDTO = filesSystemDTO.ElementAt(index - 1);
+                    }
+                }
+                else if (right)
+                {
+                    fileSystemDTO = _fileSystemService.Get(userId, fileSystemId);
+                    var filesSystemDTO = _fileSystemService.GetUserFileSystem(userId, fileSystemDTO.ParentId).Select(element => element)
+                                                           .Where(element => !element.Type.Equals("Folder"))
+                                                           .ToList();
+                    var index = filesSystemDTO.TakeWhile(element => !element.Id.Equals(fileSystemDTO.Id)).Count();
+                    if (index + 1 >= filesSystemDTO.Count)
+                    {
+                        fileSystemDTO = filesSystemDTO.FirstOrDefault();
+                    }
+                    else
+                    {
+                        fileSystemDTO = filesSystemDTO.ElementAt(index + 1);
+                    }
+                }
+                else
+                {
+                    fileSystemDTO = _fileSystemService.Get(userId, fileSystemId);
+                }
             }
             catch (Exception ex)
             {
@@ -141,7 +196,8 @@ namespace MediaPortal.Controllers
             }
 
             Mapper.Initialize(cfg => cfg.CreateMap<FileSystemDTO, FileSystemModels>()
-                .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagModels { Id = o.Id, Name = o.Name }).ToList())));
+               .ForMember(to => to.Tags, opt => opt.MapFrom(from => from.Tags.Select(o => new TagModels { Id = o.Id, Name = o.Name }).ToList())));
+
 
             fileSystem = Mapper.Map<FileSystemModels>(fileSystemDTO);
 

@@ -170,6 +170,7 @@ else
                 for (var element of array)
                 {
                     formdata.append('Files', element);
+                    formdata.append('ModifiedDates', element.lastModified);
                 }
                 $("#close-modal-upload").click();
 

@@ -133,6 +133,7 @@ namespace MediaPortal.Data.Repositories
                 if (fileSystem != null)
                 {
                     fileSystem.Name = name;
+                    fileSystem.UploadDate = DateTime.Now;
                     dbContext.SaveChanges();
                 }
             }
@@ -149,6 +150,7 @@ namespace MediaPortal.Data.Repositories
                     if (fileSystem.Id != fileSystemParentId)
                     {
                         fileSystem.ParentId = fileSystemParentId;
+                        fileSystem.UploadDate = DateTime.Now;
                         dbContext.SaveChanges();
                     }
                 }

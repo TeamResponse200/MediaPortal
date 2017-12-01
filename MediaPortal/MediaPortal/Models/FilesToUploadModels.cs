@@ -14,5 +14,6 @@ namespace MediaPortal.Models
         [FileExtensionValidation(ErrorMessage = "Alowed content with extension: .png, .jpg, .mp4")]
         [FileMaximumSizeValidation(ErrorMessage = "For video Max Size 50MB. For images Max Size 2MB")]
         public IList<HttpPostedFileWrapper> Files { get; set; }
+        public IList<string> ModifiedDates { get; set; }
     }
 }

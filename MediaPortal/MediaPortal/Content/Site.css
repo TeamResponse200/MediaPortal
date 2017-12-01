@@ -1238,6 +1238,43 @@ background-color:white;
     position: absolute;
     margin-left: 820px;
     margin-top: 50px;
+    opacity: 0.5;
+}
+
+    #close-view:hover {
+        opacity: 1;
+    }
+
+#view-file-left {
+    content: url(/Content/icons/next.svg);
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left:300px;
+    margin-top: 310px;
+    opacity: 0.5;
+    -webkit-transform: rotate(180deg); /* Chrome y Safari */
+    -moz-transform: rotate(180deg); /* Firefox */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1); /* Internet Explorer */
+    -o-transform: rotate(180deg); /* Opera */
+}
+
+    #view-file-left:hover {
+        opacity: 1;
+    }
+
+#view-file-right {
+    content: url(/Content/icons/next.svg);
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right:300px;
+    margin-top: 310px;
+    opacity: 0.5;
+}
+
+    #view-file-right:hover {
+        opacity: 1;
 }
 
 .modal-create-folder{
