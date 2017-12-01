@@ -238,10 +238,17 @@ namespace MediaPortal.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                
+                string statusMessage = "Ваш пароль был изменен";
+                AddMessage(statusMessage);
             }
             AddErrors(result);
             return View(model);
+        }
+
+        private void AddMessage(string statusMessage)
+        {
+            ViewBag.StatusMessage = statusMessage;
         }
 
         //
@@ -348,8 +355,18 @@ namespace MediaPortal.Controllers
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
+            {            
+                if(error == "Incorrect password.")
+                {
+                    var errorCust = "Текущий пароль неверный";
+
+                    ModelState.AddModelError("", errorCust);
+                }
+                else
+                {
+                    ModelState.AddModelError("", error);
+                }
+                
             }
         }
 

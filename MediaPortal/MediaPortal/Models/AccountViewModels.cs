@@ -70,19 +70,19 @@ namespace MediaPortal.Models
     public class RegisterViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [Display(Name = "UserName")]
+        [StringLength(100, ErrorMessage = "Длина {0} должна быть не менее {2} символов.", MinimumLength = 6)]
+        [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
         [Required]
-        [EmailAddress(ErrorMessage = "This is not valid Email")]
+        [EmailAddress(ErrorMessage = "Этот Email недействителен ")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Длина {0} должна быть не менее {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         //[DataType(DataType.Password)]

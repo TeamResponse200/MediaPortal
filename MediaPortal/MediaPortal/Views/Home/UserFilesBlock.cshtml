@@ -144,7 +144,7 @@ else
      }
 </script>
 
-    <script>
+ <script>
             $("#uploadfiles").click(function (e) {
                 e.preventDefault();
 
@@ -176,6 +176,14 @@ else
                     formdata.append('ModifiedDates', element.lastModified);
                 }
                 $("#close-modal-upload").click();
+
+                $('#delete-lock').toggleClass("ZIPdownload-ModalHide");
+
+                document.getElementById('info-modal-text').innerHTML = "Загрузка файлов..";
+
+                $('#ZIPdownload').addClass("ZIPdownload-ModalShow");
+                $('#ZIPdownload').removeClass("ZIPdownload-ModalHide");
+
                 $.ajax({
                     url: '@Url.Action("UploadFiles")',
                     type: "POST",
@@ -183,13 +191,24 @@ else
                     processData: false,
                     contentType: false,
                     success: function (data) {
+                        document.getElementById('info-modal-title').innerHTML = "Информация";
+
                         if (data == "Files has been uploaded") {
-                            location.href = location.href;
-                        } else
+                            document.getElementById('info-modal-text').innerHTML = "Загрузка успешна";
+                            document.getElementById('loadingIcon').style.display = "none";
+                            document.getElementById('okIcon').style.display = "block";
+                            setTimeout(Done, 1000);
+                        }
+                        else
                         {
                             $("#partial-replace").replaceWith(data);
                             $("#GlobalBackground > div.modal-backdrop.fade.in").hide();
                             document.getElementById("uploadButton").click();
+
+                            document.getElementById('info-modal-text').innerHTML = "Произошла ошибка";
+                            document.getElementById('loadingIcon').style.display = "none";
+                            document.getElementById('failIcon').style.display = "block";
+                            setTimeout(Done, 2000);
                         }
 
                     }

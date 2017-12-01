@@ -283,6 +283,13 @@ button.dropDownButton {
     color: grey;
     text-align: center;
     text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.textUsual:hover {
+    text-decoration: none;
+    color: black;
 }
 
 #defaultLogo {
@@ -812,12 +819,18 @@ background-color:white;
 
 .accssesecastomPadBot {
     padding-left: 5%;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    font-size: 13px;
 }
 
 .accssese-btn-primary {
     background-color: #4640c8;
     border-color: #4640c8;
     color: white;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    font-size: 13px;
 }
 
 .accssese-btn-primary:hover {
@@ -844,6 +857,9 @@ background-color:white;
     padding-top: 4%;
     padding-left: 7%;
     padding-bottom: 4%;
+    font-family: "Raleway-Medium";
+    letter-spacing: 1.5px;
+    font-weight: 600;
 }
 
 .accssese-userCast {
@@ -851,12 +867,18 @@ background-color:white;
     padding-top: 0%;
     padding-left: 7%;
     padding-bottom: 3%;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    font-weight: 600;
 }
 
 .accssese-userInputCast {
     padding-top: 0%;
     padding-left: 7%;
     padding-bottom: 0%;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    font-weight: 600;
 }
 
 .accssese-paddCast {
@@ -872,6 +894,9 @@ background-color:white;
     color: rgb(153, 153, 153);
     padding-left: 7%;
     padding-top: 2%;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    font-weight: 600;
 }
 
 .thumbnail {
@@ -904,7 +929,10 @@ background-color:white;
     margin-top: 15px;
     color: #898989;
     padding-left: 10px;
-    text-align:center;
+    text-align: center;
+    font-family: "Raleway-Medium";
+    letter-spacing: 1.5px;
+    font-weight: 600;
 }
 
 .ModalDeleteww {
@@ -916,8 +944,9 @@ background-color:white;
 
 .ModalDelete-btn-del {
     font-size: 14px;
-    font-family: "Raleway";
-    color: black;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    color: #898989;
     border-width: 2px;
     border-color: #514bc8;
     border-style: solid;
@@ -984,6 +1013,8 @@ background-color:white;
 
 .modal-title-tag {
     color: #898989;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
 }
 
 .modal-body-tag {
@@ -1009,6 +1040,7 @@ background-color:white;
 .row-tag2 {
     text-align: left;
     color: #898989;
+    font-family: "Raleway-Medium";
     letter-spacing: 0.7px;
     font-size: 9px;
     line-height: 8px;
@@ -1066,6 +1098,8 @@ background-color:white;
     padding-top: 3%;
     padding-left: 10%;
     padding-bottom: 3%;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
 }
 
 .zip-process-textCast {
@@ -1081,6 +1115,8 @@ background-color:white;
     padding-bottom: 3%;
     padding-left: 0;
     padding-right: 0;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
 }
 
 .zip-process-text2Cast {
@@ -1151,6 +1187,8 @@ background-color:white;
 
 .move-padding {
     padding: 5px;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
 }
 
 .move-file-system-count {
@@ -1214,7 +1252,7 @@ background-color:white;
     margin-top: -205px;
     /*position: absolute;
     
-    */*/
+    */
 }
 
 #tags {
@@ -1294,6 +1332,52 @@ background-color:white;
 
 .breadcrumb-text {
     padding-top: 5px;
+}
+
+
+#cangePassForm {
+    padding-left: 198px;
+}
+
+#cangePassTitle {
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-weight: 600;
+}
+
+.control-label-custom {
+    width: 190px;
+    font-family: "Raleway-Medium";
+    letter-spacing: 0.7px;
+}
+
+.change-password-btn {
+    width: 190px;
+    margin-top: 30px;
+    margin-left: 80px;
+}
+
+.firstHeaderBlock-simple {
+    box-shadow: 0px 2px 5px 0px #c4c4c4;
+}
+
+.route-link-home {
+    padding-top: 5px;
+}
+
+.breadcrumb-text-home {
+    padding-top: 12px;
+    padding-left: 0;
+}
+
+.text-danger-cast {
+    padding-left: 165px;
+}
+
+.text-success-cast {
+    padding-left: 190px;
 }
 
 @font-face {

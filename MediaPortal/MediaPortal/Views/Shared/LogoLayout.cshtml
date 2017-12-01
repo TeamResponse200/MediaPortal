@@ -384,11 +384,19 @@
 
         function OpenLinkAccess() {
 
+             var fileSystemId;
+
             $(".context-menu-file").each(function (index, element) {
                 if ($(this).is(".fileSystem-list-item-active")) {
                     fileSystemId = $(this).data("name");
                 };
             });
+
+            $(".context-menu-file").each(function (index, element) {
+                if ($(this).is(".fileSystem-list-item-file-active")) {
+                    fileSystemId = $(this).data("name");
+                };
+            });  
 
             $.ajax({
                 url: '@Url.Action("GiveAccessLink", "Home")',

@@ -404,6 +404,7 @@
     <Content Include="Views\Shared\SearchZeroResult.cshtml" />
     <Content Include="Views\Error\NotFound404.cshtml" />
     <Content Include="Views\Error\InternalServerError500.cshtml" />
+    <Content Include="Views\Shared\LogoLayoutSimple.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

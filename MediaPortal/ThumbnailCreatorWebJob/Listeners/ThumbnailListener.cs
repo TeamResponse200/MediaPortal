@@ -22,18 +22,15 @@ namespace ThumbnailCreatorWebJob.Listeners
         public CloudQueue Queue { get; private set; }
 
         public CloudBlobContainer BlobContainer { get; set; }
-
-        //private readonly FileSystemRepository _fileSystemRepository;
-
+        
         private IFileSystemService _fileSystemService;
-
 
         public ThumbnailListener(IFileSystemService fileSystemService)
         {
             Queue = GetQueueReference();
             BlobContainer = GetContainerReference();
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            //_fileSystemRepository = new FileSystemRepository(connectionString);
+            
             _fileSystemService = fileSystemService;
 
         }
@@ -63,7 +60,6 @@ namespace ThumbnailCreatorWebJob.Listeners
                     {
                     }
                     
-                    // some operation here is performed
                 });
 
             }
@@ -103,7 +99,8 @@ namespace ThumbnailCreatorWebJob.Listeners
         private async Task<byte[]> ResizeBlobAsync(CloudBlockBlob blob)
         {
             byte[] thumbnailImage = new byte[0];
-            if (Path.GetExtension(blob.Name).Equals(".png") || Path.GetExtension(blob.Name).Equals(".jpg"))
+            var type = Path.GetExtension(blob.Name).ToLower();
+            if (type.Equals(".png") || type.Equals(".jpg") || type.Equals(".jpeg"))
             {
                 using (var imageStream = await blob.OpenReadAsync())
                 {
@@ -111,7 +108,7 @@ namespace ThumbnailCreatorWebJob.Listeners
                     return thumbnailImage;
                 }
             }
-            else if (Path.GetExtension(blob.Name).Equals(".mp4"))
+            else if (type.Equals(".mp4"))
             {
                 using (var file = await blob.OpenReadAsync())
                 {

@@ -98,9 +98,26 @@ namespace MediaPortal.Controllers
 
             if (folderID != null)
             {
-                var tupleIdName = _fileSystemService.GetFoldersIdNamePair(folderID, userId);
-                folderIDs = tupleIdName.Item1;
-                folderNames = tupleIdName.Item2;
+                try
+                {
+                    var folder = _fileSystemService.Get(userId, folderID);
+
+                    if(folder != null)
+                    {
+                        var tupleIdName = _fileSystemService.GetFoldersIdNamePair(folderID, userId);
+                        folderIDs = tupleIdName.Item1;
+                        folderNames = tupleIdName.Item2;
+                    }    
+                    else
+                    {
+                        return HttpNotFound();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // some logic for user
+                    return View("Error");
+                }
             }
 
             switch (sortType)
@@ -395,7 +412,14 @@ namespace MediaPortal.Controllers
 
             while (!blobIsExist)
             {
-                blobIsExist = _fileSystemService.IsExistArchive(fileSystemName);
+                try
+                {
+                    blobIsExist = _fileSystemService.IsExistArchive(fileSystemName);
+                }
+                catch (Exception ex)
+                {
+                    // some logic for user                    
+                }
             }
 
             return Json(blobIsExist);

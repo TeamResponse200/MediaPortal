@@ -530,7 +530,13 @@ namespace MediaPortal.BL.Services
                 foreach (var fileSystemId in fileSystemsId)
                 {
                     var current = _fileSystemRepository.Get(fileSystemId);
-                                        
+                            
+                    if(current == null)
+                    {
+                        unique = false;
+                        break;
+                    }
+
                     unique = _fileSystemRepository.UniqueName(current.Name, fileSystemParentId, userId);
                     if (!unique)
                     {
@@ -549,7 +555,6 @@ namespace MediaPortal.BL.Services
             catch (Exception ex)
             {
                 Trace.TraceError(ex.Message);
-                throw;
             }
 
             return unique;
