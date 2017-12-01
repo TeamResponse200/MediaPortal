@@ -94,15 +94,28 @@ else
 @section scripts {
 <script type="text/javascript">
 
-     dropContainer.ondragover = dropContainer.ondragenter = function (evt) {
+     uploadButton.ondragover = uploadButton.ondragenter = function (evt) {
          evt.preventDefault();
-     };
-
-     dropContainer.ondrop = function (evt) {
-         // pretty simple -- but not for IE :(
-         input.files = evt.dataTransfer.files;
+         uploadButton.click();
+     }
+     dropContainer.ondragover = function (evt) {
          evt.preventDefault();
+         $("#dropContainer").addClass("lighted");
+         
      };
+     dropContainer.ondragenter = function (evt) {
+         $("#dropContainer").addClass("lighted");
+         evt.preventDefault();
+     }
+     filesModal.ondragenter = function (evt) {
+         evt.preventDefault();
+         $("#dropContainer").removeClass("lighted");
+     }
+        dropContainer.ondrop = function (evt) {
+            input.files = evt.dataTransfer.files;
+            $("#dropContainer").removeClass("lighted");
+            evt.preventDefault();
+        };
 </script>
 
 <script type="text/javascript">
